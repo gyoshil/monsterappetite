@@ -38,6 +38,10 @@ var clear_selected_positions = function () {
     Session.set('selected_' + pos, false);
 };
 
+var random = function(i) {
+  return Math.floor(Math.random() * (i));
+}
+
 //////
 ////// lobby template: shows everyone not currently playing, and
 ////// offers a button to start a fresh game.
@@ -87,11 +91,7 @@ Template.lobby.events({
 ////// board template: renders the board and the clock given the
 ////// current game.  if there is no game, show a splash screen.
 //////
-//splash not currently used
-var SPLASH = ['','','','',
-              'M', 'O', 'N', 'S',
-              'T', 'E', 'R', 'X',
-              '','','',''];
+
 
 Template.board.square = function (i) {
   var g = game();
@@ -198,6 +198,12 @@ Template.player.total_score = function () {
   return score;
 };
 
+//this 'updates' the avatar id every second
+//not good, but works
+Template.player.random_monster = function () {
+    return 'imgs/monster'+Players.findOne(this._id).avatar+'.png';
+}
+
 Template.words.words = function () {
   return Words.find({game_id: game() && game()._id,
                     player_id: this._id});
@@ -215,7 +221,7 @@ Meteor.startup(function () {
   // Session.get('player_id') will return a real id. We should check for
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
-  var player_id = Players.insert({name: '', idle: false});
+  var player_id = Players.insert({name: '', idle: false, avatar: random(6)+1});
   Session.set('player_id', player_id);
 
   // subscribe to all the players, the game i'm in, and all

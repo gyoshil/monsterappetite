@@ -25,6 +25,9 @@
   <div id="clock">
     {{ clock }}
   </div>
+  <div id="instructions">
+    <p align="center">You have 15 seconds to choose the top three cards</p>
+  </div>
   <div id="board">
     <div>
       <div class="square {{ selected 0 }}">
@@ -89,6 +92,7 @@
   <div>
     {{#if show }}
     <div id="lobby">
+      <img src="imgs/splash.png" style="width:500px" align="center">
       <h1>What's your name?</h1>
       <input id="myname" type="text" />
       {{#if count}}
@@ -145,8 +149,7 @@
 
 <template name="player">
   <div class="player">
-    <!-- make this img unique for all players -->
-    <img src="http://content.mycutegraphics.com/graphics/monster/three-eyed-monster.png" align="right" style="width:128px; height:128px">
+    <img src={{ random_monster }} align="right" style="width:128px; height:128px">
     <div class="header {{winner}}">
       {{#if name}}
         {{name}}
