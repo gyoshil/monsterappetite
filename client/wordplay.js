@@ -95,7 +95,7 @@ Template.lobby.events({
 
 Template.board.square = function (i) {
   var g = game();
-  var back_of_card_pic = 'http://content.mycutegraphics.com/graphics/monster/three-eyed-monster.png';
+  var back_of_card_pic = 'imgs/monster'+(random(6)+1)+'.png';
   return g && g.board && 'imgs/'+g.board[i]+'.jpeg' || back_of_card_pic;
 };
 
@@ -121,11 +121,16 @@ Template.board.clock = function () {
 
 Template.board.events({
   'click .square': function (evt) {
-    var textbox = $('#scratchpad input');
-    // Note: Getting the letter out of the DOM is kind of a hack
-    var letter = evt.target.textContent || evt.target.innerText;
-    textbox.val(textbox.val() + letter);
-    textbox.focus();
+    //if you want change REALLY think about it
+    //id might be in this div
+    var dom_card_id = evt.target.id;
+    var c_id = dom_card_id.substring(5);
+    //or might be in parent div
+    var p_card_id = evt.target.parentNode.id;
+    var pc_id = p_card_id.substring(5);
+    //but it wont be in both (ie one will be empty)
+    var id = c_id + pc_id;
+    Session.set('selected_' + id, 'last_in_path'); 
   }
 });
 
