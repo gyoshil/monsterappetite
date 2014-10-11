@@ -11,6 +11,10 @@ Players = new Mongo.Collection('players');
 // {name: 'matt', game_id: 123}
 
 // 6 faces per die, 16 dice.  Q really means Qu.
+//
+//
+// 16 dice with 6 faces will result in 96 food items in total (I have 99 items in total)
+// What is an efficient way to declare each die that has 6 sides of different food items?
 var DICE = ['PCHOAS', 'OATTOW', 'LRYTTE', 'VTHRWE',
             'EGHWNE', 'SEOTIS', 'ANAEEG', 'IDSYTT',
             'MTOICU', 'AFPKFS', 'XLDERI', 'ENSIEU',
@@ -20,6 +24,9 @@ var DICTIONARY = null;
 
 // board is an array of length 16, in row-major order.  ADJACENCIES
 // lists the board positions adjacent to each board position.
+//
+//
+// THIS variable probably can go away as there will be NO sequence of items being chosen
 var ADJACENCIES = [
   [1,4,5],
   [0,2,4,5,6],
