@@ -111,11 +111,6 @@
   </div>
 </template>
 
-<!--this is the monster avatar to show up on game page -->
-<!--<div class= "avatar">
-  <img src="Blue_Monster.ai"   style="width:228px;height:228px">
-</div>
--->
 <template name="scratchpad">
   {{#if show}}
   <div id="scratchpad">
@@ -149,7 +144,7 @@
 
 <template name="player">
   <div class="player">
-    <img src={{ random_monster }} align="right" style="width:128px; height:128px">
+    <img src={{ random_monster }} align="right" style={{ monster_size }}>
     <div class="header {{winner}}">
       {{#if name}}
         {{name}}

@@ -214,7 +214,6 @@ Template.player.winner = function () {
 Template.player.total_score = function () {
   var words = Words.find({game_id: game() && game()._id,
                           player_id: this._id});
-
   var score = 0;
   words.forEach(function (word) {
     if (word.score)
@@ -229,7 +228,13 @@ Template.player.random_monster = function () {
     return 'imgs/monster'+Players.findOne(this._id).avatar+'.png';
 }
 
-Template.words.words = function () {
+Template.player.monster_size = function () {
+
+  //total_score()
+  return 'width:'+ '128' + 'px; height:128px';
+}
+
+Template.words.words = function ( ) {
   return Words.find({game_id: game() && game()._id,
                     player_id: this._id});
 };
