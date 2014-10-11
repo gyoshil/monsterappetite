@@ -87,14 +87,20 @@ Template.lobby.events({
 ////// board template: renders the board and the clock given the
 ////// current game.  if there is no game, show a splash screen.
 //////
+//splash not currently used
 var SPLASH = ['','','','',
-              'W', 'O', 'R', 'D',
-              'P', 'L', 'A', 'Y',
+              'M', 'O', 'N', 'S',
+              'T', 'E', 'R', 'X',
               '','','',''];
 
 Template.board.square = function (i) {
   var g = game();
-  return g && g.board && g.board[i] || SPLASH[i];
+  var back_of_card_pic = 'http://content.mycutegraphics.com/graphics/monster/three-eyed-monster.png';
+  return g && g.board && 'imgs/'+g.board[i]+'.jpeg' || back_of_card_pic;
+};
+
+Template.board.squaresize = function () {
+  return 'width:50px; height:50px';
 };
 
 Template.board.selected = function (i) {

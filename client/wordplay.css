@@ -93,11 +93,11 @@ button:active {
 
 /*red color for the path of the entered words - but this is specifically the last (the most recent) letter typed*/ 
 .square.last_in_path {
-    color: #ff0000;
+    background-color: #ff0000;
 }
 /*this one is the letters that are not typed the last*/ 
 .square.in_path {
-    color: #990000;
+    background-color: #990000;
 }
 
 #login {

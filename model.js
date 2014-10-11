@@ -15,10 +15,7 @@ Players = new Mongo.Collection('players');
 //
 // 16 dice with 6 faces will result in 96 food items in total (I have 99 items in total)
 // What is an efficient way to declare each die that has 6 sides of different food items?
-var DICE = ['PCHOAS', 'OATTOW', 'LRYTTE', 'VTHRWE',
-            'EGHWNE', 'SEOTIS', 'ANAEEG', 'IDSYTT',
-            'MTOICU', 'AFPKFS', 'XLDERI', 'ENSIEU',
-            'YLDEVR', 'ZNRNHL', 'NMIQHU', 'OBBAOJ'];
+var DICE = ['hamburger', 'pizza','chips','chocolate','icecream','popsicle','soda'];
 
 var DICTIONARY = null;
 
@@ -53,10 +50,11 @@ new_board = function () {
 
   // pick random letter from each die
   for (i = 0; i < 16; i += 1) {
-    board[i] = Random.choice(DICE[i]);
+    board[i] = Random.choice(DICE);
   }
 
   // knuth shuffle
+  //pretty sure uneeded now, doesnt hurt tho
   for (i = 15; i > 0; i -= 1) {
     var j = Math.floor(Math.random() * (i + 1));
     var tmp = board[i];

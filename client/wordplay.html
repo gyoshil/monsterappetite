@@ -4,6 +4,7 @@
 
 <body>
   {{> page}}
+
 </body>
 
 <template name="page">
@@ -13,7 +14,7 @@
     </div>
     <div id="right">
       {{> lobby }}
-      {{> scratchpad }}
+      <!---{{> scratchpad }} -->
       {{> postgame }}
       {{> scores }}
     </div>
@@ -26,28 +27,60 @@
   </div>
   <div id="board">
     <div>
-      <div class="square {{ selected 0 }}">{{ square 0 }}</div>
-      <div class="square {{ selected 1 }}">{{ square 1 }}</div>
-      <div class="square {{ selected 2 }}">{{ square 2 }}</div>
-      <div class="square {{ selected 3 }}">{{ square 3 }}</div>
+      <div class="square {{ selected 0 }}">
+        <img src={{ square 0 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 1 }}">
+        <img src={{ square 1 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 2 }}">
+        <img src={{ square 2 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 3 }}">
+        <img src={{ square 3 }} style={{squaresize}}>
+      </div>
     </div>
     <div>
-      <div class="square {{ selected 4 }}">{{ square 4 }}</div>
-      <div class="square {{ selected 5 }}">{{ square 5 }}</div>
-      <div class="square {{ selected 6 }}">{{ square 6 }}</div>
-      <div class="square {{ selected 7 }}">{{ square 7 }}</div>
+      <div class="square {{ selected 4 }}">
+        <img src={{ square 4 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 5 }}">
+        <img src={{ square 5 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 6 }}">
+        <img src={{ square 6 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 7 }}">
+        <img src={{ square 7 }} style={{squaresize}}>
+      </div>
     </div>
     <div>
-      <div class="square {{ selected 8 }}">{{ square 8 }}</div>
-      <div class="square {{ selected 9 }}">{{ square 9 }}</div>
-      <div class="square {{ selected 10 }}">{{ square 10 }}</div>
-      <div class="square {{ selected 11 }}">{{ square 11 }}</div>
+      <div class="square {{ selected 8 }}">
+        <img src={{ square 8 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 9 }}">
+        <img src={{ square 9 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 10 }}">
+        <img src={{ square 10 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 11 }}">
+        <img src={{ square 11 }} style={{squaresize}}>
+      </div>
     </div>
     <div>
-      <div class="square {{ selected 12 }}">{{ square 12 }}</div>
-      <div class="square {{ selected 13 }}">{{ square 13 }}</div>
-      <div class="square {{ selected 14 }}">{{ square 14 }}</div>
-      <div class="square {{ selected 15 }}">{{ square 15 }}</div>
+      <div class="square {{ selected 12 }}">
+        <img src={{ square 12 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 13 }}">
+        <img src={{ square 13}} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 14 }}">
+        <img src={{ square 14 }} style={{squaresize}}>
+      </div>
+      <div class="square {{ selected 15 }}">
+        <img src={{ square 15 }} style={{squaresize}}>
+      </div>
     </div>
   </div>
 </template>
@@ -56,7 +89,7 @@
   <div>
     {{#if show }}
     <div id="lobby">
-      <h1>What's your last name?</h1>
+      <h1>What's your name?</h1>
       <input id="myname" type="text" />
       {{#if count}}
       <h1>{{count}} other players are in the lobby:</h1>
@@ -76,7 +109,7 @@
 
 <!--this is the monster avatar to show up on game page -->
 <!--<div class= "avatar">
-  <img src="Blue_Monster.ai" alt="Monster Avatar" style="width:228px;height:228px">
+  <img src="Blue_Monster.ai"   style="width:228px;height:228px">
 </div>
 -->
 <template name="scratchpad">
@@ -112,6 +145,8 @@
 
 <template name="player">
   <div class="player">
+    <!-- make this img unique for all players -->
+    <img src="http://content.mycutegraphics.com/graphics/monster/three-eyed-monster.png" align="right" style="width:128px; height:128px">
     <div class="header {{winner}}">
       {{#if name}}
         {{name}}
