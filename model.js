@@ -8,21 +8,14 @@ Words = new Mongo.Collection('words');
 // {player_id: 10, game_id: 123, word: 'hello', state: 'good', score: 4}
 
 Players = new Mongo.Collection('players');
-// {name: 'matt', game_id: 123, avatar="6"}
+// {name: 'matt', game_id: 123}
 
-// 6 faces per die, 16 DECK.  Q really means Qu.
+// 6 faces per die, 16 dice.  Q really means Qu.
 //
 //
-// 16 DECK with 6 faces will result in 96 food items in total (I have 99 items in total)
+// 16 dice with 6 faces will result in 96 food items in total (I have 99 items in total)
 // What is an efficient way to declare each die that has 6 sides of different food items?
-var DECK = [{card_name:'hamburger',calories:300},
-            {card_name:'pizza', calories:500},
-            {card_name:'chips',calories:600},
-            {card_name:'chocolate',calories:140},
-            {card_name:'icecream',calories:240},
-            {card_name:'popsicle',calories:100},
-            {card_name:'soda',calories:250}
-            ];
+var DICE = ['hamburger', 'pizza','chips','chocolate','icecream','popsicle','soda'];
 
 var DICTIONARY = null;
 
@@ -57,7 +50,7 @@ new_board = function () {
 
   // pick random letter from each die
   for (i = 0; i < 16; i += 1) {
-    board[i] = Random.choice(DECK);
+    board[i] = Random.choice(DICE);
   }
 
   // knuth shuffle
@@ -109,23 +102,6 @@ paths_for_word = function (board, word) {
 };
 
 Meteor.methods({
-  score_card: function (card_name) {
-    //find card name in DECK and get score
-    /*for (var i = DECK.length - 1; i >= 0; i--) {
-      if(DECK[i].card_name == card_name){
-        return DECK[i].calories;
-      }
-    };*/
-
-    /*if (game.clock === 0){
-      return;
-    }
-    var card = Words.findOne(card_id);
-
-    Words.update(card._id, {$set: {score: score, state: 'good'}});
-    */
-
-  },
   score_word: function (word_id) {
     check(word_id, String);
     var word = Words.findOne(word_id);

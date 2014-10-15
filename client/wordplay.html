@@ -26,7 +26,7 @@
     {{ clock }}
   </div>
   <div id="instructions">
-    <p align="center">You have 15 seconds to choose the top three cards</p>
+    <p align="center">You have 5 seconds to choose the top three cards</p>
   </div>
   <div id="board">
     <div>
@@ -109,15 +109,6 @@
     </div>
     {{/if}}
   </div>
-</template>
-
-<template name="scratchpad">
-  {{#if show}}
-  <div id="scratchpad">
-    <input id="scratchpad_input" type="text" />
-    <button name="submit" class="submit">TESTING </button>
-  </div>
-  {{/if}}
 </template>
 
 <template name="postgame">
