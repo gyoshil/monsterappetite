@@ -2,9 +2,10 @@
 
 Meteor.methods({
   start_new_game: function () {
+    var timeGiven=5;
     // create a new game w/ fresh board
     var game_id = Games.insert({board: new_board(),
-                                clock: 120});
+                                clock: timeGiven});
 
     // move everyone who is ready in the lobby to the game
     Players.update({game_id: null, idle: false, name: {$ne: ''}},
@@ -18,7 +19,7 @@ Meteor.methods({
 
 
     // wind down the game clock
-    var clock = 120;
+    var clock = timeGiven;
     var interval = Meteor.setInterval(function () {
       clock -= 1;
       Games.update(game_id, {$set: {clock: clock}});

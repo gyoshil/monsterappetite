@@ -82,6 +82,7 @@ Template.lobby.events({
     var name = trim($('#lobby input#myname').val());
     Players.update(Session.get('player_id'), {$set: {name: name}});
   },
+  //this is the part that does not seem to be working!!!!
   'click button.startgame': function () {
     Meteor.call('start_new_game');
   }
@@ -96,7 +97,7 @@ Template.lobby.events({
 Template.board.square = function (i) {
   var g = game();
   var back_of_card_pic = 'imgs/monster'+(random(6)+1)+'.png';
-  return g && g.board && 'imgs/'+g.board[i]+'.jpeg' || back_of_card_pic;
+  return g && g.board && 'imgs/'+g.board[i].card_name+'.jpeg' || back_of_card_pic;
 };
 
 Template.board.squaresize = function () {
@@ -119,8 +120,10 @@ Template.board.clock = function () {
   return min + ':' + (sec < 10 ? ('0' + sec) : sec);
 };
 
+var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
+    if (game() && game().clock != 0 && cards_selected < 3) {
     //if you want change REALLY think about it
     //id might be in this div
     var dom_card_id = evt.target.id;
@@ -130,45 +133,38 @@ Template.board.events({
     var pc_id = p_card_id.substring(5);
     //but it wont be in both (ie one will be empty)
     var id = c_id + pc_id;
-    Session.set('selected_' + id, 'last_in_path'); 
-  }
-});
 
-//////
-////// scratchpad is where we enter new words.
-//////
+    if (Session.get('selected_'+id)!='last_in_path') {
+      Session.set('selected_' + id, 'last_in_path');
+      //get card name
+      card_name=game().board[id].card_name;
 
-Template.scratchpad.show = function () {
-  return game() && game().clock > 0;
-};
-
-Template.scratchpad.events({
-  'click button, keyup input': function (evt) {
-    var textbox = $('#scratchpad input');
-    // if we clicked the button or hit enter
-    if ((evt.type === "click" || (evt.type === "keyup" && evt.which === 13))
-        && textbox.val()) {
-      var word_id = Words.insert({player_id: Session.get('player_id'),
-                                  game_id: game() && game()._id,
-                                  word: textbox.val().toUpperCase(),
-                                  state: 'pending'});
-      Meteor.call('score_word', word_id);
-      textbox.val('');
-      textbox.focus();
-      clear_selected_positions();
-    } else {
-      set_selected_positions(textbox.val());
+      var card_id = Words.insert({player_id: Session.get('player_id'),
+                                game_id: game() && game()._id,
+                                word: card_name,
+                                score: game().board[id].calories,
+                                state: 'good'});
+      Meteor.call('score_card', card_id);
+      cards_selected+=1;
     }
+
+  }
   }
 });
 
-Template.postgame.show = function () {
-  return game() && game().clock === 0;
-};
+
+Template.postgame.helpers({
+  show: function () {
+    return game() && game().clock === 0;
+  }
+});
 
 Template.postgame.events({
   'click button': function (evt) {
     Players.update(Session.get('player_id'), {$set: {game_id: null}});
+    clear_selected_positions();
+    cards_selected=0;
+
   }
 });
 
