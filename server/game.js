@@ -48,7 +48,8 @@ Meteor.methods({
     return game_id;
   },
 
-
+  //this must be the part that keeps or chaches the players to show multiple players
+  //does this also keep the same player_id alive after the game session has ended???
   keepalive: function (player_id) {
     check(player_id, String);
     Players.update({_id: player_id},

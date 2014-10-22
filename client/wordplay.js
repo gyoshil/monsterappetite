@@ -96,12 +96,13 @@ Template.lobby.events({
 
 Template.board.square = function (i) {
   var g = game();
-  var back_of_card_pic = 'imgs/monster'+(random(6)+1)+'.png';
+  var back_of_card_pic = 'imgs/monster'+(random(6)+1)+'.svg';
   return g && g.board && 'imgs/'+g.board[i].card_name+'.jpeg' || back_of_card_pic;
 };
 
+//this is where I enlarged the size of the pics on the board from 50px to 94px
 Template.board.squaresize = function () {
-  return 'width:50px; height:50px';
+  return 'width:94px; height:94px';
 };
 
 Template.board.selected = function (i) {
@@ -123,7 +124,7 @@ Template.board.clock = function () {
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
-    if (game() && game().clock != 0 && cards_selected < 3) {
+    if (game() && game().clock != 0 && cards_selected < 4) { //when you change the last number on this line, change "instructions" in html
     //if you want change REALLY think about it
     //id might be in this div
     var dom_card_id = evt.target.id;
@@ -201,7 +202,7 @@ Template.player.total_score = function () {
 //this 'updates' the avatar id every second
 //not good, but works
 Template.player.random_monster = function () {
-    return 'imgs/monster'+Players.findOne(this._id).avatar+'.png';
+    return 'imgs/monster'+Players.findOne(this._id).avatar+'.svg';
 }
 
 Template.player.monster_size = function () {
