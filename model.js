@@ -75,7 +75,7 @@ var DICTIONARY = null;
 //
 //
 // THIS variable probably can go away as there will be NO sequence of items being chosen
-var ADJACENCIES = [
+/*var ADJACENCIES = [
   [1,4,5],
   [0,2,4,5,6],
   [1,3,5,6,7],
@@ -92,7 +92,7 @@ var ADJACENCIES = [
   [8,9,10,12,14],
   [9,10,11,13,15],
   [10,11,14]
-];
+];*/
 
 // generate a new random selection of letters.
 new_board = function () {
