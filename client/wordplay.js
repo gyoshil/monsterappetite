@@ -153,7 +153,7 @@ Template.board.events({
   }
 });
 
-//so the next two para are the parts where I need to work to allow players to play multiple rounds.
+//so the next TWO PARA on POSTGAME are the parts where I need to work to allow players to play multiple rounds.
 Template.postgame.helpers({
   show: function () {
     return game() && game().clock === 0;

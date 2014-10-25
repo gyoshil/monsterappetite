@@ -18,4 +18,13 @@ Specific tasks that I will do
 09. Show a monster on the empty area of the game page and make it shrink/enlarge 
     depending on the calories consumed (range should be from 0/negative? up to 6000~
     7000 calories 
-10.  
+
+10. NEW NEW NEW
+    I think for rounds, when each round is over the top highest caloric items should be
+    REVEALED so that the player can learn which ones were the highest!!!!!!
+    GOOD GOOD GOOD GOOD??????????????????
+
+11. NEW SUGGESTION
+    Have the food cards be revealed when selected for all players instead of #10
+
+  

@@ -15,13 +15,22 @@ Players = new Mongo.Collection('players');
 //
 // 16 dice with 6 faces will result in 96 food items in total (I have 99 items in total)
 // What is an efficient way to declare each die that has 6 sides of different food items?
-var DECK = [{card_name:'hamburger',calories:300},
+var DECK = [
+            //to be deleted
+            {card_name:'hamburger',calories:300},
             {card_name:'pizza', calories:500},
             {card_name:'chips',calories:600},
             {card_name:'chocolate',calories:140},
             {card_name:'icecream',calories:240},
             {card_name:'popsicle',calories:100},
             
+            //pairs that are on the pre and post test
+            {card_name:'goldencrisp',calories:147},
+            {card_name:'luckycharms',calories:147},
+
+            {card_name:'jujubes',calories:110},
+            {card_name: 'trolli_crawlers', calories:110},
+
 
             {card_name:'salsa',calories:10},
             {card_name:'smuckers',calories:50},
@@ -39,7 +48,7 @@ var DECK = [{card_name:'hamburger',calories:300},
             {card_name:'soycrisps_cheddar',calories:120},
             {card_name:'ritz_sourcream',calories:130},
             {card_name:'pumpernickel_pretzels',calories:130},
-            {card_name:'goldencrisp',calories:147},
+            
             {card_name:'nutrigrain_rasberry',calories:140},
             {card_name:'almondcrisps',calories:140},
             {card_name:'honey_cheerios',calories:160},
@@ -65,7 +74,39 @@ var DECK = [{card_name:'hamburger',calories:300},
             {card_name:'thousand_island',calories:140}, 
             {card_name:'tollhouse_ICsandwich',calories:499}, 
             {card_name:'smartfood_whitecheddar',calories:160}, 
-            {card_name:'soda',calories:250},  
+            
+            {card_name:'cheerios_snackmix',calories:120},  
+            {card_name:'pretzel_flatz',calories:120},
+            {card_name:'chexmix',calories:130},
+            {card_name:'lifesaver_gummies',calories:130},
+            {card_name:'entenmanns_donuts',calories:310},
+            {card_name:'frootloops',calories:110},
+            {card_name:'pecan',calories:210},
+            {card_name:'calzone',calories:560},
+            {card_name:'smuckers_raspberry',calories:50},
+            {card_name:'mike&ike',calories:140},
+            {card_name:'nillawafers',calories:140},
+            {card_name:'capn_crunch',calories:147},
+            {card_name:'fiberone_oats_chocolate',calories:140},
+            {card_name:'munchies_ranch',calories:140},
+            {card_name:'oreo_cakesters',calories:250},
+            {card_name:'twinkies',calories:300},
+            {card_name:'fudge_brownies',calories:310},
+            {card_name:'nestle_drumstick',calories:360},
+            {card_name:'oatmeal_creampie',calories:470},
+            {card_name:'applecinnamon_cheerios',calories:160},
+            {card_name:'goldfish',calories:150},
+            {card_name:'zingers',calories:150},
+            {card_name:'cheezit',calories:160},
+
+            {card_name:'golden_grahams',calories:160},
+            {card_name:'tartar_sauce',calories:160},
+            {card_name:'honeynut_cheerios_bar',calories:160},
+            {card_name:'starburst',calories:160},
+            {card_name:'lindt_dark',calories:210},
+            {card_name:'m&m-peanut',calories:220},
+            {card_name:'starbucks_coffee_IC',calories:250},
+            {card_name:'onionrings',calories:230},
             ];
 
 var DICTIONARY = null;
