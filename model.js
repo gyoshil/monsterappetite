@@ -146,14 +146,13 @@ new_board = function () {
   }
 
   // knuth shuffle
-  //pretty sure uneeded now, doesnt hurt tho
+  // pretty sure un-needed now, doesnt hurt tho
   for (i = 15; i > 0; i -= 1) {
     var j = Math.floor(Math.random() * (i + 1));
     var tmp = board[i];
     board[i] = board[j];
     board[j] = tmp;
   }
-
   return board;
 };
 
@@ -161,7 +160,7 @@ new_board = function () {
 // board.  each path is an array of board positions 0-15.  a valid
 // path can use each position only once, and each position must be
 // adjacent to the previous position.
-paths_for_word = function (board, word) {
+/*paths_for_word = function (board, word) {
   var valid_paths = [];
 
   var check_path = function (word, path, positions_to_try) {
@@ -192,7 +191,7 @@ paths_for_word = function (board, word) {
 
   return valid_paths;
 };
-
+*/
 Meteor.methods({
     score_card: function (card_name) {
     //find card name in DECK and get score

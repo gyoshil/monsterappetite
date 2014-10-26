@@ -135,16 +135,28 @@ Template.board.events({
     //but it wont be in both (ie one will be empty)
     var id = c_id + pc_id;
 
+
     if (Session.get('selected_'+id)!='last_in_path') {
       Session.set('selected_' + id, 'last_in_path');
-      //get card name
-      card_name=game().board[id].card_name;
+      
+      
+      //var images = 'imgs/'+game.board[id].card_name+'.jpeg'
+      //card_name = iamges
+      //then under var card_id ..... word: card_name
 
+
+      //GET CARD NAME
+      card_name=  game().board[id].card_name;                      
+
+      ////////////////////////////////////////////////////////////////
+      // THIS IS WHERE selected CARDS are shown with name and calories
       var card_id = Words.insert({player_id: Session.get('player_id'),
                                 game_id: game() && game()._id,
-                                word: card_name,
+                                word: card_name, 
+                                img:'imgs/'+card_name+'.jpeg',
                                 score: game().board[id].calories,
                                 state: 'good'});
+
       Meteor.call('score_card', card_id);
       cards_selected+=1;
     }
@@ -170,9 +182,12 @@ Template.postgame.events({
 });
 
 //////
-////// scores shows everyone's score and word list.
+////// scores shows everyone's score and list of selected food cards.
 //////
 
+
+
+//This part shows the entire section that lists scores, selected items, avatar
 Template.scores.show = function () {
   return !!game();
 };
@@ -188,6 +203,7 @@ Template.player.winner = function () {
   return '';
 };
 
+// how total score is added (selected items show their individual scores still but TOTAL is not calculated w/o this section)
 Template.player.total_score = function () {
   var words = Words.find({game_id: game() && game()._id,
                           player_id: this._id});

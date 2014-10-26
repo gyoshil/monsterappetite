@@ -2,6 +2,7 @@
 
 Meteor.methods({
   start_new_game: function () {
+    // TIME GIVEN
     var timeGiven=5;
     // create a new game w/ fresh board
     var game_id = Games.insert({board: new_board(),
