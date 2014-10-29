@@ -26,7 +26,8 @@
     {{ clock }}
   </div>
   <div id="instructions">
-    <p align="center">You have 5 seconds to choose the top four cards</p>
+    <!---INSTRUCTIONS-->
+    <p align="center"> <em> You have 13 seconds to choose the <strong> top 7 highest </strong> caloric food items </em> </p>
   </div>
   <div id="board">
     <div>
@@ -111,15 +112,19 @@
   </div>
 </template>
 
+
 <template name="postgame">
   <div>
     {{#if show}}
     <div id="postgame">
-      <button name="backtolobby" class="lobby">Back to lobby</button>
+      <!---So this is where BACK TO LOBBY is shown -->
+      <button name="backtolobby" class="lobby">Next Round</button>
     </div>
     {{/if}}
   </div>
 </template>
+
+
 
 <template name="scores">
   <div>

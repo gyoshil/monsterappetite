@@ -82,9 +82,10 @@ Template.lobby.events({
     var name = trim($('#lobby input#myname').val());
     Players.update(Session.get('player_id'), {$set: {name: name}});
   },
+
   //this is the part that does not seem to be working!!!!
   'click button.startgame': function () {
-    Meteor.call('start_new_game');
+    Meteor.call('start_new_game'); // THIS IS WHERE I NEED A DIFFERENT ARGUEMENT to start the game over but not go to the lobby 
   }
 });
 
@@ -118,13 +119,13 @@ Template.board.clock = function () {
   // format into M:SS
   var min = Math.floor(clock / 60);
   var sec = clock % 60;
-  return min + ':' + (sec < 10 ? ('0' + sec) : sec);
+  return min + ':' + (sec < 13 ? ('0' + sec) : sec);
 };
 
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
-    if (game() && game().clock != 0 && cards_selected < 4) { //when you change the last number on this line, change "instructions" in html
+    if (game() && game().clock != 0 && cards_selected < 7) { //when you change the last number on this line, change "instructions" in html
     //if you want change REALLY think about it
     //id might be in this div
     var dom_card_id = evt.target.id;
@@ -139,17 +140,11 @@ Template.board.events({
     if (Session.get('selected_'+id)!='last_in_path') {
       Session.set('selected_' + id, 'last_in_path');
       
-      
-      //var images = 'imgs/'+game.board[id].card_name+'.jpeg'
-      //card_name = iamges
-      //then under var card_id ..... word: card_name
-
-
       //GET CARD NAME
-      card_name=  game().board[id].card_name;                      
+      card_name =  game().board[id].card_name;                      
 
       ////////////////////////////////////////////////////////////////
-      // THIS IS WHERE selected CARDS are shown with name and calories
+      // THIS IS WHERE selected CARDS are shown with image and calories
       var card_id = Words.insert({player_id: Session.get('player_id'),
                                 game_id: game() && game()._id,
                                 word: card_name, 
@@ -166,6 +161,7 @@ Template.board.events({
 });
 
 //so the next TWO PARA on POSTGAME are the parts where I need to work to allow players to play multiple rounds.
+
 Template.postgame.helpers({
   show: function () {
     return game() && game().clock === 0;
@@ -174,10 +170,20 @@ Template.postgame.helpers({
 
 Template.postgame.events({
   'click button': function (evt) {
-    Players.update(Session.get('player_id'), {$set: {game_id: null}});
-    clear_selected_positions();
-    cards_selected=0;
 
+    //CODE HERE for multiple ROUNDS!!!!!!!!!
+    Meteor.call('new_round');
+    //get a new game_id - probably not since it should be played by same player
+    //but get a NEW ROUND ID
+    var round = Rounds.findOne(round_id); //not sure but I think the word. comes before because the round_id is in Word Mongo
+    //set session var game_id to that new gamw
+    var round_id = new_round; //????
+
+
+    clear_selected_positions();
+    cards_selected = 0;
+    //when the same player does more rounds we do NOT want the game_id to become null, not yet. 
+    //Players.update(Session.get('player_id'), {$set: {game_id: null}});
   }
 });
 

@@ -3,7 +3,8 @@
 Meteor.methods({
   start_new_game: function () {
     // TIME GIVEN
-    var timeGiven=5;
+    var timeGiven=13;
+
     // create a new game w/ fresh board
     var game_id = Games.insert({board: new_board(),
                                 clock: timeGiven});
@@ -68,6 +69,6 @@ Meteor.setInterval(function () {
                  {$set: {idle: true}});
 
   // XXX need to deal with people coming back!
-  // Players.remove({$lt: {last_keepalive: remove_threshold}});
+  Players.remove({$lt: {last_keepalive: remove_threshold}}); //uncommented this so let's see if it makes any changes. 
 
 }, 30*1000);
