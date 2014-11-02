@@ -13,10 +13,9 @@ var game = function () {
   return me && me.game_id && Games.findOne(me.game_id);
 };
 
-/////// WHAT IS THIS FOR ????????????????????????????????????????????????????????????
-var round = function() {
-  var rnd = round();
-  return rnd && rnd.round_id && Rounds.findOne(rnd.round_id);
+var round = function () {
+  var me = player();
+  return me && me.round_id && Rounds.findOne(me.round_id);
 };
 
 
@@ -56,23 +55,22 @@ var random = function(i) {
 
 Template.lobby.show = function () {
   // only show lobby if we're not in a game
-  return !game();
+  return !game() && !round();
 };
 
 Template.lobby.waiting = function () {
   var players = Players.find({_id: {$ne: Session.get('player_id')},
                               name: {$ne: ''},
                               game_id: {$exists: false}});
-
   return players;
 };
 
 Template.lobby.count = function () {
+  //$ne selects the documents where the value of the field is not equal (i.e. !=) to the specified value. 
+  //This includes documents that do not contain the field.
   var players = Players.find({_id: {$ne: Session.get('player_id')},
                               name: {$ne: ''},
-                              //////////////////////////////////////////????
                               game_id: {$exists: false}});
-
   return players.count();
 };
 
@@ -91,7 +89,8 @@ Template.lobby.events({
     Players.update(Session.get('player_id'), {$set: {name: name}});
   },
   'click button.startgame': function () {
-    Meteor.call('start_new_game'); // THIS IS WHERE I NEED A DIFFERENT ARGUEMENT to start the game over but not go to the lobby 
+    //////////////////////////////////// START NEW GAME method is called //////////////////////////////////
+    Meteor.call('start_new_game');  
   }
 });
 
@@ -128,6 +127,7 @@ Template.board.clock = function () {
   return min + ':' + (sec < 13 ? ('0' + sec) : sec);
 };
 
+//TODO this is shitty code
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
@@ -149,7 +149,6 @@ Template.board.events({
       //GET CARD NAME
       card_name =  game().board[id].card_name;                      
 
-      ////////////////////////////////////////////////////////////////
       // THIS IS WHERE selected CARDS are shown with image and calories
       var card_id = Words.insert({player_id: Session.get('player_id'),
                                 game_id: game() && game()._id,
@@ -161,16 +160,17 @@ Template.board.events({
       Meteor.call('score_card', card_id);
       cards_selected+=1;
     }
-
   }
   }
 });
 
-//so the next TWO PARA on POSTGAME are the parts where I need to work to allow players to play multiple rounds.
-
 Template.postgame.helpers({
   show: function () {
     return game() && game().clock === 0;
+  },
+  finished: function () {
+    //round_number < 3
+    return false;
   }
 });
 
@@ -180,16 +180,12 @@ Template.postgame.events({
     cards_selected = 0;
     //multiple ROUNDS fxn is called here
     Meteor.call('new_round');
-    //when the same player does more rounds we do NOT want the game_id to become null, not yet. 
-    //this is ORIGINAL: Players.update(Session.get('player_id'), {$set: {game_id: null}});
-    Players.update(Session.get('player_id'), {$set: {game_id: game_id}});
   }
 });
 
 //////
 ////// scores shows everyone's score and list of selected food cards.
 //////
-
 
 
 //This part shows the entire section that lists scores, selected items, avatar

@@ -115,14 +115,20 @@
 
 <template name="postgame">
   <div>
-    {{#if show}}
+  {{#if show}}
     <div id="postgame">
-      <!---So this is where BACK TO LOBBY is shown -->
-      <button name="backtolobby" class="lobby">Next Round</button>
+
+      {{#if finished}}
+        <button name="backtolobby" class="lobby">Next Round</button>
+      {{else}}
+        <button name="backtolobby" class="lobby">Return to Lobby</button>
+      {{/if}}
+      
     </div>
-    {{/if}}
+  {{/if}}
   </div>
 </template>
+
 
 
 

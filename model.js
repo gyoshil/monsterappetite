@@ -171,7 +171,7 @@ Meteor.methods({
     var game = Games.findOne(game_id);
     var player = Player.findOne(game.player_id);
   }*/
-});
+}});
 
 
 if (Meteor.isServer) {

@@ -1,6 +1,6 @@
 ////////// Server only logic //////////
 
-Meteor.methods({
+Meteor.methods ({
   start_new_game: function () {
     // TIME GIVEN
     var timeGiven=13;
@@ -19,7 +19,8 @@ Meteor.methods({
                          {fields: {_id: true, name: true}}).fetch();
     Games.update({_id: game_id}, {$set: {players: p}});
 
-
+    //move this code out of this method. should only be in new_round
+    //new game only creates the record, but new reound actually plays it
     // wind down the game clock
     var clock = timeGiven;
     var interval = Meteor.setInterval(function () {
@@ -61,32 +62,60 @@ Meteor.methods({
 
   new_round: function() {
     var timeGiven=13;
-    //make a round number in addition to the round id 
-    var round_number = 0
+    //make a round number  
+    var round_number = 0;
     //create a round with same player_id and game_id 
     //////////////////////?????--> BUT how do I know it will keep the same player and game ID?????
-    var round_id = Rounds.insert({ {$set:round_id: round_number}, {$set:player_id: player_id}, {$set: {game_id: game_id}}, clock: timeGiven});
-    //players need to be updated only in the sense that it does not change???????????????? HOW???
-    Players.update({round_id: true, game_id: true, player_id: true, idle: false, name: {$ne: ''}},
-                   {multi: true});
-    // round_number will go up as different rounds are played, once a total of two games are played, entire game ends. 
-    if (game_id: {$exists: true}, round_number <2 ) {//how do I know that round_id will go like 0, 1, 2, 3, ??????? or how do I enure that?
-        //play another round 
-        new_round}; //???????? IS THIS RIGHT??? CAN YOU CALL A FXN INSIDE ITS OWN????
+    Players.update({ $set: {round_id: round_id} });
 
-      else {
-        clear_selected_positions();
-        cards_selected = 0;
-        Players.update(Session.get('player_id'), {$set: {game_id: null}});
-      }
-  }
-  //what about writing it like this?
-  /*new_round: function (round_id) {
-    check(game_id, player_id);
-    var game = Games.findOne(game_id);
-    var player = Player.findOne(game.player_id);
-  }*/
+    var old_round = Rounds.findOne(Session.get('round_number'));
+
+    var new_round_n = old_round.round_number+1
+
+    var round_id = Rounds.insert({ round_number: new_round_n,
+                                   player_id: player_id,
+                                   game_id: game_id,
+                                   clock: timeGiven});
+
+    // round_number will go up as each round is played, once a total of two games are played, entire game ends. 
+    if (game_id, new_round_n <2, new_round_n +=1 ) {
+      //play another round 
+      // wind down the game clock
+      var clock = timeGiven;
+      var interval = Meteor.setInterval(function () {
+        clock -= 1;
+        Rounds.update(round_id, {$set: {clock: clock}});
+
+        // end of game
+        if (clock === 0) {
+          // stop the clock
+          Meteor.clearInterval(interval);
+          // declare zero or more winners
+          var scores = {};
+          Words.find({game_id: game_id}).forEach(function (word) {
+            if (!scores[word.player_id])
+              scores[word.player_id] = 0;
+            scores[word.player_id] += word.score;
+          });
+          var high_score = _.max(scores);
+          var winners = [];
+          _.each(scores, function (score, player_id) {
+            if (score === high_score)
+              winners.push(player_id);
+          });
+          Rounds.update(round_id, {$set: {winners: winners}}); 
+        }
+      }, 1000);
+    }
+
+    else {
+      clear_selected_positions();
+      cards_selected = 0;
+      Players.update(Session.get('player_id'), {$set: {game_id: null}});
+    }
+    }
 });
+
 
 Meteor.setInterval(function () {
   var now = (new Date()).getTime();
