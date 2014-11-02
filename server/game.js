@@ -57,7 +57,35 @@ Meteor.methods({
     Players.update({_id: player_id},
                   {$set: {last_keepalive: (new Date()).getTime(),
                           idle: false}});
+  },
+
+  new_round: function() {
+    var timeGiven=13;
+    //make a round number in addition to the round id 
+    var round_number = 0
+    //create a round with same player_id and game_id 
+    //////////////////////?????--> BUT how do I know it will keep the same player and game ID?????
+    var round_id = Rounds.insert({ {$set:round_id: round_number}, {$set:player_id: player_id}, {$set: {game_id: game_id}}, clock: timeGiven});
+    //players need to be updated only in the sense that it does not change???????????????? HOW???
+    Players.update({round_id: true, game_id: true, player_id: true, idle: false, name: {$ne: ''}},
+                   {multi: true});
+    // round_number will go up as different rounds are played, once a total of two games are played, entire game ends. 
+    if (game_id: {$exists: true}, round_number <2 ) {//how do I know that round_id will go like 0, 1, 2, 3, ??????? or how do I enure that?
+        //play another round 
+        new_round}; //???????? IS THIS RIGHT??? CAN YOU CALL A FXN INSIDE ITS OWN????
+
+      else {
+        clear_selected_positions();
+        cards_selected = 0;
+        Players.update(Session.get('player_id'), {$set: {game_id: null}});
+      }
   }
+  //what about writing it like this?
+  /*new_round: function (round_id) {
+    check(game_id, player_id);
+    var game = Games.findOne(game_id);
+    var player = Player.findOne(game.player_id);
+  }*/
 });
 
 Meteor.setInterval(function () {

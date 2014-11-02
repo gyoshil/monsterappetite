@@ -13,6 +13,13 @@ var game = function () {
   return me && me.game_id && Games.findOne(me.game_id);
 };
 
+/////// WHAT IS THIS FOR ????????????????????????????????????????????????????????????
+var round = function() {
+  var rnd = round();
+  return rnd && rnd.round_id && Rounds.findOne(rnd.round_id);
+};
+
+
 var set_selected_positions = function (word) {
   var paths = paths_for_word(game().board, word.toUpperCase());
   var in_a_path = [];
@@ -63,6 +70,7 @@ Template.lobby.waiting = function () {
 Template.lobby.count = function () {
   var players = Players.find({_id: {$ne: Session.get('player_id')},
                               name: {$ne: ''},
+                              //////////////////////////////////////////????
                               game_id: {$exists: false}});
 
   return players.count();
@@ -82,8 +90,6 @@ Template.lobby.events({
     var name = trim($('#lobby input#myname').val());
     Players.update(Session.get('player_id'), {$set: {name: name}});
   },
-
-  //this is the part that does not seem to be working!!!!
   'click button.startgame': function () {
     Meteor.call('start_new_game'); // THIS IS WHERE I NEED A DIFFERENT ARGUEMENT to start the game over but not go to the lobby 
   }
@@ -170,20 +176,13 @@ Template.postgame.helpers({
 
 Template.postgame.events({
   'click button': function (evt) {
-
-    //CODE HERE for multiple ROUNDS!!!!!!!!!
-    Meteor.call('new_round');
-    //get a new game_id - probably not since it should be played by same player
-    //but get a NEW ROUND ID
-    var round = Rounds.findOne(round_id); //not sure but I think the word. comes before because the round_id is in Word Mongo
-    //set session var game_id to that new gamw
-    var round_id = new_round; //????
-
-
     clear_selected_positions();
     cards_selected = 0;
+    //multiple ROUNDS fxn is called here
+    Meteor.call('new_round');
     //when the same player does more rounds we do NOT want the game_id to become null, not yet. 
-    //Players.update(Session.get('player_id'), {$set: {game_id: null}});
+    //this is ORIGINAL: Players.update(Session.get('player_id'), {$set: {game_id: null}});
+    Players.update(Session.get('player_id'), {$set: {game_id: game_id}});
   }
 });
 
