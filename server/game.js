@@ -61,32 +61,34 @@ Meteor.methods ({
   },
 
   new_round: function(player) {
-    var timeGiven=13;  
+    var timeGiven=2;  
     var old_round_id = player.round_id;
     
     if (old_round_id == 0) { 
-      Rounds.insert({round_number: player.round_id,
-                     player_id: player._id,
-                     game_id: player.game_id,
-                     clock: timeGiven});
+       var new_round_id = Rounds.insert({round_number: 1,
+                                         player_id: player.player_id,
+                                         game_id: player.game_id,
+                                         clock: timeGiven});
+       new_round_n=1;
     }
-    else { 
-      
+    else {  
       var old_round = Rounds.findOne(old_round_id);
       var new_round_n = old_round.round_number+1;
-      var new_round_id = Rounds.insert({round_number: new_round_n,
+      var new_round_id = Rounds.insert({round_number: 0,
                                         player_id: player.player_id,
                                         game_id: player.game_id,
                                         clock: timeGiven});
     }
     // round_number will go up as each round is played, once a total of two games are played, entire game ends.  
-    if ( new_round_n <2 ) {
+    if (new_round_n <2 ) {
       //play another round 
       // wind down the game clock
       var clock = timeGiven;
       var interval = Meteor.setInterval(function () {
         clock -= 1;
-        Rounds.update(round_id, {$set: {clock: clock}});
+          Games.update(player.game_id, {$set: {clock: clock}});
+
+        //Rounds.update(new_round_id, {$set: {clock: clock}});
 
         // end of game
         if (clock === 0) {
@@ -94,7 +96,7 @@ Meteor.methods ({
           Meteor.clearInterval(interval);
           // declare zero or more winners
           var scores = {};
-          Words.find({game_id: game_id}).forEach(function (word) {
+          Words.find({game_id: player.game_id}).forEach(function (word) {
             if (!scores[word.player_id])
               scores[word.player_id] = 0;
             scores[word.player_id] += word.score;
