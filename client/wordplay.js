@@ -169,7 +169,7 @@ Template.postgame.helpers({
     return game() && game().clock === 0;
   },
   finished: function () {
-    //round_number < 3
+    //Session.get("round_number" < 3)
     return false;
   }
 });
@@ -179,7 +179,7 @@ Template.postgame.events({
     clear_selected_positions();
     cards_selected = 0;
     //multiple ROUNDS fxn is called here
-    Meteor.call('new_round');
+    Meteor.call('new_round',player());
   }
 });
 
@@ -245,7 +245,8 @@ Meteor.startup(function () {
   // Session.get('player_id') will return a real id. We should check for
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
-  var player_id = Players.insert({name: '', idle: false, avatar: random(6)+1});
+  var round_id = 0
+  var player_id = Players.insert({name: '', idle: false, round_id: round_id, avatar: random(6)+1});
   Session.set('player_id', player_id);
 
   // subscribe to all the players, the game i'm in, and all

@@ -3,7 +3,7 @@
 Meteor.methods ({
   start_new_game: function () {
     // TIME GIVEN
-    var timeGiven=13;
+    var timeGiven=2;
 
     // create a new game w/ fresh board
     var game_id = Games.insert({board: new_board(),
@@ -60,25 +60,27 @@ Meteor.methods ({
                           idle: false}});
   },
 
-  new_round: function() {
-    var timeGiven=13;
-    //make a round number  
-    var round_number = 0;
-    //create a round with same player_id and game_id 
-    //////////////////////?????--> BUT how do I know it will keep the same player and game ID?????
-    Players.update({ $set: {round_id: round_id} });
-
-    var old_round = Rounds.findOne(Session.get('round_number'));
-
-    var new_round_n = old_round.round_number+1
-
-    var round_id = Rounds.insert({ round_number: new_round_n,
-                                   player_id: player_id,
-                                   game_id: game_id,
-                                   clock: timeGiven});
-
-    // round_number will go up as each round is played, once a total of two games are played, entire game ends. 
-    if (game_id, new_round_n <2, new_round_n +=1 ) {
+  new_round: function(player) {
+    var timeGiven=13;  
+    var old_round_id = player.round_id;
+    
+    if (old_round_id == 0) { 
+      Rounds.insert({round_number: player.round_id,
+                     player_id: player._id,
+                     game_id: player.game_id,
+                     clock: timeGiven});
+    }
+    else { 
+      
+      var old_round = Rounds.findOne(old_round_id);
+      var new_round_n = old_round.round_number+1;
+      var new_round_id = Rounds.insert({round_number: new_round_n,
+                                        player_id: player.player_id,
+                                        game_id: player.game_id,
+                                        clock: timeGiven});
+    }
+    // round_number will go up as each round is played, once a total of two games are played, entire game ends.  
+    if ( new_round_n <2 ) {
       //play another round 
       // wind down the game clock
       var clock = timeGiven;
