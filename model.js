@@ -8,19 +8,11 @@ Words = new Mongo.Collection('words');
 // {player_id: 10, game_id: 123, word: 'hello', state: 'good', score: 4}
 
 Players = new Mongo.Collection('players');
-// {name: 'matt', game_id: 123}
+// {name: String, round_id: Int, avater: Int, game_id: Int}
 
-
-/////////////////////////////////////////////////////////////////
-//ADDED
 Rounds = new Mongo.Collection('rounds');
 // {player_id: 10, game_id: 123, word: 'hello', state: 'good', score: 10}
 
-// 6 faces per die, 16 dice.  Q really means Qu.
-//
-//
-// 16 dice with 6 faces will result in 96 food items in total (I have 99 items in total)
-// What is an efficient way to declare each die that has 6 sides of different food items?
 var DECK = [
             
             //pairs that are on the pre and post test
@@ -163,14 +155,6 @@ Meteor.methods({
       Words.update(word._id, {$set: {score: 0, state: 'bad'}});
       return;
     }
-  ////////////////////////////////////////////////////////////////  
-  //I added this HERE!  
-  // is this the right place for this fxn??? 
-  /*new_round: function (round_id) {
-    check(game_id, player_id);
-    var game = Games.findOne(game_id);
-    var player = Player.findOne(game.player_id);
-  }*/
 }});
 
 

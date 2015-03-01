@@ -90,7 +90,8 @@ Template.lobby.events({
   },
   'click button.startgame': function () {
     //////////////////////////////////// START NEW GAME method is called //////////////////////////////////
-    Meteor.call('start_new_game');  
+    Meteor.call('start_new_game');
+    Meteor.call('new_round',player());  
   }
 });
 
@@ -131,7 +132,8 @@ Template.board.clock = function () {
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
-    if (game() && game().clock != 0 && cards_selected < 7) { //when you change the last number on this line, change "instructions" in html
+    if (game() && game().clock != 0 && cards_selected < 7) { 
+    //when you change the last number on this line, change "instructions" in html
     //if you want change REALLY think about it
     //id might be in this div
     var dom_card_id = evt.target.id;
@@ -148,10 +150,13 @@ Template.board.events({
       
       //GET CARD NAME
       card_name =  game().board[id].card_name;                      
+      round_id=player().round_id;
+      console.error(round_id);
 
       // THIS IS WHERE selected CARDS are shown with image and calories
       var card_id = Words.insert({player_id: Session.get('player_id'),
                                 game_id: game() && game()._id,
+                                round_id: round_id,
                                 word: card_name, 
                                 img:'imgs/'+card_name+'.jpeg',
                                 score: game().board[id].calories,
@@ -169,8 +174,8 @@ Template.postgame.helpers({
     return game() && game().clock === 0;
   },
   finished: function () {
-    //Session.get("round_number" < 3)
-    return false;
+    
+    return false; //return game() && new_round_n=2 ?????????????????????????????????
   }
 });
 
@@ -229,8 +234,11 @@ Template.player.monster_size = function () {
 }
 
 Template.words.words = function ( ) {
+  round_id = player().round_id;
+  //console.error(round_id);
   return Words.find({game_id: game() && game()._id,
-                    player_id: this._id});
+                    player_id: this._id,
+                    round_id: round_id});
 };
 
 
@@ -245,7 +253,7 @@ Meteor.startup(function () {
   // Session.get('player_id') will return a real id. We should check for
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
-  var round_id = 0
+  var round_id = null;
   var player_id = Players.insert({name: '', idle: false, round_id: round_id, avatar: random(6)+1});
   Session.set('player_id', player_id);
 
