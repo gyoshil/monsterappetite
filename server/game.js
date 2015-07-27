@@ -56,7 +56,7 @@ Meteor.methods ({
 
     //play up to n rounds
     if (new_round_n <=5 ) {
-      Games.update({player.game_id},
+      Games.update({_id: player.game_id},
                    {$set {board: new_board()}});
       execute_round(player.game_id);
     }
