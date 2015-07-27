@@ -34,36 +34,35 @@ Meteor.methods ({
   },
 
   new_round: function(player) {
-    var timeGiven=2;  
+    var timeGiven=7;  
     var old_round_id = player.round_id;
-
-
     var new_round_n;
+
+    //if there is no round for the player (first round)
+    //round numbers start at 1
     if (old_round_id == null) {
-      //if there is no round for the player (first round)
-      //round numbers start at 1
       new_round_n=1;
     }
     else{
-      //all subsequent rounds
       new_round_n = Rounds.findOne(old_round_id).round_number+1;
     }
-
+    
     //create the new round and save id for future use
     var new_round_id = Rounds.insert({round_number: new_round_n,
-                                        player_id: player._id,
-                                        game_id: player.game_id});
+                                      player_id: player._id,
+                                      game_id: player.game_id});
     Players.update({_id: player._id},
-                    {$set: {round_id:new_round_id}});
+                   {$set: {round_id:new_round_id}});
 
-    // round_number will go up as each round is played, once a total of two games are played, entire game ends.  
-    if (new_round_n <=2 ) {
-      //play another round 
+    //play up to n rounds
+    if (new_round_n <=5 ) {
+      Games.update({player.game_id},
+                   {$set {board: new_board()}});
       execute_round(player.game_id);
     }
 
     else {
-      console.error("OMG WE ARE DONE");
+      console.error("On round #" ++ new_round_n);
       //clear_selected_positions();
       //Players.update(Session.get('player_id'), {$set: {game_id: null}});
       //finished - has to be called(?) for "back to lobby" button to show
@@ -75,7 +74,6 @@ Meteor.methods ({
     // wind down the game clock
     var clock = 7;
     var interval = Meteor.setInterval(function () {
-      clock -= 1;
       Games.update(game_id, {$set: {clock: clock}});
       // end of game
       if (clock === 0) {
@@ -96,6 +94,7 @@ Meteor.methods ({
         });
         Games.update(game_id, {$set: {winners: winners}});
       }
+      clock -= 1;
     }, 1000);
 
   }

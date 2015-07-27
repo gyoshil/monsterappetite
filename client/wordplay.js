@@ -1,54 +1,6 @@
 ////////// Main client application logic //////////
 
 //////
-////// Utility functions
-//////
-
-var player = function () {
-  return Players.findOne(Session.get('player_id'));
-};
-
-var game = function () {
-  var me = player();
-  return me && me.game_id && Games.findOne(me.game_id);
-};
-
-var round = function () {
-  var me = player();
-  return me && me.round_id && Rounds.findOne(me.round_id);
-};
-
-
-var set_selected_positions = function (word) {
-  var paths = paths_for_word(game().board, word.toUpperCase());
-  var in_a_path = [];
-  var last_in_a_path = [];
-
-  for (var i = 0; i < paths.length; i++) {
-    in_a_path = in_a_path.concat(paths[i]);
-    last_in_a_path.push(paths[i].slice(-1)[0]);
-  }
-
-  for (var pos = 0; pos < 16; pos++) {
-    if (_.indexOf(last_in_a_path, pos) !== -1)
-      Session.set('selected_' + pos, 'last_in_path');
-    else if (_.indexOf(in_a_path, pos) !== -1)
-      Session.set('selected_' + pos, 'in_path');
-    else
-      Session.set('selected_' + pos, false);
-  }
-};
-
-var clear_selected_positions = function () {
-  for (var pos = 0; pos < 16; pos++)
-    Session.set('selected_' + pos, false);
-};
-
-var random = function(i) {
-  return Math.floor(Math.random() * (i));
-}
-
-//////
 ////// lobby template: shows everyone not currently playing, and
 ////// offers a button to start a fresh game.
 //////
@@ -281,3 +233,54 @@ Meteor.startup(function () {
       Meteor.call('keepalive', Session.get('player_id'));
   }, 20*1000);
 });
+
+
+
+//////
+////// Utility functions
+//////
+
+var player = function () {
+  return Players.findOne(Session.get('player_id'));
+};
+
+var game = function () {
+  var me = player();
+  return me && me.game_id && Games.findOne(me.game_id);
+};
+
+var round = function () {
+  var me = player();
+  return me && me.round_id && Rounds.findOne(me.round_id);
+};
+
+
+var set_selected_positions = function (word) {
+  var paths = paths_for_word(game().board, word.toUpperCase());
+  var in_a_path = [];
+  var last_in_a_path = [];
+
+  for (var i = 0; i < paths.length; i++) {
+    in_a_path = in_a_path.concat(paths[i]);
+    last_in_a_path.push(paths[i].slice(-1)[0]);
+  }
+
+  for (var pos = 0; pos < 16; pos++) {
+    if (_.indexOf(last_in_a_path, pos) !== -1)
+      Session.set('selected_' + pos, 'last_in_path');
+    else if (_.indexOf(in_a_path, pos) !== -1)
+      Session.set('selected_' + pos, 'in_path');
+    else
+      Session.set('selected_' + pos, false);
+  }
+};
+
+var clear_selected_positions = function () {
+  for (var pos = 0; pos < 16; pos++)
+    Session.set('selected_' + pos, false);
+};
+
+var random = function(i) {
+  return Math.floor(Math.random() * (i));
+}
+
