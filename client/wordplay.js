@@ -42,10 +42,16 @@ Template.lobby.events({
   },
   'click button.startgame': function () {
     //////////////////////////////////// START NEW GAME method is called //////////////////////////////////
-    Meteor.call('start_new_game');
-    Meteor.call('new_round',player());  
+  Meteor.call('start_new_game', function (error, result) {
+    if (error) {
+      // handle error
+    }  else {
+       Meteor.call('new_round',player(),result);
+    }
+  });
   }
 });
+
 
 //////
 ////// board template: renders the board and the clock given the
@@ -206,7 +212,7 @@ Meteor.startup(function () {
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
   var round_id = null;
-  var player_id = Players.insert({name: '', idle: false, round_id: round_id, avatar: random(6)+1});
+  var player_id = Players.insert({game_id:null,name: '', idle: false, round_id: round_id, avatar: random(6)+1});
   Session.set('player_id', player_id);
 
   // subscribe to all the players, the game i'm in, and all

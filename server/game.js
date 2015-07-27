@@ -10,18 +10,26 @@ Meteor.methods ({
     var game_id = Games.insert({board: new_board(),
                                 clock: timeGiven});
 
+
+
     // move everyone who is ready in the lobby to the game
     Players.update({game_id: null, idle: false, name: {$ne: ''}},
                    {$set: {game_id: game_id}},
                    {multi: true});
+    console.error(game_id);
+
+
+
     // Save a record of who is in the game, so when they leave we can
     // still show them.
+
     var p = Players.find({game_id: game_id},
                          {fields: {_id: true, name: true}}).fetch();
     Games.update({_id: game_id}, {$set: {players: p}});
-    
-    execute_round(game_id);
 
+    execute_round(game_id);
+    var pl = Players.findOne({game_id: game_id, idle: false, name: {$ne: ''}});
+    console.error(JSON.stringify(pl,null,4));
     return game_id;
   },
   //this must be the part that keeps or chaches the players to show multiple players
@@ -33,7 +41,12 @@ Meteor.methods ({
                           idle: false}});
   },
 
-  new_round: function(player) {
+  new_round: function(player,game_id) {
+
+    var pl = Players.findOne({game_id: game_id, idle: false, name: {$ne: ''}});
+    console.error("etst"+JSON.stringify(pl,null,4));
+    console.error(game_id);
+
     var timeGiven=3;  
     var old_round_id = player.round_id;
     var new_round_n;
@@ -58,7 +71,8 @@ Meteor.methods ({
     if (new_round_n <=2 ) {
       Games.update({_id: player.game_id},
                    {$set: {board: new_board()}});
-      execute_round(player.game_id);
+      console.error(JSON.stringify(player,null,4));
+      execute_round(player);
     }
 
     else{
@@ -67,7 +81,9 @@ Meteor.methods ({
   }
 });
 
-  execute_round = function(game_id) {
+  execute_round = function(player) {
+    var game_id = player.game_id; 
+
     // wind down the game clock
     var clock = 3;
     var interval = Meteor.setInterval(function () {
@@ -90,7 +106,9 @@ Meteor.methods ({
             winners.push(player_id);
         });
         Games.update(game_id, {$set: {winners: winners}});
-
+        //if (round==2) {
+        //   Players.update(player._id, {$set: {game_id: null}});
+        //};
       }
       clock -= 1;
     }, 1000);
