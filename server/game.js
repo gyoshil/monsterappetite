@@ -4,7 +4,7 @@ Meteor.methods ({
 
   start_new_game: function () {
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
-    var timeGiven=7;
+    var timeGiven=3;
 
     // create a new game w/ fresh board
     var game_id = Games.insert({board: new_board(),
@@ -34,7 +34,7 @@ Meteor.methods ({
   },
 
   new_round: function(player) {
-    var timeGiven=7;  
+    var timeGiven=3;  
     var old_round_id = player.round_id;
     var new_round_n;
 
@@ -55,24 +55,21 @@ Meteor.methods ({
                    {$set: {round_id:new_round_id}});
 
     //play up to n rounds
-    if (new_round_n <=5 ) {
+    if (new_round_n <=2 ) {
       Games.update({_id: player.game_id},
-                   {$set {board: new_board()}});
+                   {$set: {board: new_board()}});
       execute_round(player.game_id);
     }
 
-    else {
-      console.error("On round #" ++ new_round_n);
-      //clear_selected_positions();
-      //Players.update(Session.get('player_id'), {$set: {game_id: null}});
-      //finished - has to be called(?) for "back to lobby" button to show
+    else{
+      Players.update(player._id, {$set: {game_id: null}});
     }
-    }
+  }
 });
 
   execute_round = function(game_id) {
     // wind down the game clock
-    var clock = 7;
+    var clock = 3;
     var interval = Meteor.setInterval(function () {
       Games.update(game_id, {$set: {clock: clock}});
       // end of game
@@ -93,6 +90,7 @@ Meteor.methods ({
             winners.push(player_id);
         });
         Games.update(game_id, {$set: {winners: winners}});
+
       }
       clock -= 1;
     }, 1000);
