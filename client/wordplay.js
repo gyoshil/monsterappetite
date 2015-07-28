@@ -130,7 +130,7 @@ Template.board.events({
 
 Template.postgame.helpers({
   show: function () {
-    return game() && game().clock === 0;
+    return game() && game().clock == 0;
   },
   finished: function () {
     return !game();
@@ -142,7 +142,7 @@ Template.postgame.events({
   'click button': function (evt) {
     clear_selected_positions();
     cards_selected = 0;
-    finished=false;
+    document.getElementById('postgame').style.visibility = 'hidden';
     //multiple ROUNDS fxn is called here
     Meteor.call('new_round',player());
   }

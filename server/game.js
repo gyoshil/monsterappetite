@@ -23,6 +23,9 @@ Meteor.methods ({
                          {fields: {_id: true, name: true}}).fetch();
     Games.update({_id: game_id}, {$set: {players: p}});
 
+    var pl = Players.findOne({game_id: game_id, idle: false, name: {$ne: ''}});
+    console.error("starting game for...\n "+JSON.stringify(pl,null,4));
+
     execute_round(game_id);
     return game_id;
   },
@@ -40,9 +43,6 @@ Meteor.methods ({
                   {$set: {idle: true}});
   },
   new_round: function(player,game_id) {
-
-    var pl = Players.findOne({game_id: game_id, idle: false, name: {$ne: ''}});
-    console.error("etst"+JSON.stringify(pl,null,4));
 
     var timeGiven=3;  
     var old_round_id = player.round_id;
