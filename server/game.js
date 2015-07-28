@@ -11,14 +11,10 @@ Meteor.methods ({
                                 clock: timeGiven});
 
 
-
     // move everyone who is ready in the lobby to the game
     Players.update({game_id: null, idle: false, name: {$ne: ''}},
                    {$set: {game_id: game_id}},
                    {multi: true});
-    console.error(game_id);
-
-
 
     // Save a record of who is in the game, so when they leave we can
     // still show them.
@@ -28,8 +24,6 @@ Meteor.methods ({
     Games.update({_id: game_id}, {$set: {players: p}});
 
     execute_round(game_id);
-    var pl = Players.findOne({game_id: game_id, idle: false, name: {$ne: ''}});
-    console.error(JSON.stringify(pl,null,4));
     return game_id;
   },
   //this must be the part that keeps or chaches the players to show multiple players
@@ -40,12 +34,15 @@ Meteor.methods ({
                   {$set: {last_keepalive: (new Date()).getTime(),
                           idle: false}});
   },
-
+  killuser: function (player_id) {
+    check(player_id, String);
+    Players.update({_id: player_id},
+                  {$set: {idle: true}});
+  },
   new_round: function(player,game_id) {
 
     var pl = Players.findOne({game_id: game_id, idle: false, name: {$ne: ''}});
     console.error("etst"+JSON.stringify(pl,null,4));
-    console.error(game_id);
 
     var timeGiven=3;  
     var old_round_id = player.round_id;
@@ -71,12 +68,11 @@ Meteor.methods ({
     if (new_round_n <=2 ) {
       Games.update({_id: player.game_id},
                    {$set: {board: new_board()}});
-      console.error(JSON.stringify(player,null,4));
       execute_round(player);
     }
 
     else{
-      Players.update(player._id, {$set: {game_id: null}});
+      Players.update(player._id, {$set: {game_id: null, round_id:null}});
     }
   }
 });
@@ -117,13 +113,9 @@ Meteor.methods ({
 
   Meteor.setInterval(function () {
   var now = (new Date()).getTime();
-  var idle_threshold = now - 70*1000; // 70 sec
-  var remove_threshold = now - 60*60*1000; // 1hr
+  var idle_threshold = now - 10*1000; 
 
   Players.update({last_keepalive: {$lt: idle_threshold}},
                  {$set: {idle: true}});
 
-  // XXX need to deal with people coming back!
-  Players.remove({$lt: {last_keepalive: remove_threshold}}); //uncommented this so let's see if it makes any changes. 
-
-}, 30*1000);
+}, 10*1000);

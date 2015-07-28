@@ -45,6 +45,7 @@ Template.lobby.events({
   Meteor.call('start_new_game', function (error, result) {
     if (error) {
       // handle error
+      console.error("you fucked up");
     }  else {
        Meteor.call('new_round',player(),result);
     }
@@ -141,6 +142,7 @@ Template.postgame.events({
   'click button': function (evt) {
     clear_selected_positions();
     cards_selected = 0;
+    finished=false;
     //multiple ROUNDS fxn is called here
     Meteor.call('new_round',player());
   }
@@ -211,8 +213,7 @@ Meteor.startup(function () {
   // Session.get('player_id') will return a real id. We should check for
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
-  var round_id = null;
-  var player_id = Players.insert({game_id:null,name: '', idle: false, round_id: round_id, avatar: random(6)+1});
+  var player_id = Players.insert({game_id:null,name: '', idle: false, round_id: null, avatar: random(6)+1});
   Session.set('player_id', player_id);
 
   // subscribe to all the players, the game i'm in, and all
@@ -237,7 +238,7 @@ Meteor.startup(function () {
   Meteor.setInterval(function() {
     if (Meteor.status().connected)
       Meteor.call('keepalive', Session.get('player_id'));
-  }, 20*1000);
+  }, 5*1000);
 });
 
 
