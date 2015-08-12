@@ -43,13 +43,15 @@ button:active {
     margin: 10px;
 }
 
+/*the 4x4 board's position*/
 #left {
     float: left;
     width: 40%;
 }
 
+/*the right side stuff such as the scoreboard in game*/
 #right {
-    float: left;
+    float: right;
     width: 50%;
 }
 
@@ -60,15 +62,15 @@ button:active {
     font-size: 3em;
 }
 
-/*increased board size from 400 to 472px */
+/*increased board size from 472 to 672px */
 #board {
     margin: auto;
     border:2px solid #999999;
     border-radius: 4px;
     -moz-border-radius: 4px;
     padding:2px;
-    width:472px;
-    height:472px;
+    width:672px;
+    height:670px;
     background-color:#999999;
 }
 
@@ -77,11 +79,11 @@ button:active {
 }
 
 /*this is the squares inside the boards but NOT the food image sizes*/
-/*increased width and height from 84 to 100px but 96 for height; added padding-top so RED is revealed when item is selected */
+/*increased width and height; added padding-top so RED is revealed when item is selected */
 .square {
     cursor: pointer;
-    width:100px;
-    height:96px;
+    width:150px;
+    height:146px;
     /*the border here is the one that needs to turn RED for selection*/
     border:5.5px solid #eeeee8;
     border-radius: 4px;
@@ -94,7 +96,7 @@ button:active {
     background-color:#eeeee8;
 }
 
-/*red color for the path of the entered words - but this is specifically the last (the most recent) letter typed*/ 
+/*red color for the path of the selected cards*/ 
 .square.last_in_path {
     background-color: #ff0000;
 }
@@ -135,10 +137,10 @@ button:active {
 }
 
 #scores {
-    float: left;
-    width: 100%;
+    float: right;
+    width: 70%;
     background-color: #eeeee8;
-    border: 1px solid black;
+    border: 5px solid black;
     padding: 0.5em;
 }
 
@@ -148,6 +150,7 @@ button:active {
 }
 
 #scores .header {
+    /*size was originally 1.25em. NEED this to be a different color*/
     font-size: 1.25em;
 }
 
@@ -161,19 +164,20 @@ button:active {
 }
 
 #scores .winner_text {
+    /*try to place this "WINNER" text somewhere else like below the ID name*/
     float: right;
 }
 
 #scores .word {
     float: left;
-    font-size: 1.25em;
+    font-size: 3.25em;
     padding: 0.25em;
     margin: 0.5em;
     border: 1px solid #030;
 }
 
 #scores .word.good {
-    background-color: #0a0;
+    background-color: white;
 }
 
 #scores .word.bad {

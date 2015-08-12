@@ -100,12 +100,12 @@ var DECK = [
             {card_name:'onionrings',calories:230},
             ];
 
-// generate a new random selection of letters.
+// generate a new random selection of cards.
 new_board = function () {
   var board = [];
   var i;
 
-  // pick random letter from each die
+  // pick random card from deck
   for (i = 0; i < 16; i += 1) {
     board[i] = Random.choice(DECK);
   }

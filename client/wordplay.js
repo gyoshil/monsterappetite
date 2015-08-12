@@ -66,9 +66,9 @@ Template.board.square = function (i) {
   return g && g.board && 'imgs/'+g.board[i].card_name+'.jpeg' || back_of_card_pic;
 };
 
-//this is where I enlarged the size of the pics on the board from 50px to 94px
+//this is where I enlarged the size of the pics on the board and FOOD cards
 Template.board.squaresize = function () {
-  return 'width:94px; height:94px';
+  return 'width:145px; height:142px';
 };
 
 Template.board.selected = function (i) {
