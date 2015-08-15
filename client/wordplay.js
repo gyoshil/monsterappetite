@@ -56,7 +56,7 @@ Template.lobby.events({
 
 //////
 ////// board template: renders the board and the clock given the
-////// current game.  if there is no game, show a splash screen.
+////// current game.  
 //////
 
 
@@ -81,7 +81,7 @@ Template.board.clock = function () {
   if (!clock || clock === 0)
     return;
 
-  // format into M:SS
+  // format into Minute : Seconds like 0:03
   var min = Math.floor(clock / 60);
   var sec = clock % 60;
   return min + ':' + (sec < 13 ? ('0' + sec) : sec);
@@ -93,13 +93,18 @@ Template.board.events({
   'click .square': function (evt) {
     if (game() && game().clock != 0 && cards_selected < 7) { 
     //when you change the last number on this line, change "instructions" in html
-    //if you want change REALLY think about it
+    //if you want to change sth REALLY think about it
+    
+
+    //////////////////////////// WHY have TWO DIVs in the first place????? ///////////////////////////////
     //id might be in this div
     var dom_card_id = evt.target.id;
     var c_id = dom_card_id.substring(5);
+    
     //or might be in parent div
     var p_card_id = evt.target.parentNode.id;
     var pc_id = p_card_id.substring(5);
+    
     //but it wont be in both (ie one will be empty)
     var id = c_id + pc_id;
 
@@ -169,7 +174,8 @@ Template.player.winner = function () {
   return '';
 };
 
-// how total score is added (selected items show their individual scores still but TOTAL is not calculated w/o this section)
+// how total score is added (selected items show their individual scores even w/o this code, 
+// but TOTAL is not calculated w/o this section)
 Template.player.total_score = function () {
   var words = Words.find({game_id: game() && game()._id,
                           player_id: this._id});
@@ -188,8 +194,6 @@ Template.player.random_monster = function () {
 }
 
 Template.player.monster_size = function () {
-
-  //total_score()
   return 'width:'+ '128' + 'px; height:128px';
 }
 
@@ -262,6 +266,7 @@ var round = function () {
 };
 
 
+/* Was not relevant code anymore and therefore I commented it out. 
 var set_selected_positions = function (word) {
   var paths = paths_for_word(game().board, word.toUpperCase());
   var in_a_path = [];
@@ -281,6 +286,7 @@ var set_selected_positions = function (word) {
       Session.set('selected_' + pos, false);
   }
 };
+*/
 
 var clear_selected_positions = function () {
   for (var pos = 0; pos < 16; pos++)

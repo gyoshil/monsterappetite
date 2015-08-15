@@ -16,6 +16,9 @@ Rounds = new Mongo.Collection('rounds');
 var DECK = [
             
             //pairs that are on the pre and post test
+            
+            //MAYBE add TOKENS here frequently to be added to the deck??????
+            
             {card_name:'goldencrisp',calories:147},
             {card_name:'luckycharms',calories:147},
 
@@ -121,6 +124,8 @@ new_board = function () {
   return board;
 };
 
+// I am pretty sure this score_card function is not doing anything. THEN 
+// HOW is the scores gettnig calculated?
 Meteor.methods({
     score_card: function (card_name) {
     //find card name in DECK and get score
@@ -138,6 +143,7 @@ Meteor.methods({
     Words.update(card._id, {$set: {score: score, state: 'good'}});
     */
   },
+  /*
   score_word: function (word_id) {
     check(word_id, String);
     var word = Words.findOne(word_id);
@@ -155,7 +161,8 @@ Meteor.methods({
       Words.update(word._id, {$set: {score: 0, state: 'bad'}});
       return;
     }
-}});
+}*/
+});
 
 
 if (Meteor.isServer) {
