@@ -16,16 +16,13 @@ Rounds = new Mongo.Collection('rounds');
 var DECK = [
             
             //pairs that are on the pre and post test
-            
+            //76 food items in this DECK
             //MAYBE add TOKENS here frequently to be added to the deck??????
             
             {card_name:'goldencrisp',calories:147},
             {card_name:'luckycharms',calories:147},
-
             {card_name:'jujubes',calories:110},
             {card_name: 'trolli_crawlers', calories:110},
-
-
             {card_name:'salsa',calories:10},
             {card_name:'smuckers',calories:50},
             {card_name:'hersheys',calories:60},
@@ -41,15 +38,15 @@ var DECK = [
             {card_name:'nutrigrain_nuts',calories:140},
             {card_name:'soycrisps_cheddar',calories:120},
             {card_name:'ritz_sourcream',calories:130},
-            {card_name:'pumpernickel_pretzels',calories:130},
-            
+            {card_name:'pumpernickel_pretzels',calories:130},     
             {card_name:'nutrigrain_rasberry',calories:140},
             {card_name:'almondcrisps',calories:140},
             {card_name:'honey_cheerios',calories:160},
             {card_name:'breyers_ICsandwich',calories:160},
             {card_name:'rye_chips',calories:160},
             {card_name:'reeses_puffs_cereal',calories:160},
-            {card_name:'hostess_cupcake',calories:180},
+            //the below food card has a grey BG - not a big issue
+            //{card_name:'hostess_cupcake',calories:180},
             {card_name:'hostess_suzyQ',calories:220},
             {card_name:'m&m_ICsandwich',calories:220},
             {card_name:'reeses_bigcup',calories:230},
@@ -67,8 +64,7 @@ var DECK = [
             {card_name:'stacys_pitachips_parmesan',calories:140}, 
             {card_name:'thousand_island',calories:140}, 
             {card_name:'tollhouse_ICsandwich',calories:499}, 
-            {card_name:'smartfood_whitecheddar',calories:160}, 
-            
+            {card_name:'smartfood_whitecheddar',calories:160},             
             {card_name:'cheerios_snackmix',calories:120},  
             {card_name:'pretzel_flatz',calories:120},
             {card_name:'chexmix',calories:130},
@@ -92,7 +88,6 @@ var DECK = [
             {card_name:'goldfish',calories:150},
             {card_name:'zingers',calories:150},
             {card_name:'cheezit',calories:160},
-
             {card_name:'golden_grahams',calories:160},
             {card_name:'tartar_sauce',calories:160},
             {card_name:'honeynut_cheerios_bar',calories:160},
@@ -114,7 +109,8 @@ new_board = function () {
   }
 
   // knuth shuffle
-  // pretty sure un-needed now, doesnt hurt tho
+  // This section displays the food cards on the board for each round. w/o this only monsters appear
+  // on the board in each round. 
   for (i = 15; i > 0; i -= 1) {
     var j = Math.floor(Math.random() * (i + 1));
     var tmp = board[i];
@@ -124,45 +120,12 @@ new_board = function () {
   return board;
 };
 
-// I am pretty sure this score_card function is not doing anything. THEN 
-// HOW is the scores gettnig calculated?
-Meteor.methods({
-    score_card: function (card_name) {
-    //find card name in DECK and get score
-    /*for (var i = DECK.length - 1; i >= 0; i--) {
-      if(DECK[i].card_name == card_name){
-        return DECK[i].calories;
-      }
-    };*/
-
-    /*if (game.clock === 0){
-      return;
-    }
-    var card = Words.findOne(card_id);
-
-    Words.update(card._id, {$set: {score: score, state: 'good'}});
-    */
-  },
-  /*
-  score_word: function (word_id) {
-    check(word_id, String);
-    var word = Words.findOne(word_id);
-    var game = Games.findOne(word.game_id);
-    ////////////////////////////////////////// at this point is it thinking words are the FOOD CARDS????
-    var round = Rounds.findOne(word.round_id); 
-    // client and server can both check that the game has time remaining, and
-    // that the word is at least three chars, isn't already used, and is
-    // possible to make on the board.
-    if (game.clock === 0
-        || !word.word
-        || word.word.length < 3
-        || Words.find({game_id: word.game_id, word: word.word}).count() > 1
-        || paths_for_word(game.board, word.word).length === 0) {
-      Words.update(word._id, {$set: {score: 0, state: 'bad'}});
-      return;
-    }
-}*/
-});
+// I am pretty sure this score_card function is not doing anything. 
+// it has been confirmed that this Meteor function does not do anything. 
+//Meteor.methods({
+//    score_card: function (card_name) {
+//  },
+//});
 
 
 if (Meteor.isServer) {

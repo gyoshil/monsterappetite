@@ -4,10 +4,11 @@ Meteor.methods ({
 
   start_new_game: function () {
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
-    var timeGiven=3;
+    var timeGiven=5;
 
     // create a new game w/ fresh board
     var game_id = Games.insert({board: new_board(),
+                                //new_board is in model.js
                                 clock: timeGiven});
 
 
@@ -42,14 +43,19 @@ Meteor.methods ({
     Players.update({_id: player_id},
                   {$set: {idle: true}});
   },
+  
   new_round: function(player,game_id) {
 
-    var timeGiven=3;  
+    //check if this time actually applies to the NEW ROUND !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!??????????
+    var timeGiven=5;  
     var old_round_id = player.round_id;
     var new_round_n;
 
     //if there is no round for the player (first round)
     //round numbers start at 1
+    
+
+    //check if this is actually working!!!!
     if (old_round_id == null) {
       new_round_n=1;
     }
@@ -57,12 +63,14 @@ Meteor.methods ({
       new_round_n = Rounds.findOne(old_round_id).round_number+1;
     }
     
+
+
     //create the new round and save id for future use
     var new_round_id = Rounds.insert({round_number: new_round_n,
                                       player_id: player._id,
                                       game_id: player.game_id});
     Players.update({_id: player._id},
-                   {$set: {round_id:new_round_id}});
+                   {$set: {round_id: new_round_id}});
 
     //play up to n rounds
     if (new_round_n <=2 ) {
@@ -77,10 +85,19 @@ Meteor.methods ({
   }
 });
 
+
   execute_round = function(player) {
     var game_id = player.game_id; 
 
     // wind down the game clock
+    
+    //weird but i did switch this to 5 and then back to the original 3
+    // AT SOME POINT i must have changed something to allow to click more than 3 food cards in the game!!!
+    // HOW DID THAT HAPPEN?
+
+
+
+    
     var clock = 3;
     var interval = Meteor.setInterval(function () {
       Games.update(game_id, {$set: {clock: clock}});

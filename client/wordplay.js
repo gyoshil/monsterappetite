@@ -1,7 +1,7 @@
 ////////// Main client application logic //////////
 
 //////
-////// lobby template: shows everyone not currently playing, and
+////// LOBBY template: shows everyone not currently playing, and
 ////// offers a button to start a fresh game.
 //////
 
@@ -17,8 +17,8 @@ Template.lobby.waiting = function () {
   return players;
 };
 
-Template.lobby.count = function () {
-  //$ne selects the documents where the value of the field is not equal (i.e. !=) to the specified value. 
+Template.lobby.count = function () { 
+  //$ne selects the documents where the value of the field is NOT EQUAL (i.e. !=) to the specified value. 
   //This includes documents that do not contain the field.
   var players = Players.find({_id: {$ne: Session.get('player_id')},
                               name: {$ne: ''},
@@ -26,6 +26,7 @@ Template.lobby.count = function () {
   return players.count();
 };
 
+//need some interpretation of this function. ??????????????????
 Template.lobby.disabled = function () {
   var me = player();
   if (me && me.name)
@@ -33,6 +34,7 @@ Template.lobby.disabled = function () {
   return 'disabled';
 };
 
+// SOMEHOW the below line, if commented out, disables the "Play solo" button in the start page
 var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
 
 Template.lobby.events({
@@ -45,8 +47,9 @@ Template.lobby.events({
   Meteor.call('start_new_game', function (error, result) {
     if (error) {
       // handle error
-      console.error("you fucked up");
+      console.error("you have made a mistake");
     }  else {
+      //////////////////////////////////// NEW ROUND method is called //////////////////////////////////
        Meteor.call('new_round',player(),result);
     }
   });
@@ -55,7 +58,7 @@ Template.lobby.events({
 
 
 //////
-////// board template: renders the board and the clock given the
+////// BOARD template: renders the board and the clock given the
 ////// current game.  
 //////
 
@@ -84,7 +87,7 @@ Template.board.clock = function () {
   // format into Minute : Seconds like 0:03
   var min = Math.floor(clock / 60);
   var sec = clock % 60;
-  return min + ':' + (sec < 13 ? ('0' + sec) : sec);
+  return min + ':' + (sec < 20 ? ('0' + sec) : sec);
 };
 
 //TODO this is shitty code
@@ -93,11 +96,10 @@ Template.board.events({
   'click .square': function (evt) {
     if (game() && game().clock != 0 && cards_selected < 7) { 
     //when you change the last number on this line, change "instructions" in html
-    //if you want to change sth REALLY think about it
     
-
     //////////////////////////// WHY have TWO DIVs in the first place????? ///////////////////////////////
     //id might be in this div
+    // AND is this id of the food card, player, game? ????????????
     var dom_card_id = evt.target.id;
     var c_id = dom_card_id.substring(5);
     
@@ -114,10 +116,12 @@ Template.board.events({
       
       //GET CARD NAME
       card_name =  game().board[id].card_name;                      
-      round_id=player().round_id;
+      
+      //so WHY is the round_id NULL for every round???????
+      round_id=player().round_id; //I switched the player() to game() and selected food items didnt show up on score board
       console.error(round_id);
 
-      // THIS IS WHERE selected CARDS are shown with image and calories
+      // THIS IS WHERE selected CARDS are shown with image and calories 
       var card_id = Words.insert({player_id: Session.get('player_id'),
                                 game_id: game() && game()._id,
                                 round_id: round_id,
@@ -125,9 +129,9 @@ Template.board.events({
                                 img:'imgs/'+card_name+'.jpeg',
                                 score: game().board[id].calories,
                                 state: 'good'});
-
-      Meteor.call('score_card', card_id);
-      cards_selected+=1;
+      //apparently at NO POINT is the score_card method doing anything. NO ROLE at all. 
+      //Meteor.call('score_card', card_id);
+      //cards_selected+=1;
     }
   }
   }
@@ -148,18 +152,24 @@ Template.postgame.events({
     clear_selected_positions();
     cards_selected = 0;
     document.getElementById('postgame').style.visibility = 'hidden';
+    
+    //this pop up window comes up after "NEXT ROUND" is clicked
+    //MAYBE have this only after the 10 or so practice rounds before the "TEST" round. 
+    //window.alert("Next round will be a test to see if you choose the highest three");
+
     //multiple ROUNDS fxn is called here
     Meteor.call('new_round',player());
   }
 });
 
 //////
-////// scores shows everyone's score and list of selected food cards.
+////// 'SCORES' shows everyone's score and list of selected food cards.
 //////
 
 
 //This part shows the entire section that lists scores, selected items, avatar
 Template.scores.show = function () {
+  // is !! and != the same meaning?
   return !!game();
 };
 
@@ -199,6 +209,7 @@ Template.player.monster_size = function () {
 
 Template.words.words = function ( ) {
   round_id = player().round_id;
+  
   //console.error(round_id);
   return Words.find({game_id: game() && game()._id,
                     player_id: this._id,
@@ -217,11 +228,14 @@ Meteor.startup(function () {
   // Session.get('player_id') will return a real id. We should check for
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
+  
   var player_id = Players.insert({game_id:null,name: '', idle: false, round_id: null, avatar: random(6)+1});
   Session.set('player_id', player_id);
 
+  //then how to allocate a NEW ROUND ID????
+
   // subscribe to all the players, the game i'm in, and all
-  // the words in that game.
+  // the words(i.e., food cards) in that game.
   Deps.autorun(function () {
     Meteor.subscribe('players');
 
@@ -229,6 +243,7 @@ Meteor.startup(function () {
       var me = player();
       if (me && me.game_id) {
         Meteor.subscribe('games', me.game_id);
+        //here 'words' refers to food cards
         Meteor.subscribe('words', me.game_id, Session.get('player_id'));
       }
     }
@@ -260,33 +275,11 @@ var game = function () {
   return me && me.game_id && Games.findOne(me.game_id);
 };
 
+//when this section is deleted there is no place to enter name and start the game
 var round = function () {
   var me = player();
   return me && me.round_id && Rounds.findOne(me.round_id);
 };
-
-
-/* Was not relevant code anymore and therefore I commented it out. 
-var set_selected_positions = function (word) {
-  var paths = paths_for_word(game().board, word.toUpperCase());
-  var in_a_path = [];
-  var last_in_a_path = [];
-
-  for (var i = 0; i < paths.length; i++) {
-    in_a_path = in_a_path.concat(paths[i]);
-    last_in_a_path.push(paths[i].slice(-1)[0]);
-  }
-
-  for (var pos = 0; pos < 16; pos++) {
-    if (_.indexOf(last_in_a_path, pos) !== -1)
-      Session.set('selected_' + pos, 'last_in_path');
-    else if (_.indexOf(in_a_path, pos) !== -1)
-      Session.set('selected_' + pos, 'in_path');
-    else
-      Session.set('selected_' + pos, false);
-  }
-};
-*/
 
 var clear_selected_positions = function () {
   for (var pos = 0; pos < 16; pos++)
