@@ -94,7 +94,7 @@ Template.board.clock = function () {
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
-    if (game() && game().clock != 0 && cards_selected < 7) { 
+    if (game() && game().clock != 0 && cards_selected < 3) { 
     //when you change the last number on this line, change "instructions" in html
     
     //////////////////////////// WHY have TWO DIVs in the first place????? ///////////////////////////////
@@ -130,8 +130,9 @@ Template.board.events({
                                 score: game().board[id].calories,
                                 state: 'good'});
       //apparently at NO POINT is the score_card method doing anything. NO ROLE at all. 
-      //Meteor.call('score_card', card_id);
-      //cards_selected+=1;
+      Meteor.call('score_card', card_id);
+      //this is the one that limited me to select 3 cards. 
+      cards_selected+=1;
     }
   }
   }
