@@ -1,9 +1,9 @@
 require("./words.js");
 
-var BOGGLE_DICE = ['pchoas', 'oattow', 'lrytte', 'vthrwe',
-                   'eghwne', 'seotis', 'anaeeg', 'idsytt',
-                   'mtoicu', 'afpkfs', 'xlderi', 'ensieu',
-                   'yldevr', 'znrnhl', 'nmiqhu', 'obbaoj'];
+//var BOGGLE_DICE = ['pchoas', 'oattow', 'lrytte', 'vthrwe',
+  //                 'eghwne', 'seotis', 'anaeeg', 'idsytt',
+    //               'mtoicu', 'afpkfs', 'xlderi', 'ensieu',
+      //             'yldevr', 'znrnhl', 'nmiqhu', 'obbaoj'];
 
 var FLAGS = [0x1, 0x2, 0x4, 0x8,
              0x10, 0x20, 0x40, 0x80,

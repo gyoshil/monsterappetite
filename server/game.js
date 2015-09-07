@@ -1,10 +1,10 @@
-////////// Server only logic //////////
+///////////////////////////////// Server only logic ///////////////////////////////////
 
 Meteor.methods ({
 
   start_new_game: function () {
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
-    var timeGiven=5;
+    var timeGiven=3;
 
     // create a new game w/ fresh board
     var game_id = Games.insert({board: new_board(),
@@ -46,8 +46,10 @@ Meteor.methods ({
   
   new_round: function(player,game_id) {
 
-    //check if this time actually applies to the NEW ROUND !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!??????????
-    var timeGiven=5;  
+    //check if this time actually applies to the NEW ROUND !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // currently it is set at THREE SECONDS
+
+    var timeGiven=3;  
     var old_round_id = player.round_id;
     var new_round_n;
 
@@ -89,15 +91,8 @@ Meteor.methods ({
   execute_round = function(player) {
     var game_id = player.game_id; 
 
-    // wind down the game clock
-    
-    //weird but i did switch this to 5 and then back to the original 3
-    // AT SOME POINT i must have changed something to allow to click more than 3 food cards in the game!!!
-    // HOW DID THAT HAPPEN?
-
-
-
-    
+    // wind down the game CLOCK
+    ///////////// this is the clock that actually CHANGES THE COUNT DOWN TIME ///////////////////
     var clock = 3;
     var interval = Meteor.setInterval(function () {
       Games.update(game_id, {$set: {clock: clock}});

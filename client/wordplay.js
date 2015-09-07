@@ -26,7 +26,7 @@ Template.lobby.count = function () {
   return players.count();
 };
 
-//need some interpretation of this function. ??????????????????
+
 Template.lobby.disabled = function () {
   var me = player();
   if (me && me.name)
@@ -34,7 +34,7 @@ Template.lobby.disabled = function () {
   return 'disabled';
 };
 
-// SOMEHOW the below line, if commented out, disables the "Play solo" button in the start page
+
 var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
 
 Template.lobby.events({
@@ -97,9 +97,8 @@ Template.board.events({
     if (game() && game().clock != 0 && cards_selected < 3) { 
     //when you change the last number on this line, change "instructions" in html
     
-    //////////////////////////// WHY have TWO DIVs in the first place????? ///////////////////////////////
-    //id might be in this div
-    // AND is this id of the food card, player, game? ????????????
+    //////////////////////////// this is finding the food card id in a complex way //////////
+    // card id might be in this div
     var dom_card_id = evt.target.id;
     var c_id = dom_card_id.substring(5);
     
@@ -129,7 +128,6 @@ Template.board.events({
                                 img:'imgs/'+card_name+'.jpeg',
                                 score: game().board[id].calories,
                                 state: 'good'});
-      //apparently at NO POINT is the score_card method doing anything. NO ROLE at all. 
       Meteor.call('score_card', card_id);
       //this is the one that limited me to select 3 cards. 
       cards_selected+=1;
@@ -170,7 +168,7 @@ Template.postgame.events({
 
 //This part shows the entire section that lists scores, selected items, avatar
 Template.scores.show = function () {
-  // is !! and != the same meaning?
+  // !! is turning the object into a booleyan
   return !!game();
 };
 

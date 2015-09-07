@@ -128,6 +128,7 @@ new_board = function () {
 //});
 
 
+
 if (Meteor.isServer) {
   // publish all the non-idle players.
   Meteor.publish('players', function () {
@@ -142,6 +143,7 @@ if (Meteor.isServer) {
 
   // publish all my words and opponents' words that the server has
   // scored as good.
+  /////////////////////////////////////////////////////////////////// WORDS ////////////////////////////////////////
   Meteor.publish('words', function (game_id, player_id) {
     check(game_id, String);
     check(player_id, String);
