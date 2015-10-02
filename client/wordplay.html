@@ -1,5 +1,5 @@
 <template name="page">
-  <div id="maiin" class="container-fluid">
+  <div id="main" class="container-fluid">
     <div class="row">
 
     <div class="col-md-6">
@@ -24,7 +24,7 @@
     <!---INSTRUCTIONS-->
     <p align="center"> <em> You have 5 seconds to choose the <strong> top 3 highest </strong> caloric food items </em> </p>
   </div>
-  <div id="board">
+  <div id="board" style="background-color:{{bkgd}}">
     <div>
       <div id="card_0" class="square {{ selected 0 }}">
         <img src={{ square 0 }} style={{squaresize}}>

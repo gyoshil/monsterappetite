@@ -8,6 +8,8 @@ should be ok for this project, but if needed look at iron router`
 also, there is no import function is js. wtf. really?
 
 we are using iron router now. idk if that is saved somewhere inside the setting of meteor
+GREAT, iron router breaks error reporting. this is such a shit infrastructure...
+so if you get a routing error, even tho you are pretty sure there should be a page there, you might have code that doesnt compile
 
 # issues
 

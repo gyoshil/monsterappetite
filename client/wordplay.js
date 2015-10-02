@@ -85,6 +85,11 @@ Template.board.selected = function (i) {
   return Session.get('selected_' + i);
 };
 
+Template.board.bkgd = function () {
+  var color = "";
+  return "green"
+};
+
 Template.board.clock = function () {
   var clock = game() && game().clock;
 
