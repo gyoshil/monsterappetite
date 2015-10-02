@@ -1,3 +1,10 @@
+Router.route('/datapage',{
+  template: 'datapage'
+});
+
+Router.configure({
+    layoutTemplate: 'main'
+});
 
 Template.datapage.helpers({
 

@@ -6,3 +6,5 @@
 standard-app-packages
 insecure
 jquery
+standard-minifiers
+iron:router

@@ -1,12 +1,19 @@
+# intrsutction
 
-# Specific tasks that I will do 
+meteor run to start the app locally
 
-01. Learn GitHub better
-02. Replace letters with food names (for now) - later food images
-03. Make sure typed in food names are recognized by the system
-04. Change the time limit of gameplay
-05. Display calories of food items after timeover (flipped food cards on dice)
-06. Multiplayer ability?
+apparently anything in client with ANY valid extension will be rendered on ANY path not in public.
+Why it works this way is an absolute mystery, there is no default routing in meteor? 
+should be ok for this project, but if needed look at iron router`
+also, there is no import function is js. wtf. really?
+
+
+# issues
+
+build some kind of data analysis, dumping mongo is a bit hard, and will require working in an unfamiliar environment. Could dump the whoel thing to a csv, but im not sure that is easier than working in js. maybe one pass with js, then generate a csv for R (or whatever)
+
+so, we will use iron router to make an analysis page
+
 07. How are Tokens going to be incorporated? - food for thought
     - maybe some of the dice can become Tokens at times?
     - instructions should be clear on when it is time to take Tokens (or it is up to 

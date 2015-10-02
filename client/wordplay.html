@@ -1,23 +1,18 @@
-<head>
-  <title>CALORIE PLAY!</title>
-</head>
-
-<body>
-  {{> page}}
-
-</body>
-
 <template name="page">
-  <div id="main">
-    <div id="left">
+  <div id="maiin" class="container-fluid">
+    <div class="row">
+
+    <div class="col-md-6">
       {{> board }}
     </div>
-    <div id="right">
+    <div class="col-md-6">
       {{> lobby }}
       <!---{{> scratchpad }} -->
       {{> postgame }}
       {{> scores }}
     </div>
+    </div>
+
   </div>
 </template>
 

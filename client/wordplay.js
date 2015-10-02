@@ -4,6 +4,13 @@
 ////// LOBBY template: shows everyone not currently playing, and
 ////// offers a button to start a fresh game.
 //////
+Router.route('/',{
+  template: 'page'
+});
+
+Router.configure({
+    layoutTemplate: 'main'
+});
 
 Template.lobby.show = function () {
   // only show lobby if we're not in a game
@@ -228,6 +235,8 @@ Meteor.startup(function () {
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
   
+  // This actually ok for us. During data analysis we cansimply query on name rathr than id
+
   var player_id = Players.insert({game_id:null,name: '', idle: false, round_id: null, avatar: random(6)+1});
   Session.set('player_id', player_id);
 
