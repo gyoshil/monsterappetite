@@ -7,13 +7,17 @@ Why it works this way is an absolute mystery, there is no default routing in met
 should be ok for this project, but if needed look at iron router`
 also, there is no import function is js. wtf. really?
 
+we are using iron router now. idk if that is saved somewhere inside the setting of meteor
 
 # issues
 
+ok time to restructure the database. i think we want each player to have all of its data.
+actually this is a tough problem. i would like to keep the database compatible with multiplayer, but it needs serious simplification.
+maybe games and players are collections? then rounds are part of games? hmm, very tough call
+
 build some kind of data analysis, dumping mongo is a bit hard, and will require working in an unfamiliar environment. Could dump the whoel thing to a csv, but im not sure that is easier than working in js. maybe one pass with js, then generate a csv for R (or whatever)
 
-so, we will use iron router to make an analysis page
-
+Fuck, adding the user everytime is a bit annoying. I guess we can filiter based on existence of name
 07. How are Tokens going to be incorporated? - food for thought
     - maybe some of the dice can become Tokens at times?
     - instructions should be clear on when it is time to take Tokens (or it is up to 
