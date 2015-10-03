@@ -14,7 +14,7 @@ Router.configure({
 
 Template.lobby.show = function () {
   // only show lobby if we're not in a game
-  return !game() && !round();
+  return !game();
 };
 
 Template.lobby.waiting = function () {
@@ -57,7 +57,7 @@ Template.lobby.events({
       console.error("you have made a mistake");
     }  else {
       //////////////////////////////////// NEW ROUND method is called //////////////////////////////////
-       Meteor.call('new_round',player(),result);
+      Meteor.call('new_round',player(),result);
     }
   });
   }
@@ -72,8 +72,12 @@ Template.lobby.events({
 
 Template.board.square = function (i) {
   var g = game();
-  var back_of_card_pic = 'imgs/monster'+(random(6)+1)+'.svg';
-  return g && g.board && 'imgs/'+g.board[i].card_name+'.jpeg' || back_of_card_pic;
+  var display_card = '';
+  if (g) {
+      display_card = 'imgs/'+g.rounds[g.rounds.length-1][i].card_name+'.jpeg';
+    }
+  else display_card = 'imgs/monster'+(random(6)+1)+'.svg';
+  return display_card
 };
 
 //this is where I enlarged the size of the pics on the board and FOOD cards
@@ -86,8 +90,18 @@ Template.board.selected = function (i) {
 };
 
 Template.board.bkgd = function () {
-  var color = "";
-  return "green"
+  var c = game().rounds.length%3;
+  if (c==0){
+    return "green";
+  };
+  if (c==1) {
+    return "blue";
+  };
+  if (c==2) {
+    return "pink";
+  };
+  return '';
+
 };
 
 Template.board.clock = function () {
@@ -102,14 +116,13 @@ Template.board.clock = function () {
   return min + ':' + (sec < 20 ? ('0' + sec) : sec);
 };
 
-//TODO this is shitty code
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
     if (game() && game().clock != 0 && cards_selected < 3) { 
     //when you change the last number on this line, change "instructions" in html
     
-    //////////////////////////// this is finding the food card id in a complex way //////////
+    /////////////// this is finding the food card id in a complex way //////////
     // card id might be in this div
     var dom_card_id = evt.target.id;
     var c_id = dom_card_id.substring(5);
@@ -126,22 +139,21 @@ Template.board.events({
       Session.set('selected_' + id, 'last_in_path');
       
       //GET CARD NAME
-      card_name =  game().board[id].card_name;                      
+      var g = game();
+      var card_name = g.rounds[g.rounds.length-1][id].card_name;                      
       
-      //so WHY is the round_id NULL for every round???????
-      round_id=player().round_id; //I switched the player() to game() and selected food items didnt show up on score board
-      console.error(round_id);
+      //TODO - merge and extract these, need currying, does js have this?
+      var matchesC = function(e,i,l){
+        return (e.card_name == card_name);
+      };
 
-      // THIS IS WHERE selected CARDS are shown with image and calories 
-      var card_id = Words.insert({player_id: Session.get('player_id'),
-                                game_id: game() && game()._id,
-                                round_id: round_id,
-                                word: card_name, 
-                                img:'imgs/'+card_name+'.jpeg',
-                                score: game().board[id].calories,
-                                state: 'good'});
-      Meteor.call('score_card', card_id);
-      //this is the one that limited me to select 3 cards. 
+      new_card = DECK.find(matchesC id);
+
+      all_players = g.players;
+      all_players.find(matchesP).card_set.push(new_card);
+      //can't set fields of fields. can only change top level fields of mongo
+      Games.update({_id:g._id}, {$set: {players: all_players}}); 
+      //console.error(g.players.find(matchesP).card_set);
       cards_selected+=1;
     }
   }
@@ -169,7 +181,7 @@ Template.postgame.events({
     //window.alert("Next round will be a test to see if you choose the highest three");
 
     //multiple ROUNDS fxn is called here
-    Meteor.call('new_round',player());
+    Meteor.call('new_round',player(),game()._id);
   }
 });
 
@@ -179,53 +191,55 @@ Template.postgame.events({
 
 
 //This part shows the entire section that lists scores, selected items, avatar
-Template.scores.show = function () {
-  // !! is turning the object into a booleyan
-  return !!game();
-};
+Template.scores.helpers({
+  show : function () {
+    // !! is turning the object into a boolean
+    return !!game();
+  },
+  players : function () {
+    return game().players;
+  }
+});
 
-Template.scores.players = function () {
-  return game() && game().players;
-};
-
-Template.player.winner = function () {
-  var g = game();
+Template.player.helpers({
+  winner : function () {
+  /*var g = game();
   if (g.winners && _.include(g.winners, this._id))
-    return 'winner';
-  return '';
-};
+    return 'winner';*/
+    return '';
+  },
 
-// how total score is added (selected items show their individual scores even w/o this code, 
-// but TOTAL is not calculated w/o this section)
-Template.player.total_score = function () {
-  var words = Words.find({game_id: game() && game()._id,
-                          player_id: this._id});
-  var score = 0;
-  words.forEach(function (word) {
-    if (word.score)
-      score += word.score;
-  });
-  return score;
-};
+  // how total score is added (selected items show their individual scores even w/o this code, 
+  // but TOTAL is not calculated w/o this section)
+  total_score : function () {
 
-//this 'updates' the avatar id every second
-//not good, but works
-Template.player.random_monster = function () {
+    var total_score = 0;
+    var addScores = function(e,i,l) {
+      total_score += e.calories;
+      return '';
+    };
+
+    var card_set = game().players.find(matchesP).card_set;
+    card_set.forEach(addScores);
+
+    return total_score;
+  },
+
+  //this 'updates' the avatar id every second
+  //not good, but works
+  random_monster : function () {
     return 'imgs/monster'+Players.findOne(this._id).avatar+'.svg';
-}
+  },
 
-Template.player.monster_size = function () {
-  return 'width:'+ '128' + 'px; height:128px';
-}
+  monster_size : function () {
+    return 'width:'+ '128' + 'px; height:128px';
+  },
+  cards : function() {
+    g = game();
+    return g.players.find(matchesP).card_set;
+  }
+});
 
-Template.words.words = function ( ) {
-  round_id = player().round_id;
-  
-  //console.error(round_id);
-  return Words.find({game_id: game() && game()._id,
-                    player_id: this._id,
-                    round_id: round_id});
-};
 
 
 //////
@@ -242,7 +256,7 @@ Meteor.startup(function () {
   
   // This actually ok for us. During data analysis we cansimply query on name rathr than id
 
-  var player_id = Players.insert({game_id:null,name: '', idle: false, round_id: null, avatar: random(6)+1});
+  var player_id = Players.insert({game_id:null,name: '', idle: false, avatar: random(6)+1, performance:[]});
   Session.set('player_id', player_id);
 
   //then how to allocate a NEW ROUND ID????
@@ -256,8 +270,7 @@ Meteor.startup(function () {
       var me = player();
       if (me && me.game_id) {
         Meteor.subscribe('games', me.game_id);
-        //here 'words' refers to food cards
-        Meteor.subscribe('words', me.game_id, Session.get('player_id'));
+        Meteor.subscribe('cards', me.game_id, Session.get('player_id'));
       }
     }
   });
@@ -279,19 +292,18 @@ Meteor.startup(function () {
 ////// Utility functions
 //////
 
+var matchesP = function(e,i,l){
+  return (e._id == player()._id);
+};
+
 var player = function () {
   return Players.findOne(Session.get('player_id'));
 };
 
 var game = function () {
   var me = player();
-  return me && me.game_id && Games.findOne(me.game_id);
-};
-
-//when this section is deleted there is no place to enter name and start the game
-var round = function () {
-  var me = player();
-  return me && me.round_id && Rounds.findOne(me.round_id);
+  var g = Games.findOne(me.game_id);
+  return g;
 };
 
 var clear_selected_positions = function () {

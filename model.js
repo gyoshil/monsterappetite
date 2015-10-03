@@ -1,19 +1,29 @@
 ////////// Shared code (client and server) //////////
 
 Games = new Mongo.Collection('games');
-// { board: ['A','I',...], clock: 60,
-//   players: [{player_id, name}], winners: [player_id] }
-
-Words = new Mongo.Collection('words');
-// {player_id: 10, game_id: 123, word: 'hello', state: 'good', score: 4}
+/*  { clock: Int 
+    , players: [{player_id : Int, cards : [cards]}]
+    , rounds: [ [card] ] //the current round is the last in this list
+    }
+   */
 
 Players = new Mongo.Collection('players');
-// {name: String, round_id: Int, avater: Int, game_id: Int}
+/* {  name: String
+    , avatar: Int
+    , game_id: Int //for now, a player can only exist for a single game. a new user is created everytime we go to lobby.
+    , performance : [Double] //what % of possible pts did they get for every round
+    }
+*/
 
-Rounds = new Mongo.Collection('rounds');
+//Rounds = new Mongo.Collection('rounds');
 // {player_id: 10, game_id: 123, word: 'hello', state: 'good', score: 10}
 
-var DECK = [
+//Cards = new Mongo.Collection('cards');
+// {player_id: 10, game_id: 123, word: 'hello', state: 'good', score: 4}
+
+
+//these things go into a board
+DECK = [
             
             //pairs that are on the pre and post test
             //76 food items in this DECK
@@ -120,14 +130,16 @@ new_board = function () {
   return board;
 };
 
-// I am pretty sure this score_card function is not doing anything. 
-// it has been confirmed that this Meteor function does not do anything. 
-//Meteor.methods({
-//    score_card: function (card_name) {
-//  },
-//});
-
-
+best_possible_score = function(board) {
+  var best = 0;
+  board.sort(function(a,b){
+    a.calories > b.calories;
+  });
+  for (var i = 3; i >= 0; i--) {
+    best+=board[i].calories;
+  };
+  return best;
+};
 
 if (Meteor.isServer) {
   // publish all the non-idle players.
@@ -144,10 +156,10 @@ if (Meteor.isServer) {
   // publish all my words and opponents' words that the server has
   // scored as good.
   /////////////////////////////////////////////////////////////////// WORDS ////////////////////////////////////////
-  Meteor.publish('words', function (game_id, player_id) {
+  Meteor.publish('cards', function (game_id, player_id) {
     check(game_id, String);
     check(player_id, String);
-    return Words.find({$or: [{game_id: game_id, state: 'good'},
+    return Cards.find({$or: [{game_id: game_id, state: 'good'},
                              {player_id: player_id}]});
   });
 }

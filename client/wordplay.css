@@ -168,7 +168,7 @@ button:active {
     float: right;
 }
 
-#scores .word {
+#scores .card {
     float: left;
     font-size: 3.25em;
     padding: 0.25em;
@@ -176,18 +176,18 @@ button:active {
     border: 1px solid #030;
 }
 
-#scores .word.good {
+#scores .card.good {
     background-color: white;
 }
 
-#scores .word.bad {
+#scores .card.bad {
     text-decoration: line-through;
 }
 
-#scores .word span.score {
+#scores .card span.score {
     width: 1em;
 }
 
-#scores .word.bad span.score {
+#scores .card.bad span.score {
     background-image: 'circle-ball-dark-antialiased.gif';
 }

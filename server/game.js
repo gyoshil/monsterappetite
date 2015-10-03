@@ -6,9 +6,8 @@ Meteor.methods ({
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
     var timeGiven=3;
 
-    // create a new game w/ fresh board
-    var game_id = Games.insert({board: new_board(),
-                                //new_board is in model.js
+    // create a new game w/ no rounds and a blank board
+    var game_id = Games.insert({rounds: [],
                                 clock: timeGiven});
 
 
@@ -22,12 +21,19 @@ Meteor.methods ({
 
     var p = Players.find({game_id: game_id},
                          {fields: {_id: true, name: true}}).fetch();
-    Games.update({_id: game_id}, {$set: {players: p}});
 
-    var pl = Players.findOne({game_id: game_id, idle: false, name: {$ne: ''}});
-    console.error("starting game for...\n "+JSON.stringify(pl,null,4));
+    var p_game_data = p.map(function(one_p,i,l){
+      return {_id:one_p._id, name:one_p.name, card_set:[]}
+    })
+    //TODO add card_set to players, then add to game
+    Games.update({_id: game_id}, {$set: {players: p_game_data}});
 
-    execute_round(game_id);
+    //debug lines
+    //var pl = Games.findOne({_id: game_id});
+    //console.error("starting game with...\n "+JSON.stringify(pl,null,4));
+    //console.error(pl.rounds[pl.rounds.length-1][0]);
+
+    //execute_round(game_id);
     return game_id;
   },
   //this must be the part that keeps or chaches the players to show multiple players
@@ -46,82 +52,61 @@ Meteor.methods ({
   
   new_round: function(player,game_id) {
 
-    //check if this time actually applies to the NEW ROUND !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // currently it is set at THREE SECONDS
-
-    var timeGiven=3;  
-    var old_round_id = player.round_id;
-    var new_round_n;
-
-    //if there is no round for the player (first round)
-    //round numbers start at 1
-    
-
-    //check if this is actually working!!!!
-    if (old_round_id == null) {
-      new_round_n=1;
-    }
-    else{
-      new_round_n = Rounds.findOne(old_round_id).round_number+1;
-    }
-    
-
-
-    //create the new round and save id for future use
-    var new_round_id = Rounds.insert({round_number: new_round_n,
-                                      player_id: player._id,
-                                      game_id: player.game_id});
-    Players.update({_id: player._id},
-                   {$set: {round_id: new_round_id}});
-
+    var g = Games.findOne(game_id);
     //play up to n rounds
-    if (new_round_n <=2 ) {
-      Games.update({_id: player.game_id},
-                   {$set: {board: new_board()}});
-      execute_round(player);
+    if (g.rounds.length <=2 ) {
+      new_round_set = g.rounds;//.push() returns new length
+      new_round_set.push(new_board());
+      Games.update({_id: game_id},
+                   {$set: {rounds: new_round_set}});
+      execute_round(player,game_id);
     }
 
-    else{
+    else{//when all the rounds are over... kill the player?
+      console.error("finsihed the game, but no code here");
       Players.update(player._id, {$set: {game_id: null, round_id:null}});
     }
+
   }
 });
 
 
-  execute_round = function(player) {
-    var game_id = player.game_id; 
 
-    // wind down the game CLOCK
-    ///////////// this is the clock that actually CHANGES THE COUNT DOWN TIME ///////////////////
-    var clock = 3;
-    var interval = Meteor.setInterval(function () {
-      Games.update(game_id, {$set: {clock: clock}});
-      // end of game
-      if (clock === 0) {
-        // stop the clock
-        Meteor.clearInterval(interval);
-        // declare zero or more winners
-        var scores = {};
-        Words.find({game_id: game_id}).forEach(function (word) {
-          if (!scores[word.player_id])
-            scores[word.player_id] = 0;
-          scores[word.player_id] += word.score;
-        });
-        var high_score = _.max(scores);
-        var winners = [];
-        _.each(scores, function (score, player_id) {
-          if (score === high_score)
-            winners.push(player_id);
-        });
-        Games.update(game_id, {$set: {winners: winners}});
-        //if (round==2) {
-        //   Players.update(player._id, {$set: {game_id: null}});
-        //};
-      }
-      clock -= 1;
-    }, 1000);
+execute_round = function(player,game_id) {
 
-  }
+  // wind down the game CLOCK
+  var clock = 3;
+  var interval = Meteor.setInterval(function () {
+    Games.update({_id: game_id}, {$set: {clock: clock}});
+    // end of game
+    if (clock === 0) {
+      // stop the clock
+      Meteor.clearInterval(interval);
+      //when the clock stops, record the players performance data for easy retrival later
+      var actual_score = 0;//this needs to be actual score ONLY for a single round
+      var addScores = function(e,i,l) {
+        actual_score += e.calories;
+        return '';
+      };
+      var matchesP = function(e,i,l){
+        return (e._id == player._id);
+      };
+      g = Games.findOne({_id : game_id});
+      var card_set = g.players.find(matchesP).card_set;
+      card_set.forEach(addScores);
+
+      r = Games.findOne({_id: game_id}).rounds;   
+      perf = actual_score/best_possible_score(r[r.length-1]);
+
+      Players.update({_id:player._id}, {$push: {performance:perf}});
+
+      // declare zero or more winners
+
+    };
+    clock -= 1;
+  }, 1000);
+
+}
 
   Meteor.setInterval(function () {
   var now = (new Date()).getTime();

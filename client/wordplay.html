@@ -7,7 +7,6 @@
     </div>
     <div class="col-md-6">
       {{> lobby }}
-      <!---{{> scratchpad }} -->
       {{> postgame }}
       {{> scores }}
     </div>
@@ -153,20 +152,15 @@
         <span class="winner_text">WINNER</span>
       {{/if}}
     </div>
-    {{> words}}
+    {{#each cards}}
+      {{> card}}
+    {{/each}}
   </div>
 </template>
 
 <!-- Somehow this helps display monsters, food cards, the user name entering box, etc. -->
-<template name="words">
-  <div class="words">
-    {{#each words}}
-    <div id="word_{{_id}}" class="word {{state}}">
-      <span class="score">
-        {{score}}
-      </span>
-      <img src="{{img}}" height="146px" width="150px">
-    </div>
-    {{/each}}
+<template name="card">
+  <div class="cards">
+    <img src="imgs/{{card_name}}.jpeg" height="146px" width="150px">
   </div>
 </template>
