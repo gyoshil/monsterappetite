@@ -155,11 +155,10 @@ if (Meteor.isServer) {
 
   // publish all my words and opponents' words that the server has
   // scored as good.
-  /////////////////////////////////////////////////////////////////// WORDS ////////////////////////////////////////
-  Meteor.publish('cards', function (game_id, player_id) {
+/*  Meteor.publish('cards', function (game_id, player_id) {
     check(game_id, String);
     check(player_id, String);
     return Cards.find({$or: [{game_id: game_id, state: 'good'},
                              {player_id: player_id}]});
-  });
+  });*/
 }

@@ -4,7 +4,7 @@
 ////// LOBBY template: shows everyone not currently playing, and
 ////// offers a button to start a fresh game.
 //////
-Router.route('/',{
+Router.route('/game',{
   template: 'page'
 });
 
@@ -119,6 +119,7 @@ Template.board.clock = function () {
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
+    console.error("clicked");
     if (game() && game().clock != 0 && cards_selected < 3) { 
     //when you change the last number on this line, change "instructions" in html
     
@@ -147,10 +148,12 @@ Template.board.events({
         return (e.card_name == card_name);
       };
 
-      new_card = DECK.find(matchesC id);
+      new_card = DECK.find(matchesC);
+      console.error("adding"+new_card);
 
       all_players = g.players;
       all_players.find(matchesP).card_set.push(new_card);
+      
       //can't set fields of fields. can only change top level fields of mongo
       Games.update({_id:g._id}, {$set: {players: all_players}}); 
       //console.error(g.players.find(matchesP).card_set);
