@@ -21,7 +21,7 @@ Players = new Mongo.Collection('players');
 //Cards = new Mongo.Collection('cards');
 // {player_id: 10, game_id: 123, word: 'hello', state: 'good', score: 4}
 
-
+//DECK2 = readAsJSON(foodDatabase.csv)
 //these things go into a board
 DECK = [
             

@@ -90,14 +90,14 @@ Template.board.selected = function (i) {
 };
 
 Template.board.bkgd = function () {
-  var c = game().rounds.length%3;
-  if (c==0){
+  var c = game().rounds.length % 3;
+  if (c==1){//morning
     return "green";
   };
-  if (c==1) {
+  if (c==2) {//afternoon
     return "blue";
   };
-  if (c==2) {
+  if (c==0) {//evening
     return "pink";
   };
   return '';
@@ -119,7 +119,6 @@ Template.board.clock = function () {
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
-    console.error("clicked");
     if (game() && game().clock != 0 && cards_selected < 3) { 
     //when you change the last number on this line, change "instructions" in html
     
@@ -144,12 +143,12 @@ Template.board.events({
       var card_name = g.rounds[g.rounds.length-1][id].card_name;                      
       
       //TODO - merge and extract these, need currying, does js have this?
+      //return true or false, if the item matches the car_name variable
       var matchesC = function(e,i,l){
-        return (e.card_name == card_name);
+        return (e.card_name == card_name)
       };
 
       new_card = DECK.find(matchesC);
-      console.error("adding"+new_card);
 
       all_players = g.players;
       all_players.find(matchesP).card_set.push(new_card);
@@ -206,9 +205,10 @@ Template.scores.helpers({
 
 Template.player.helpers({
   winner : function () {
-  /*var g = game();
+  //the following winner function was brought back from being commented out and nothing happens. Winner still doesn't show up. 
+  var g = game();
   if (g.winners && _.include(g.winners, this._id))
-    return 'winner';*/
+    return 'winner';
     return '';
   },
 
@@ -231,11 +231,12 @@ Template.player.helpers({
   //this 'updates' the avatar id every second
   //not good, but works
   random_monster : function () {
-    return 'imgs/monster'+Players.findOne(this._id).avatar+'.svg';
+    return 'imgs/monster'+Players.findOne(this._id).avatar+'.svg ';
   },
 
   monster_size : function () {
-    return 'width:'+ '128' + 'px; height:128px';
+    //return 'width:'+ '128' + 'px; height:128px';
+    return 'width:'+ '250' + 'px; height:250px';
   },
   cards : function() {
     g = game();

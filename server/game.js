@@ -4,7 +4,7 @@ Meteor.methods ({
 
   start_new_game: function () {
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
-    var timeGiven=3;
+    var timeGiven=5;
 
     // create a new game w/ no rounds and a blank board
     var game_id = Games.insert({rounds: [],
@@ -75,7 +75,7 @@ Meteor.methods ({
 execute_round = function(player,game_id) {
 
   // wind down the game CLOCK
-  var clock = 3;
+  var clock = 5;
   var interval = Meteor.setInterval(function () {
     Games.update({_id: game_id}, {$set: {clock: clock}});
     // end of game

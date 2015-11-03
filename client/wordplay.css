@@ -50,6 +50,7 @@ button:active {
 }
 
 /*the right side stuff such as the scoreboard in game*/
+/*changing the width percentage up did not change the size of the right box area*/
 #right {
     float: right;
     width: 50%;
@@ -137,8 +138,9 @@ button:active {
 }
 
 #scores {
+    /*increased width from 70 to 100% and left side scoring board size increased in game*/
     float: right;
-    width: 70%;
+    width: 100%;
     background-color: #eeeee8;
     border: 5px solid black;
     padding: 0.5em;
@@ -151,7 +153,8 @@ button:active {
 
 #scores .header {
     /*size was originally 1.25em. NEED this to be a different color*/
-    font-size: 1.25em;
+    /*this is the one that increases sizes of the PLAYER's name and TOTAL SCORE*/
+    font-size: 4.25em;
 }
 
 #scores .unnamed {
