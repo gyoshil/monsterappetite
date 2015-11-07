@@ -112,13 +112,17 @@
 
 <template name="postgame">
   <div>
-  {{#if show}}
+  {{#if inGame}}
     <div id="postgame">
-
-      {{#if finished}}
+      {{onRedraw}}
+      {{#if finishedGame}}
         <button name="backtolobby" class="lobby">Return to Lobby</button>
       {{else}}
-        <button name="backtolobby" class="lobby">Next Round</button>
+        {{#if endOfRound}}
+          <button name="backtolobby" class="lobby">Next Round</button>
+        {{else}}
+         <button style="visibility:hidden;"></button> 
+        {{/if}}
       {{/if}}
       
     </div>
