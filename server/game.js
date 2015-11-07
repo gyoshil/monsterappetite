@@ -7,6 +7,17 @@ Meteor.methods ({
     console.error(name);
     console.log(email);
 
+    // Let other method calls from the same client start running,
+    // without waiting for the email sending to complete.
+    this.unblock();
+
+    //actual email sending method
+    Email.send({
+      to: email,
+      from: "msantolucuito13@gmail.com",
+      subject: "Monster Apettite",
+      text: "your name is"+name
+    });
   },
 
   start_new_game: function () {
