@@ -30,7 +30,7 @@ Meteor.methods ({
 
 
     // move everyone who is ready in the lobby to the game
-    Players.update({game_id: null, idle: false, name: {$ne: ''}},
+    Players.update({game_id: null, idle: false, name: {$ne: ''}, group: "1A"},
                    {$set: {game_id: game_id}},
                    {multi: true});
 
