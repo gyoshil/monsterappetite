@@ -76,7 +76,7 @@ Template.board.square = function (i) {
   if (g) {
       display_card = 'imgs/'+g.rounds[g.rounds.length-1][i].card_name+'.jpeg';
     }
-  else display_card = 'imgs/monster'+(random(6)+1)+'.svg';
+  else display_card = 'imgs/monster'+(random(6)+1)+'.png';
   return display_card
 };
 
@@ -231,7 +231,7 @@ Template.player.helpers({
   //this 'updates' the avatar id every second
   //not good, but works
   random_monster : function () {
-    return 'imgs/monster'+Players.findOne(this._id).avatar+'.svg ';
+    return 'imgs/monster'+Players.findOne(this._id).avatar+'.png ';
   },
 
   monster_size : function () {
