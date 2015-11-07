@@ -1,0 +1,35 @@
+
+<template name="id">
+<style type="text/css">
+
+  input:required:invalid, input:focus:invalid {
+    background-image: url(/images/invalid.png);
+    background-position: right top;
+    background-repeat: no-repeat;
+  }
+  input:required:valid {
+    background-image: url(/images/valid.png);
+    background-position: right top;
+    background-repeat: no-repeat;
+  }
+
+</style>
+
+  <div id="main" class="container-fluid">
+    <div class="row">
+
+    <div class="col-md-6">
+      <p>Thanks for being in my study </p>
+    </div>
+    </div>
+
+    <p>Your monster is named {{userName}}. Good luck!</p>
+    <p>Type your email below and click next to being the study</p>
+    <form>
+    <input id="email" type="email" required placeholder="Enter a valid email address"/>
+    <input type="submit" value="Submit"/>
+    </form>
+    </div>
+  
+</template>
+
