@@ -163,12 +163,20 @@ Template.board.events({
 });
 
 Template.postgame.helpers({
-  show: function () {
-    return game() && game().clock == 0;
+  inGame: function () {
+    //return game();
+    return true;
   },
-  finished: function () {
-    return !game();
-
+  finishedGame: function () {
+    var g = game();
+    return (g.rounds.length == 3 && g.clock ==0);
+  },
+  endOfRound: function () {
+    try {document.getElementById('postgame').style.visibility = 'visible';}
+    catch(err) {
+      console.log(err);
+    }
+    return (game().clock == 0);
   }
 });
 
@@ -176,14 +184,15 @@ Template.postgame.events({
   'click button': function (evt) {
     clear_selected_positions();
     cards_selected = 0;
-    document.getElementById('postgame').style.visibility = 'hidden';
     
     //this pop up window comes up after "NEXT ROUND" is clicked
     //MAYBE have this only after the 10 or so practice rounds before the "TEST" round. 
     //window.alert("Next round will be a test to see if you choose the highest three");
 
     //multiple ROUNDS fxn is called here
+    document.getElementById('postgame').style.visibility = 'hidden';
     Meteor.call('new_round',player(),game()._id);
+
   }
 });
 

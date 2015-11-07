@@ -2,6 +2,13 @@
 
 Meteor.methods ({
 
+
+  send_email: function(email,name){
+    console.error(name);
+    console.log(email);
+
+  },
+
   start_new_game: function () {
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
     var timeGiven=5;
