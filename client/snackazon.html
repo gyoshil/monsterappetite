@@ -1,25 +1,33 @@
 <template name="snackazon">
-  <div id="main" class="container-fluid">
+  <div id="main" class="container-fluid" align="center">
 
   <div class="row">
-    <div class="col-md-6">
-      <button><a href="game"><img width="70px" src="{{ barImg }}"></a></button>
-      <button><a href="game"><img width="70px" src="{{ barImg }}"></a></button>
-      <button><a href="game"><img width="70px" src="{{ barImg }}"></a></button>
-    </div>
-    <div class="col-md-6">
-      <h1>Welcome to Snaczon, pick the snack you want shipped!</h1>
-      <textarea>Type shipping address here</textarea>
+    
+    <div >
+      <h1>Welcome to <em>Snackazon</em>, pick the snack you want shipped!</h1>
+      <p> In the following section, you will be presented with different snack items to choose from and your selected items will be delivered to you in the next 3-5 business days. Each page will contain similar items (such as 3 different kinds of potato chips)and you will have 6 different pages with unique items per page. You are required to choose one and only one item per page. Think of this activity as choosing items on Amazon for delivery. Though all items are cartoonized for design interface reasons, they are all real snacks. Though you will choose snack items and place them in your cart, no payment needs to be made. Just a mailing address is required to receive the items. 
+  Before we direct you to the first page we would like to see if you have preferences in snack types you would like to receive by giving you a choice to select the top three snack types you prefer. We will incorporate your preferences in the 6 items that you select from. 
+</p>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-6">
-      <button><a href="game"><img width="70px" src="{{ barImg }}"></a></button>
-      <button><a href="game"><img width="70px" src="{{ barImg }}"></a></button>
-      <button><a href="game"><img width="70px" src="{{ barImg }}"></a></button>
+    <div >
+      <button><a href="game"><img width="200px" src="{{ barImg }}"></a></button>
+      <button><a href="game"><img width="200px" src="{{ barImg }}"></a></button>
+      <button><a href="game"><img width="200px" src="{{ barImg }}"></a></button>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
   </div>
 
+
+  <div>
+    <textarea>Type shipping address here</textarea>
+  </div>
+
+  <div align="center">
+  <button><a href="snackazon/PDQ">I am done</a></button>
+  </div>
+  
   </div>
 </template>
