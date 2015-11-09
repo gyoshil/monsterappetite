@@ -12,33 +12,45 @@ Router.configure({
     layoutTemplate: 'main'
 });
 
-Template.lobby.show = function () {
-  // only show lobby if we're not in a game
-  return !game();
-};
 
-Template.lobby.waiting = function () {
-  var players = Players.find({_id: {$eq: Session.get('player_id')},
-                              game_id: {$exists: false}});
-  return players;
-};
+Template.lobby.helpers ({
 
-Template.lobby.count = function () { 
-  //$ne selects the documents where the value of the field is NOT EQUAL (i.e. !=) to the specified value. 
-  //This includes documents that do not contain the field.
-  var players = Players.find({_id: {$ne: Session.get('player_id')},
-                              name: {$ne: ''},
-                              game_id: {$exists: false}});
-  return players.count();
-};
+  show: function () {
+    // only show lobby if we're not in a game
+    return !game();
+  },
+  
+  waiting : function () {
+    var players = Players.find({_id: {$eq: Session.get('player_id')},
+                                game_id: {$exists: false}});
+    return players;
+  },
 
+  count : function () { 
+    //$ne selects the documents where the value of the field is NOT EQUAL (i.e. !=) to the specified value. 
+    //This includes documents that do not contain the field.
+    var players = Players.find({_id: {$ne: Session.get('player_id')},
+                                name: {$ne: ''},
+                                game_id: {$exists: false}});
+    return players.count();
+  },
 
-Template.lobby.disabled = function () {
-  var me = player();
-  if (me && me.name)
-    return '';
-  return 'disabled';
-};
+  disabled : function () {
+    var me = player();
+    if (me && me.name)
+      return '';
+    return 'disabled';
+  },
+
+  username : function (){
+    if(player())
+      return player().name;
+    else{
+      return ""
+    }
+  } 
+
+});
 
 
 var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
@@ -69,51 +81,54 @@ Template.lobby.events({
 //////
 
 
-Template.board.square = function (i) {
-  var g = game();
-  var display_card = '';
-  if (g) {
+Template.board.helpers({
+  square : function (i) {
+    var g = game();
+    var display_card = '';
+    if (g) {
       display_card = 'imgs/'+g.rounds[g.rounds.length-1][i].card_name+'.jpeg';
     }
-  else display_card = 'imgs/monster'+(random(6)+1)+'.png';
-  return display_card
-};
+    else display_card = 'imgs/monster'+(random(6)+1)+'.png';
+    return display_card
+  },
 
-//this is where I enlarged the size of the pics on the board and FOOD cards
-Template.board.squaresize = function () {
-  return 'width:145px; height:142px';
-};
+   //this is where I enlarged the size of the pics on the board and FOOD cards
+  squaresize : function () {
+    return 'width:145px; height:142px';
+  },
 
-Template.board.selected = function (i) {
-  return Session.get('selected_' + i);
-};
+  selected : function (i) {
+    return Session.get('selected_' + i);
+  },
 
-Template.board.bkgd = function () {
-  var c = game().rounds.length % 3;
-  if (c==1){//morning
-    return "green";
-  };
-  if (c==2) {//afternoon
-    return "blue";
-  };
-  if (c==0) {//evening
-    return "pink";
-  };
-  return '';
+  bkgd : function () {
+    //if we are in the lobby, not a game, no background
+    if (!game()) {return ""}
+    //otherwise show a nice colored background
+    var c = game().rounds.length % 3;
+    if (c==1){//morning
+      return "green";
+    };
+    if (c==2) {//afternoon
+      return "blue";
+    };
+    if (c==0) {//evening
+      return "pink";
+    };
+    return '';
+  },
 
-};
+  clock : function () {
+    if (game() == null || game().clock === 0)
+      return;
 
-Template.board.clock = function () {
-
-  if (game() != null || game().clock === 0)
-    return;
-
-  var clock = game() && game().clock;
-  // format into Minute : Seconds like 0:03
-  var min = Math.floor(clock / 60);
-  var sec = clock % 60;
-  return min + ':' + (sec < 20 ? ('0' + sec) : sec);
-};
+    var clock = game() && game().clock;
+    // format into Minute : Seconds like 0:03
+    var min = Math.floor(clock / 60);
+    var sec = clock % 60;
+    return min + ':' + (sec < 20 ? ('0' + sec) : sec);
+  }
+});
 
 var cards_selected=0;
 Template.board.events({
@@ -168,14 +183,14 @@ Template.postgame.helpers({
   },
   finishedGame: function () {
     var g = game();
-    return (g.rounds.length == 3 && g.clock ==0);
+    return (g && g.rounds.length == 3 && g.clock ==0);
   },
   endOfRound: function () {
     try {document.getElementById('postgame').style.visibility = 'visible';}
     catch(err) {
       console.log(err);
     }
-    return (game().clock == 0);
+    return (game() && game().clock == 0);
   }
 });
 
@@ -304,10 +319,13 @@ var matchesP = function(e,i,l){
   return (e._id == player()._id);
 };
 
+var cached_player = null;
 var player = function () {
-  //return Players.findOne(Session.get('player_id'));
-  console.log(Players.findOne(getCookieValue('u_id')));
-  return Players.findOne(getCookieValue('u_id'));
+  if (document.readyState == "complete" && cached_player == null){
+    //console.log("ate cookie and found user");
+    cached_player = Players.findOne(getCookieValue('u_id'));
+  }
+  return cached_player; 
 };
 
 function getCookieValue(a) {
@@ -315,13 +333,9 @@ function getCookieValue(a) {
   return b ? b.pop() : '';
 }
 
-var userName = function () {
-  return player().name;
-};
-
-
 var game = function () {
   var me = player();
+  if(me == null) return false;
   var g = Games.findOne(me.game_id);
   return g;
 };

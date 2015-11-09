@@ -88,8 +88,9 @@
     {{#if show }}
     <div id="lobby">
       <img src="imgs/splash.png" style="width:500px" align="center">
-      <h1>What's your name?</h1>
-      <input id="myname" type="text" />
+      <h1>Welcome to the feast,</h1>
+      <h1> {{username}}</h1>
+      <!-- <input id="myname" type="text" /> -->
       {{#if count}}
       <h1>{{count}} other players are in the lobby:</h1>
       {{#each waiting }}
