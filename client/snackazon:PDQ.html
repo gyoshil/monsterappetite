@@ -1,0 +1,37 @@
+<template name="snackazon/PDQ">
+  <div id="main" >
+
+    <div class="col-md-6">
+      <h1>Please answer the following question</h1>
+      <p align="left">
+        Which of the options below influenced your previous snack purchases? Choose the top three. One indicating the most influential factor, two indicating the second most influential factor, and three indicating the third most influential factor in making your purchase decision here on <em>Snackazon</em>.
+      </p>
+
+
+
+		<ul class="answers">
+	        <button type="button">Didn’t really put thought into my selection</button><br/>
+	        <button type="button">Taste/Flavor</button><br/>
+	        <button type="button">Food requirements (e.g., allergies)</button><br/>
+	        <button type="button">Per-serving calories</button><br/>
+	        <button type="button">Brand/Packaging</button><br/>
+	        <button type="button">Ingredients</button><br/>
+	        <button type="button">Food source (e.g., local)</button><br/>
+	        <button type="button">Health related reasons (e.g., diet restrictions, medication adherence)</button><br/>
+	        <button type="button">I am not familiar with these items so none of these options applies</button><br/>
+	        <button type="button">Other </button><textarea></textarea><br/>
+	    </ul>
+	</div>
+
+	<button><a href="/biq">I am done</a></button>
+	
+<!--
+	the following makes a "I am done" button that leads you to /snackazon/game - which does not exist. How do i just get to game?
+	<div>
+		<button><a href="game">I am done</a></button>
+
+	</div>
+--> 
+
+  </div>
+</template>

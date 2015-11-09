@@ -1,0 +1,52 @@
+<template name="snackazon/Rank">
+<div id="main">
+	<div class="col-md-6">
+      <h1>Please answer the following question</h1>
+      <p align="left">
+        Which of the options below influenced your previous snack purchases? Choose the top three. One indicating the most influential factor, two indicating the second most influential factor, and three indicating the third most influential factor in making your purchase decision here on <em>Snackazon</em>.
+      </p>
+    
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Sortable - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 120%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 66px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+  </style>
+  <script>
+  //maybe this JSON thing does not work in Meteor. ??? I think curly brackets are necessary ??
+  //Below is a sample from meteor site:
+  //> EJSON.stringify({$date: "something"})
+  //"{"$escape":{"$date":"something"}}"
+  $(function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  });
+  </script>
+</head>
+<body>
+ 
+<ul id="sortable">
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Didn’t really put thought into my selection</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Taste/Flavor</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Food requirements (e.g., allergies)</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Per-serving calories</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Brand/Packaging</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Food source (e.g., local)</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Health related reasons (e.g., diet restrictions, medication adherence)</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>I am not familiar with these items so none of these options applies</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Other<textarea></textarea></li>
+
+</ul>
+ 
+</body>
+</html>
+</div>
+</div>
+</template>
