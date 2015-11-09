@@ -1,32 +1,23 @@
 <template name="snackazon">
+  <div id="banner"></div>
   <div id="main" class="container-fluid" align="center">
 
   <div class="row">
     
-    <div >
-      <h1>Welcome to <em>Snackazon</em>, pick the snack you want shipped!</h1>
-      <p> In the following section, you will be presented with different snack items to choose from and your selected items will be delivered to you in the next 3-5 business days. Each page will contain similar items (such as 3 different kinds of potato chips)and you will have 6 different pages with unique items per page. You are required to choose one and only one item per page. Think of this activity as choosing items on Amazon for delivery. Though all items are cartoonized for design interface reasons, they are all real snacks. Though you will choose snack items and place them in your cart, no payment needs to be made. Just a mailing address is required to receive the items. 
-  Before we direct you to the first page we would like to see if you have preferences in snack types you would like to receive by giving you a choice to select the top three snack types you prefer. We will incorporate your preferences in the 6 items that you select from. 
-</p>
+    <div class="container container-table">
+      <h1>Welcome to <em>Snackazon</em>, <br>pick the snack you want shipped!</h1>
+      <div class="row vertical-center-row" >
+        <div class="text-center col-md-4 col-md-offset-4" >
+          <p > <h4>In the following section, you will be presented with different snack items to choose from and your selected items will be delivered to you in the next 3-5 business days. Each page will contain similar items (such as 3 different kinds of potato chips) and you will have 6 different pages with unique items per page. You are required to choose one and only one item per page. Think of this activity as choosing items on <em>Amazon</em> for delivery. Though all items are cartoonized for design interface reasons, they are all real snacks. Though you will choose snack items and place them in your cart, no payment needs to be made. Just a mailing address is required to receive the items. You will be asked for a mailing address at the end of the 6 pages of snack items. 
+          <br><br><br>
+          The first page in this activity contains 3 different kinds of cookies. Would you like to take a look at the items or would you like us to choose one for you so you can move on to the next page with a different item?</h4></p>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div >
-      <button><a href="game"><img width="200px" src="{{ barImg }}"></a></button>
-      <button><a href="game"><img width="200px" src="{{ barImg }}"></a></button>
-      <button><a href="game"><img width="200px" src="{{ barImg }}"></a></button>
-      <br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
-  </div>
-
-
-  <div>
-    <textarea>Type shipping address here</textarea>
   </div>
 
   <div align="center">
-  <button><a href="snackazon/PDQ">I am done</a></button>
+  <button><a href="snackazon_1">Take me to the next page</a></button>
   </div>
   
   </div>
