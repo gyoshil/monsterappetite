@@ -18,8 +18,7 @@ Template.lobby.show = function () {
 };
 
 Template.lobby.waiting = function () {
-  var players = Players.find({_id: {$ne: Session.get('player_id')},
-                              name: {$ne: ''},
+  var players = Players.find({_id: {$eq: Session.get('player_id')},
                               game_id: {$exists: false}});
   return players;
 };
@@ -105,11 +104,11 @@ Template.board.bkgd = function () {
 };
 
 Template.board.clock = function () {
-  var clock = game() && game().clock;
 
-  if (!clock || clock === 0)
+  if (game() != null || game().clock === 0)
     return;
 
+  var clock = game() && game().clock;
   // format into Minute : Seconds like 0:03
   var min = Math.floor(clock / 60);
   var sec = clock % 60;
@@ -266,17 +265,11 @@ Meteor.startup(function () {
   // Session.get('player_id') will return a real id. We should check for
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
+  Meteor.subscribe('players');
   
-  // This actually ok for us. During data analysis we cansimply query on name rathr than id
-
-  var player_id = Players.insert({game_id:null,name: '', idle: false, avatar: random(6)+1, performance:[]});
-  Session.set('player_id', player_id);
-
-  //then how to allocate a NEW ROUND ID????
-
   // subscribe to all the players, the game i'm in, and all
   // the words(i.e., food cards) in that game.
-  Deps.autorun(function () {
+  /*Deps.autorun(function () {
     Meteor.subscribe('players');
 
     if (Session.get('player_id')) {
@@ -287,16 +280,18 @@ Meteor.startup(function () {
       }
     }
   });
-
+  */
   // send keepalives so the server can tell when we go away.
   //
   // XXX this is not a great idiom. meteor server does not yet have a
   // way to expose connection status to user code. Once it does, this
   // code can go away.
-  Meteor.setInterval(function() {
+  /*Meteor.setInterval(function() {
     if (Meteor.status().connected)
       Meteor.call('keepalive', Session.get('player_id'));
-  }, 5*1000);
+  }, 5*1000);*/
+
+
 });
 
 
@@ -310,8 +305,20 @@ var matchesP = function(e,i,l){
 };
 
 var player = function () {
-  return Players.findOne(Session.get('player_id'));
+  //return Players.findOne(Session.get('player_id'));
+  console.log(Players.findOne(getCookieValue('u_id')));
+  return Players.findOne(getCookieValue('u_id'));
 };
+
+function getCookieValue(a) {
+  var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
+}
+
+var userName = function () {
+  return player().name;
+};
+
 
 var game = function () {
   var me = player();

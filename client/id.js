@@ -27,9 +27,12 @@ var lastName2 = ["face", "dip", "nose", "brain", "head", "breath",
 "honker", "toes", "buns", "spew", "eater", "fanny", "squirt", "chunks", 
 "brains", "wit", "juice", "shower"];
 
+var random = function(i) {
+  return Math.floor(Math.random() * (i));
+}
 
 function rI(a) {
-  return a[Math.floor(Math.random()*a.length)];
+  return a[random(a.length)];
 }
 
 Template.id.helpers({
@@ -39,18 +42,30 @@ Template.id.helpers({
              rI(lastName2);
     username = nm;
     return nm;
-  }
+  },
 });
 
 
 Template.id.events({
  'submit form': function(event){
-    //console.log(event.target.email.value+ " " + username);
-    Meteor.call('send_email',event.target.email.value,username);
-    console.log("test");
+    
+    var p_id = createUser()
+    console.log("sent email to "+event.target.email.vale);
+    Meteor.call('send_email',event.target.email.value, username);
     window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_9XG239e61jRYgsd" + "&"+
-                           "username=" + username;
+                           "uid=" + p_id;
+
+   //just to keep html happy return false
     return false;
   }
 
 });
+
+
+function createUser() {
+
+   var player_id = Players.insert({game_id:null,name: username, idle: false, avatar: random(6)+1, performance:[]});
+   document.cookie="u_id="+player_id+"; path=/";
+   return player_id;
+
+}
