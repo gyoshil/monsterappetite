@@ -324,6 +324,7 @@ var player = function () {
   if (document.readyState == "complete" && cached_player == null){
     //console.log("ate cookie and found user");
     cached_player = Players.findOne(getCookieValue('u_id'));
+    if(getCookieValue('u_id')=='') {cached_player = Players.findOne("kqztMdTPkfggt6EvH")}
   }
   return cached_player; 
 };
