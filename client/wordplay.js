@@ -62,13 +62,21 @@ Template.lobby.events({
   },
   'click button.startgame': function () {
     //////////////////////////////////// START NEW GAME method is called //////////////////////////////////
-  Meteor.call('start_new_game', function (error, result) {
+  Meteor.call('start_new_game', player()._id, function (error, result) {
     if (error) {
       // handle error
       console.error("you have made a mistake");
     }  else {
       //////////////////////////////////// NEW ROUND method is called //////////////////////////////////
+      console.log("starting a new round");
       Meteor.call('new_round',player(),result);
+      console.log(result)
+      Players.update(player()._id, {$set: {game_id: result}},
+                     function(e,i){
+                       console.log(player().game_id);
+                       console.log(e);
+                       console.log(i);
+                       Session.set("ingame",Math.random());});
     }
   });
   }
@@ -178,8 +186,8 @@ Template.board.events({
 
 Template.postgame.helpers({
   inGame: function () {
-    //return game();
-    return true;
+    return game();
+    //return true;
   },
   finishedGame: function () {
     var g = game();
@@ -219,6 +227,7 @@ Template.postgame.events({
 Template.scores.helpers({
   show : function () {
     // !! is turning the object into a boolean
+    console.log(!!game());
     return !!game();
   },
   players : function () {
@@ -284,18 +293,23 @@ Meteor.startup(function () {
   
   // subscribe to all the players, the game i'm in, and all
   // the words(i.e., food cards) in that game.
-  /*Deps.autorun(function () {
-    Meteor.subscribe('players');
-
-    if (Session.get('player_id')) {
+  //Deps.autorun(function () {
+  //  Meteor.subscribe('players');
+  
+  
+  Tracker.autorun(function () {
+    console.log("checking for games");
+    if (Session.get("ingame")) {
+      console.log("really checking for games");
       var me = player();
       if (me && me.game_id) {
         Meteor.subscribe('games', me.game_id);
-        Meteor.subscribe('cards', me.game_id, Session.get('player_id'));
+        console.log("got games from server, ready to play");
+    //    Meteor.subscribe('cards', me.game_id);
       }
     }
-  });
-  */
+  }); 
+  //Meteor.subscribe('games');
   // send keepalives so the server can tell when we go away.
   //
   // XXX this is not a great idiom. meteor server does not yet have a
@@ -322,12 +336,22 @@ var matchesP = function(e,i,l){
 var cached_player = null;
 var player = function () {
   if (document.readyState == "complete" && cached_player == null){
-    cached_player = Players.findOne(getCookieValue('u_id'));
     if(getCookieValue('u_id')=='') {
-      console.log("using default");
-      cached_player = Players.findOne({name="")
+      console.log("no player found, making a new one");
+      var player_id =
+         Players.insert({game_id:null,name: "New User", idle: false, avatar: random(6)+1, performance:[]});
+      document.cookie="u_id="+player_id+"; path=/";
+      cached_player = Players.findOne(player_id)
     }
-    console.log("ate cookie and found user"+cached_player.name);
+    else{
+      cached_player = Players.findOne(getCookieValue('u_id'));
+      if(cached_player == null){
+        console.log("not ready to add player yet")
+      }
+      else{
+        console.log("ate cookie and found user"+cached_player.name);
+      }
+    }
   }
   return cached_player; 
 };

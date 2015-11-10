@@ -150,8 +150,10 @@ if (Meteor.isServer) {
   // publish single games
   Meteor.publish('games', function (id) {
     check(id, String);
-    return Games.find({_id: id});
+    //return Games.find({_id: id});
+    return Games.find();
   });
+
 
   // publish all my words and opponents' words that the server has
   // scored as good.
