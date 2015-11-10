@@ -322,9 +322,12 @@ var matchesP = function(e,i,l){
 var cached_player = null;
 var player = function () {
   if (document.readyState == "complete" && cached_player == null){
-    //console.log("ate cookie and found user");
     cached_player = Players.findOne(getCookieValue('u_id'));
-    if(getCookieValue('u_id')=='') {cached_player = Players.findOne("kqztMdTPkfggt6EvH")}
+    if(getCookieValue('u_id')=='') {
+      console.log("using default");
+      cached_player = Players.findOne({name="")
+    }
+    console.log("ate cookie and found user"+cached_player.name);
   }
   return cached_player; 
 };
