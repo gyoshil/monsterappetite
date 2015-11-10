@@ -72,7 +72,7 @@ Meteor.methods ({
   new_round: function(player,game_id) {
 
     var g = Games.findOne(game_id);
-    console.log(g);
+    //console.log(g);
     //play up to n rounds
     if (g.rounds.length <=2 ) {
       new_round_set = g.rounds;//.push() returns new length

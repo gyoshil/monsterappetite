@@ -144,14 +144,15 @@ best_possible_score = function(board) {
 if (Meteor.isServer) {
   // publish all the non-idle players.
   Meteor.publish('players', function () {
-    return Players.find({idle: false});
+    return Players.find();
   });
 
   // publish single games
   Meteor.publish('games', function (id) {
     check(id, String);
-    //return Games.find({_id: id});
-    return Games.find();
+    console.log("subscripbing to");
+    console.log(Games.find({players: { $elemMatch : {_id : id}}}).fetch());
+    return (Games.find({players: { $elemMatch : {_id : id}}}));
   });
 
 

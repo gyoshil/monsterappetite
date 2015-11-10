@@ -71,11 +71,10 @@ Template.lobby.events({
       console.log("starting a new round");
       Meteor.call('new_round',player(),result);
       console.log(result)
-      Players.update(player()._id, {$set: {game_id: result}},
+      console.log(player())
+      console.log(Players.findOne({_id:player()._id}))
+      Players.update({_id:player()._id}, {$set: {game_id: result}},
                      function(e,i){
-                       console.log(player().game_id);
-                       console.log(e);
-                       console.log(i);
                        Session.set("ingame",Math.random());});
     }
   });
@@ -302,10 +301,10 @@ Meteor.startup(function () {
     if (Session.get("ingame")) {
       console.log("really checking for games");
       var me = player();
-      if (me && me.game_id) {
-        Meteor.subscribe('games', me.game_id);
+      if (me) {
+        Meteor.subscribe('games', me._id);
         console.log("got games from server, ready to play");
-    //    Meteor.subscribe('cards', me.game_id);
+        Session.set("game ready trigger",Math.random());
       }
     }
   }); 
@@ -333,27 +332,19 @@ var matchesP = function(e,i,l){
   return (e._id == player()._id);
 };
 
-var cached_player = null;
 var player = function () {
-  if (document.readyState == "complete" && cached_player == null){
-    if(getCookieValue('u_id')=='') {
-      console.log("no player found, making a new one");
+  if(getCookieValue('u_id')=='') {
+     console.log("no player found, making a new one");
       var player_id =
          Players.insert({game_id:null,name: "New User", idle: false, avatar: random(6)+1, performance:[]});
       document.cookie="u_id="+player_id+"; path=/";
-      cached_player = Players.findOne(player_id)
-    }
-    else{
-      cached_player = Players.findOne(getCookieValue('u_id'));
-      if(cached_player == null){
-        console.log("not ready to add player yet")
-      }
-      else{
-        console.log("ate cookie and found user"+cached_player.name);
-      }
-    }
   }
-  return cached_player; 
+  else{
+     console.log("ate cookie and found user");
+  }
+  //this is a huge performance hit i bet
+  return Players.findOne(getCookieValue('u_id'));
+ 
 };
 
 function getCookieValue(a) {
@@ -362,9 +353,12 @@ function getCookieValue(a) {
 }
 
 var game = function () {
+  Session.get("game ready trigger");
   var me = player();
   if(me == null) return false;
   var g = Games.findOne(me.game_id);
+  console.log(me);
+  console.log(g);
   return g;
 };
 
