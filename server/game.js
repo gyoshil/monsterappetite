@@ -20,26 +20,26 @@ Meteor.methods ({
     });
   },
 
-  start_new_game: function () {
+  start_new_game: function (player_id) {
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
-    var timeGiven=5;
 
     // create a new game w/ no rounds and a blank board
-    var game_id = Games.insert({rounds: [],
-                                clock: timeGiven});
-
+    var game_id = Games.insert({rounds: []});
 
     // move everyone who is ready in the lobby to the game
-    Players.update({game_id: null, idle: false, name: {$ne: ''}, group: "1A"},
-                   {$set: {game_id: game_id}},
-                   {multi: true});
-
+    //Players.update({game_id: null, idle: false, name: {$ne: ''}},
+    console.log("assigning players to new game");
+    console.log(Players.findOne(player_id).game_id );
+    Players.update({_id:player_id},
+                   {$set: {game_id: game_id}});
+                   //{multi: true});
+    console.log(Players.findOne(player_id).game_id );
+    
     // Save a record of who is in the game, so when they leave we can
     // still show them.
 
     var p = Players.find({game_id: game_id},
                          {fields: {_id: true, name: true}}).fetch();
-
     var p_game_data = p.map(function(one_p,i,l){
       return {_id:one_p._id, name:one_p.name, card_set:[]}
     })
@@ -52,6 +52,7 @@ Meteor.methods ({
     //console.error(pl.rounds[pl.rounds.length-1][0]);
 
     //execute_round(game_id);
+    console.log(Players.findOne(player_id).game_id );
     return game_id;
   },
   //this must be the part that keeps or chaches the players to show multiple players
@@ -71,6 +72,7 @@ Meteor.methods ({
   new_round: function(player,game_id) {
 
     var g = Games.findOne(game_id);
+    //console.log(g);
     //play up to n rounds
     if (g.rounds.length <=2 ) {
       new_round_set = g.rounds;//.push() returns new length
@@ -91,6 +93,7 @@ Meteor.methods ({
 
 
 execute_round = function(player,game_id) {
+
 
   // wind down the game CLOCK
   var clock = 5;
