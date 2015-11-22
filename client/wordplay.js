@@ -198,6 +198,11 @@ Template.postgame.events({
   'click button': function (evt) {
     clear_selected_positions();
     cards_selected = 0;
+
+    // ODOMETER
+    //setTimeout(function(){
+    //odometer.innerHTML = 456;
+    //}, 1000);
     
     //this pop up window comes up after "NEXT ROUND" is clicked
     //MAYBE have this only after the 10 or so practice rounds before the "TEST" round. 
