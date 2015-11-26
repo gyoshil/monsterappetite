@@ -194,3 +194,12 @@ button:active {
 #scores .card.bad span.score {
     background-image: 'circle-ball-dark-antialiased.gif';
 }
+
+
+/*  Odometer  
+<link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css" />
+<script src="http://github.hubspot.com/odometer/odometer.js"></script>
+<style>
+.odometer {
+    font-size: 100px;
+} */

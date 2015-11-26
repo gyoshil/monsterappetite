@@ -1,6 +1,6 @@
 #banner {
     background:url('imgs/banner.png');
-    width:200%;
+    width:100%;
     min-height:70px;
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;*/
 }

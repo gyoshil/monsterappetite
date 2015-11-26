@@ -62,13 +62,20 @@ Template.lobby.events({
   },
   'click button.startgame': function () {
     //////////////////////////////////// START NEW GAME method is called //////////////////////////////////
-  Meteor.call('start_new_game', function (error, result) {
+  Meteor.call('start_new_game', player()._id, function (error, result) {
     if (error) {
       // handle error
       console.error("you have made a mistake");
     }  else {
       //////////////////////////////////// NEW ROUND method is called //////////////////////////////////
+      console.log("starting a new round");
       Meteor.call('new_round',player(),result);
+      console.log(result)
+      console.log(player())
+      console.log(Players.findOne({_id:player()._id}))
+      Players.update({_id:player()._id}, {$set: {game_id: result}},
+                     function(e,i){
+                       Session.set("ingame",Math.random());});
     }
   });
   }
@@ -178,8 +185,8 @@ Template.board.events({
 
 Template.postgame.helpers({
   inGame: function () {
-    //return game();
-    return true;
+    return game();
+    //return true;
   },
   finishedGame: function () {
     var g = game();
@@ -198,6 +205,11 @@ Template.postgame.events({
   'click button': function (evt) {
     clear_selected_positions();
     cards_selected = 0;
+
+    // ODOMETER
+    //setTimeout(function(){
+    //odometer.innerHTML = 456;
+    //}, 1000);
     
     //this pop up window comes up after "NEXT ROUND" is clicked
     //MAYBE have this only after the 10 or so practice rounds before the "TEST" round. 
@@ -219,6 +231,7 @@ Template.postgame.events({
 Template.scores.helpers({
   show : function () {
     // !! is turning the object into a boolean
+    console.log(!!game());
     return !!game();
   },
   players : function () {
@@ -284,18 +297,23 @@ Meteor.startup(function () {
   
   // subscribe to all the players, the game i'm in, and all
   // the words(i.e., food cards) in that game.
-  /*Deps.autorun(function () {
-    Meteor.subscribe('players');
-
-    if (Session.get('player_id')) {
+  //Deps.autorun(function () {
+  //  Meteor.subscribe('players');
+  
+  
+  Tracker.autorun(function () {
+    console.log("checking for games");
+    if (Session.get("ingame")) {
+      console.log("really checking for games");
       var me = player();
-      if (me && me.game_id) {
-        Meteor.subscribe('games', me.game_id);
-        Meteor.subscribe('cards', me.game_id, Session.get('player_id'));
+      if (me) {
+        Meteor.subscribe('games', me._id);
+        console.log("got games from server, ready to play");
+        Session.set("game ready trigger",Math.random());
       }
     }
-  });
-  */
+  }); 
+  //Meteor.subscribe('games');
   // send keepalives so the server can tell when we go away.
   //
   // XXX this is not a great idiom. meteor server does not yet have a
@@ -319,14 +337,19 @@ var matchesP = function(e,i,l){
   return (e._id == player()._id);
 };
 
-var cached_player = null;
 var player = function () {
-  if (document.readyState == "complete" && cached_player == null){
-    //console.log("ate cookie and found user");
-    cached_player = Players.findOne(getCookieValue('u_id'));
-    if(getCookieValue('u_id')=='') {cached_player = Players.findOne("kqztMdTPkfggt6EvH")}
+  if(getCookieValue('u_id')=='') {
+     console.log("no player found, making a new one");
+      var player_id =
+         Players.insert({game_id:null,name: "New User", idle: false, avatar: random(6)+1, performance:[]});
+      document.cookie="u_id="+player_id+"; path=/";
   }
-  return cached_player; 
+  else{
+     console.log("ate cookie and found user");
+  }
+  //this is a huge performance hit i bet
+  return Players.findOne(getCookieValue('u_id'));
+ 
 };
 
 function getCookieValue(a) {
@@ -335,9 +358,12 @@ function getCookieValue(a) {
 }
 
 var game = function () {
+  Session.get("game ready trigger");
   var me = player();
   if(me == null) return false;
   var g = Games.findOne(me.game_id);
+  console.log(me);
+  console.log(g);
   return g;
 };
 
