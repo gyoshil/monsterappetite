@@ -67,15 +67,15 @@ Template.lobby.events({
   Meteor.call('start_new_game', me._id, function (error, result) {
     if (error) {
       // handle error
-      console.error("you have made a mistake");
+      //console.error("you have made a mistake");
     }  else {
       //////////////////////////////////// NEW ROUND method is called //////////////////////////////////
-      console.log("starting a new round");
-      Meteor.call('new_round',me,result);
-      console.log(result)
-      console.log(me)
-      console.log(Players.findOne({_id:me._id}))
-      Players.update({_id:me._id}, {$set: {game_id: result}},
+      //console.log("starting a new round");
+      Meteor.call('new_round',player(),result);
+      //console.log(result)
+      //console.log(player())
+      //console.log(Players.findOne({_id:player()._id}))
+      Players.update({_id:player()._id}, {$set: {game_id: result}},
                      function(e,i){
                        Session.set("ingame",Math.random());});
     }
@@ -187,7 +187,7 @@ Template.board.events({
       
       //can't set fields of fields. can only change top level fields of mongo
       Games.update({_id:g._id}, {$set: {players: all_players}}); 
-      //console.error(g.players.find(matchesP).card_set);
+      ////console.error(g.players.find(matchesP).card_set);
       cards_selected+=1;
     }
   }
@@ -206,7 +206,7 @@ Template.postgame.helpers({
   endOfRound: function () {
     try {document.getElementById('postgame').style.visibility = 'visible';}
     catch(err) {
-      console.log(err);
+      //console.log(err);
     }
     return (game() && game().clock == 0);
   }
@@ -242,7 +242,7 @@ Template.postgame.events({
 Template.scores.helpers({
   show : function () {
     // !! is turning the object into a boolean
-    console.log(!!game());
+    //console.log(!!game());
     return !!game();
   },
   players : function () {
@@ -271,8 +271,30 @@ Template.player.helpers({
 
     var card_set = game().players.find(matchesP).card_set;
     card_set.forEach(addScores);
+ 
+    var oldVal = $("#total_score").text();
+    if (oldVal != total_score) {
+      foo(oldVal,total_score);
+    }
 
-    return total_score;
+    function foo(oldV,newV) {
+      var $el = $("#total_score"),
+          value = newV;
+    
+      $({percentage: oldV}).stop(true).animate({percentage: value}, {
+        duration : 500,
+        easing: "linear",
+        step: function () {
+            // percentage with 1 decimal;
+            var percentageVal = Math.round(this.percentage);
+            $el.text(percentageVal);
+           }
+        }).promise().done(function () {
+          // hard set the value after animation is done to be
+          // sure the value is correct
+          $el.text(value);
+        });
+   }; 
   },
 
   //this 'updates' the avatar id every second
@@ -313,13 +335,13 @@ Meteor.startup(function () {
   
   
   Tracker.autorun(function () {
-    console.log("checking for games");
+    //console.log("checking for games");
     if (Session.get("ingame")) {
-      console.log("really checking for games");
+      //console.log("really checking for games");
       var me = player();
       if (me) {
         Meteor.subscribe('games', me._id);
-        console.log("got games from server, ready to play");
+        //console.log("got games from server, ready to play");
         Session.set("game ready trigger",Math.random());
       }
     }
@@ -350,7 +372,7 @@ var matchesP = function(e,i,l){
 
 var player = function () {
   if(getCookieValue('u_id')=='') {
-     console.log("no player found, making a new one");
+     //console.log("no player found, making a new one");
       var player_id =
          Players.insert({game_id:null,name: "New User", idle: false, avatar: random(6)+1, performance:[], group: "loss"});
       document.cookie="u_id="+player_id+"; path=/";
