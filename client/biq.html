@@ -1,77 +1,66 @@
 <template name="biq">
   <div id="main" class="container-fluid">
   <body>
-  <div>
-      <h1>Please answer the following questions</h1>
+  <div class= "container" >
+      <div class="jumbotron">
+        <h1>Please Answer <br>the Following Questions</h1>
+      </div>
 
-  <td><h2>Q1. How often will you snack?</h2></td>
-  <form action="survey.cgi" method="POST"> 
-    <input type="radio" value="5" id="first"/>Never<br>
-    <input type="radio" value="4">Rarely<br>
-    <input type="radio" value="3">Sometimes<br>
-    <input type="radio" value="2">Often<br>
-    <input type="radio" value="1">Very often<br>
+  <h2><td> How often will you snack in the following week?</td></h2>
+  <form > 
+    <input id="r1" type="radio" value="5" class="radio1" /><label for="r1">Never</label><br>
+    <input id="r2" type="radio" value="4" class="radio2" /><label for="r2">Rarely</label><br>
+    <input id="r3" type="radio" value="3" class="radio3" /><label for="r3">Sometimes</label><br>
+    <input id="r4" type="radio" value="2" class="radio4" /><label for="r4">Often</label><br>
+    <input id="r5" type="radio" value="1" class="radio5" /><label for="r5">Very often</label><br>
+  </form>
+ 
+  <h2><td>How often will you check the per-serving calories in the nutrition label when you go food shopping in the following week? 
+    </td></h2><br>
+  <form> 
+    <input id="r1" type="radio" value="5" class="radio1" ><label for="r1">Never</label><br>
+    <input id="r2" type="radio" value="4" class="radio2"><label for="r2">Rarely</label><br>
+    <input id="r3" type="radio" value="3" class="radio3"><label for="r3">Sometimes</label><br>
+    <input id="r4" type="radio" value="2" class="radio4"><label for="r4">Often</label><br>
+    <input id="r5" type="radio" value="1" class="radio5"><label for="r5">Very often</label><br>
+    <input id="r6" type="radio" value="0" class="radio6"><label for="r5">Not applicable</label><br>
   </form>
 
-  <button><a href="game">I am done</a></button>
-
-  <!--
-  <form>How often will you check the per-serving calories in the nutrition label when you go food shopping? </br>
-    <input type="radio" value="male" checked>Never
-    <br>
-    <input type="radio" value="female">Rarely
-    <br>
-    <input type="radio" value="female">Sometimes
-    <br>
-    <input type="radio" value="female">Often
-    <br>
-    <input type="radio" value="female">Very often
-    <br>
-    <input type="radio" value="female">Not applicable
+  <h2><td>How likely is it that per-serving calories will matter more than flavor/taste, portion, price, etc. when choosing food items in the following week? </td></h2><br>
+  <form>
+    <input id="r1" type="radio"  value="5" class="radio1" ><label for="r1">Never</label><br>
+    <input id="r2" type="radio"  value="4" class="radio2"><label for="r2">Rarely</label><br>
+    <input id="r3" type="radio"  value="3" class="radio3"><label for="r3">Sometimes</label><br>
+    <input id="r4" type="radio"  value="2" class="radio4"><label for="r4">Often</label><br>
+    <input id="r5" type="radio"  value="1" class="radio5"><label for="r5">Very often</label><br>
+    <input id="r6" type="radio"  value="0" class="radio6"><label for="r5">Not applicable</label><br>
   </form>
 
-  <form>How likely is it that per-serving calories will matter more than flavor/taste, portion, price, etc. when choosing food items? </br>
-    <input type="radio" name="sex" value="male" checked>Never
-    <br>
-    <input type="radio" name="sex" value="female">Rarely
-    <br>
-    <input type="radio" name="sex" value="female">Sometimes
-    <br>
-    <input type="radio" name="sex" value="female">Often
-    <br>
-    <input type="radio" name="sex" value="female">Very often
-    <br>
-    <input type="radio" name="sex" value="female">Not applicable
+  <h2><td>How likely is it that your usual shopping list of (food) items will change (to include healthier items) in the following week? </td></h2><br>
+  <form>
+    <input id="r1" type="radio" name="sex" value="5" class="radio1" ><label for="r1">Never</label><br>
+    <input id="r2" type="radio" name="sex" value="4" class="radio2"><label for="r2">Rarely</label><br>
+    <input id="r3" type="radio" name="sex" value="3" class="radio3"><label for="r3">Sometimes</label><br>
+    <input id="r4" type="radio" name="sex" value="2" class="radio4"><label for="r4">Often</label><br>
+    <input id="r5" type="radio" name="sex" value="1" class="radio5"><label for="r5">Very often</label><br>
+    <input id="r6" type="radio" name="sex" value="0" class="radio6"><label for="r5">Not applicable</label><br>
   </form>
 
-  <form>How likely is it that your usual shopping list of (food) items will change (to include healthier items)? </br>
-    <input type="radio" name="sex" value="male" checked>Never
-    <br>
-    <input type="radio" name="sex" value="female">Rarely
-    <br>
-    <input type="radio" name="sex" value="female">Sometimes
-    <br>
-    <input type="radio" name="sex" value="female">Often
-    <br>
-    <input type="radio" name="sex" value="female">Very often
-    <br>
-    <input type="radio" name="sex" value="female">Not applicable
+  <h2><td>How likely is it that you would think twice about what you purchase and consume at work (school etc.) for snacks and meals in the following week? This can include vending machine items and anywhere you would normally purchase food in and outside of the workplace.</td></h2><br> 
+  <form>
+    <input id="r1" type="radio" name="sex" value="male" class="radio1" ><label for="r1">Never</label><br>
+    <input id="r2" type="radio" name="sex" value="female" class="radio2"><label for="r2">Rarely</label><br>
+    <input id="r3" type="radio" name="sex" value="female" class="radio3"><label for="r3">Sometimes</label><br>
+    <input id="r4" type="radio" name="sex" value="female" class="radio4"><label for="r4">Often</label><br>
+    <input id="r5" type="radio" name="sex" value="female" class="radio5"><label for="r5">Very often</label><br>
+    <input id="r6" type="radio" name="sex" value="female" class="radio6"><label for="r5">Not applicable</label><br>
   </form>
 
-  <form>How likely is it that you would think twice about what you purchase and consume at work (school etc.) for snacks and meals? This can include vending machine items and anywhere you would normally purchase food in and outside of the workplace.</br> 
-    <input type="radio" name="sex" value="male" checked>Never
-    <br>
-    <input type="radio" name="sex" value="female">Rarely
-    <br>
-    <input type="radio" name="sex" value="female">Sometimes
-    <br>
-    <input type="radio" name="sex" value="female">Often
-    <br>
-    <input type="radio" name="sex" value="female">Very often
-    <br>
-    <input type="radio" name="sex" value="female">Not applicable
-  </form>
--->
+  
+  <div align="center">
+      <button><a href="game">I am done</a></button>
+  </div>
+
 
   </div>
   </body>
