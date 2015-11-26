@@ -43,8 +43,9 @@ Template.lobby.helpers ({
   },
 
   username : function (){
-    if(player())
-      return player().name;
+    var me = player();
+    if(me)
+      return me.name;
     else{
       return ""
     }
@@ -61,19 +62,20 @@ Template.lobby.events({
     Players.update(Session.get('player_id'), {$set: {name: name}});
   },
   'click button.startgame': function () {
+    var me = player();
     //////////////////////////////////// START NEW GAME method is called //////////////////////////////////
-  Meteor.call('start_new_game', player()._id, function (error, result) {
+  Meteor.call('start_new_game', me._id, function (error, result) {
     if (error) {
       // handle error
       console.error("you have made a mistake");
     }  else {
       //////////////////////////////////// NEW ROUND method is called //////////////////////////////////
       console.log("starting a new round");
-      Meteor.call('new_round',player(),result);
+      Meteor.call('new_round',me,result);
       console.log(result)
-      console.log(player())
-      console.log(Players.findOne({_id:player()._id}))
-      Players.update({_id:player()._id}, {$set: {game_id: result}},
+      console.log(me)
+      console.log(Players.findOne({_id:me._id}))
+      Players.update({_id:me._id}, {$set: {game_id: result}},
                      function(e,i){
                        Session.set("ingame",Math.random());});
     }
@@ -89,6 +91,15 @@ Template.lobby.events({
 
 
 Template.board.helpers({
+  group_aim : function () {
+    var aim = ""
+    me = player();
+    if (me.group=="loss") aim = "highest caloric"
+    else if (me.group=="gain") aim = "lowest caloric"
+    else { console.error("user doesn't have a group") }
+    return aim
+  },
+
   square : function (i) {
     var g = game();
     var display_card = '';
@@ -272,11 +283,11 @@ Template.player.helpers({
 
   monster_size : function () {
     //return 'width:'+ '128' + 'px; height:128px';
-    return 'width:'+ '250' + 'px; height:250px';
+    return '250px';
   },
   cards : function() {
     g = game();
-    return g.players.find(matchesP).card_set;
+    return g.players.find(matchesP).card_set.reverse();
   }
 });
 
@@ -341,11 +352,11 @@ var player = function () {
   if(getCookieValue('u_id')=='') {
      console.log("no player found, making a new one");
       var player_id =
-         Players.insert({game_id:null,name: "New User", idle: false, avatar: random(6)+1, performance:[]});
+         Players.insert({game_id:null,name: "New User", idle: false, avatar: random(6)+1, performance:[], group: "loss"});
       document.cookie="u_id="+player_id+"; path=/";
   }
   else{
-     console.log("ate cookie and found user");
+     //console.log("ate cookie and found user");
   }
   //this is a huge performance hit i bet
   return Players.findOne(getCookieValue('u_id'));
@@ -362,8 +373,8 @@ var game = function () {
   var me = player();
   if(me == null) return false;
   var g = Games.findOne(me.game_id);
-  console.log(me);
-  console.log(g);
+  //console.log(me);
+  //console.log(g);
   return g;
 };
 

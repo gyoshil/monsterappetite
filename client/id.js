@@ -64,7 +64,10 @@ Template.id.events({
 
 function createUser() {
 
-   var player_id = Players.insert({game_id:null,name: username, idle: false, avatar: random(6)+1, performance:[]});
+   var this_group = "";
+   if (Math.random()>0.5) {this_group="loss"}
+   else {this_group = "gain"};
+   var player_id = Players.insert({game_id:null,name: username, idle: false, avatar: random(6)+1, performance:[], group:this_group});
    document.cookie="u_id="+player_id+"; path=/";
    return player_id;
 

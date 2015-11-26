@@ -21,7 +21,7 @@
   </div>
   <div id="instructions">
     <!---INSTRUCTIONS-->
-    <p align="center"> <em> You have 5 seconds to choose the <strong> top 3 highest </strong> caloric food items </em> </p>
+    <p align="center"> <em> You have 5 seconds to choose the <strong> top 3 {{group_aim}} </strong> food items </em> </p>
   </div>
   <div id="board" style="background-color:{{bkgd}}">
     <div>
@@ -150,7 +150,7 @@
 
 <template name="player">
   <div class="player">
-    <img src={{ random_monster }} align="right" style={{ monster_size }}>
+    <img src={{ random_monster }} align="right" style="width:{{monster_size}}; height:{{monster_size}}; margin-bottom:10px" >
     <div class="header {{winner}}">
       {{#if name}}
         {{name}}
@@ -162,16 +162,20 @@
         <span class="winner_text">WINNER</span>
       {{/if}}
     </div>
-    {{#each cards}}
-      {{> card}}
-    {{/each}}
+    <div id="cards">
+    <div class="row">
+      {{#each cards}}
+        {{> card}}
+      {{/each}}
+    </div>
+    </div>
   </div>
 </template>
 
 <!-- Somehow this helps display monsters, food cards, the user name entering box, etc. -->
 <template name="card">
-  <div class="cards">
     <!--<img src="imgs/{{card_name}}.jpeg" height="146px" width="150px"> -->
-    <p> {{card_name}},<h2><em><strong>{{calories}}</strong></em></h2></p>
-  </div>
+    <div class="block">
+      <p> {{card_name}},<h2><em><strong>{{calories}}</strong></em></h2> </p>
+    </div>
 </template>

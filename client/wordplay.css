@@ -106,6 +106,27 @@ button:active {
     background-color: #990000;
 }
 
+#cards {
+    width: 95%;
+    max-width: 646px;
+    margin: 10px auto;
+    border: 2px solid black;
+    padding: 5px;
+    clear: right
+}
+#cards .row {
+    margin: 0;
+    padding: 0;
+}
+#cards br {
+    clear: both;
+}
+#cards .block {
+    float: left;
+    width: 128px;
+}
+ 
+
 #login {
     margin: 100px auto;
     text-align: center;
