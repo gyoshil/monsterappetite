@@ -17,7 +17,8 @@ Template.lobby.helpers ({
 
   show: function () {
     // only show lobby if we're not in a game
-    return !game();
+    var me = player();
+    return !game(me);
   },
   
   waiting : function () {
@@ -85,6 +86,59 @@ Template.lobby.events({
 
 
 //////
+////// OVERLAY template: shows the "summary of day"
+//////
+
+
+Template.overlay.helpers({
+  show : function () {
+    var me = player();
+    var g  = game(me);
+    if (!g) {return false}
+    if ( g.rounds.length % 3 == 0 && g.clock == 0){
+      return true;
+    }
+  },
+ 
+  text : function () {
+    var me = player();
+    var grp = getGroup(me);
+    var g  = game(me);
+    if (g == null) return ""
+
+    //TODO actually calculate total possible from a day
+    r = g.rounds;   
+    var totalPossiblePoints = 0
+    if(grp =="loss"){
+      totalPossiblePoints = 
+          highest_possible_score(r[r.length-1]) +
+          highest_possible_score(r[r.length-2]) +
+          highest_possible_score(r[r.length-3])
+    }     
+    else if (grp =="gain"){
+      totalPossiblePoints = 
+          lowest_possible_score(r[r.length-1]) +
+          lowest_possible_score(r[r.length-2]) +
+          lowest_possible_score(r[r.length-3])
+    }     
+      
+    var score_sentance = "Today you ate "+ getPlayerScore(me) +" calories out of "+ totalPossiblePoints +" possible. "
+
+    var framing_sentance = ""
+    if (grp =="loss") {
+      framing_sentance = "Wow, you sure ate a lot - if you get diabetes you will suffer a terrible fate. "
+    }
+    else if (grp =="gain"){
+      framing_sentance = "Wow, you sure ate a lot - if you don't get diabetes you will live long and prosper. "
+    }
+
+    var continue_sentance = "get ready for the next goal, eat like a monster! "
+
+    return score_sentance + framing_sentance + continue_sentance;
+  }
+});
+
+//////
 ////// BOARD template: renders the board and the clock given the
 ////// current game.  
 //////
@@ -94,16 +148,15 @@ Template.board.helpers({
   group_aim : function () {
     var aim = ""
     me = player();
-    if (me.group=="loss") aim = "highest caloric"
-    else if (me.group=="gain") aim = "lowest caloric"
-    else { console.error("user doesn't have a group") }
-    return aim
+    return getGroupAim(me) + " caloric"
   },
 
   square : function (i) {
-    var g = game();
+    var me = player();
+    var g = game(me);
     var display_card = '';
-    if (g) {
+
+    if (g != null && g && g.rounds[g.rounds.length-1] != null) {
       display_card = 'imgs/'+g.rounds[g.rounds.length-1][i].card_name+'.jpeg';
     }
     else display_card = 'imgs/monster'+(random(6)+1)+'.png';
@@ -121,9 +174,10 @@ Template.board.helpers({
 
   bkgd : function () {
     //if we are in the lobby, not a game, no background
-    if (!game()) {return ""}
+    var me = player();
+    if (!game(me)) {return ""}
     //otherwise show a nice colored background
-    var c = game().rounds.length % 3;
+    var c = game(me).rounds.length % 3;
     if (c==1){//morning
       return "green";
     };
@@ -137,10 +191,11 @@ Template.board.helpers({
   },
 
   clock : function () {
-    if (game() == null || game().clock === 0)
+    var me = player();
+    if (game(me) == null || game(me).clock === 0)
       return;
 
-    var clock = game() && game().clock;
+    var clock = game(me) && game(me).clock;
     // format into Minute : Seconds like 0:03
     var min = Math.floor(clock / 60);
     var sec = clock % 60;
@@ -151,7 +206,8 @@ Template.board.helpers({
 var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
-    if (game() && game().clock != 0 && cards_selected < 3) { 
+    var me = player();
+    if (game(me) && game(me).clock != 0 && cards_selected < 3) { 
     //when you change the last number on this line, change "instructions" in html
     
     /////////////// this is finding the food card id in a complex way //////////
@@ -171,7 +227,7 @@ Template.board.events({
       Session.set('selected_' + id, 'last_in_path');
       
       //GET CARD NAME
-      var g = game();
+      var g = game(me);
       var card_name = g.rounds[g.rounds.length-1][id].card_name;                      
       
       //TODO - merge and extract these, need currying, does js have this?
@@ -196,11 +252,13 @@ Template.board.events({
 
 Template.postgame.helpers({
   inGame: function () {
-    return game();
+    var me = player();
+    return game(me);
     //return true;
   },
   finishedGame: function () {
-    var g = game();
+    var me = player();
+    var g = game(me);
     return (g && g.rounds.length == 3 && g.clock ==0);
   },
   endOfRound: function () {
@@ -208,7 +266,8 @@ Template.postgame.helpers({
     catch(err) {
       //console.log(err);
     }
-    return (game() && game().clock == 0);
+    var me = player();
+    return (game(me) && game(me).clock == 0);
   }
 });
 
@@ -228,7 +287,8 @@ Template.postgame.events({
 
     //multiple ROUNDS fxn is called here
     document.getElementById('postgame').style.visibility = 'hidden';
-    Meteor.call('new_round',player(),game()._id);
+    var me = player();
+    Meteor.call('new_round',me,game(me)._id);
 
   }
 });
@@ -242,18 +302,20 @@ Template.postgame.events({
 Template.scores.helpers({
   show : function () {
     // !! is turning the object into a boolean
-    //console.log(!!game());
-    return !!game();
+    var me = player();
+    return !!game(me);
   },
   players : function () {
-    return game().players;
+    var me = player();
+    return game(me).players;
   }
 });
 
 Template.player.helpers({
   winner : function () {
   //the following winner function was brought back from being commented out and nothing happens. Winner still doesn't show up. 
-  var g = game();
+  var me = player();
+  var g = game(me);
   if (g.winners && _.include(g.winners, this._id))
     return 'winner';
     return '';
@@ -262,15 +324,8 @@ Template.player.helpers({
   // how total score is added (selected items show their individual scores even w/o this code, 
   // but TOTAL is not calculated w/o this section)
   total_score : function () {
-
-    var total_score = 0;
-    var addScores = function(e,i,l) {
-      total_score += e.calories;
-      return '';
-    };
-
-    var card_set = game().players.find(matchesP).card_set;
-    card_set.forEach(addScores);
+    var me = player();
+    var total_score = getPlayerScore(me);
  
     var oldVal = $("#total_score").text();
     if (oldVal != total_score) {
@@ -300,7 +355,8 @@ Template.player.helpers({
   //this 'updates' the avatar id every second
   //not good, but works
   random_monster : function () {
-    return 'imgs/monster'+Players.findOne(this._id).avatar+'.png ';
+    var me = player();
+    return 'imgs/monster'+me.avatar+'.png ';
   },
 
   monster_size : function () {
@@ -308,7 +364,8 @@ Template.player.helpers({
     return '250px';
   },
   cards : function() {
-    g = game();
+    var me = player();
+    g = game(me);
     return g.players.find(matchesP).card_set.reverse();
   }
 });
@@ -390,15 +447,32 @@ function getCookieValue(a) {
   return b ? b.pop() : '';
 }
 
-var game = function () {
+var game = function (me) {
   Session.get("game ready trigger");
-  var me = player();
   if(me == null) return false;
   var g = Games.findOne(me.game_id);
   //console.log(me);
   //console.log(g);
   return g;
 };
+
+
+//ensure you only get the group when the user has already been assigned
+var getGroup = function (me){
+  if (me == null) return ""
+  if (me.group=="loss") return "loss"
+  else if (me.group=="gain") return "gain"
+  else { console.error("user doesn't have a group") }
+  return "no group"
+};
+
+var getGroupAim = function(me){
+  aim = ""
+  g = getGroup(me);
+  if (g=="loss") aim = "highest"
+  else if (g=="gain") aim = "lowest"
+  return aim
+}
 
 var clear_selected_positions = function () {
   for (var pos = 0; pos < 16; pos++)
@@ -409,3 +483,14 @@ var random = function(i) {
   return Math.floor(Math.random() * (i));
 }
 
+var getPlayerScore = function(me) {
+
+  var total_score = 0;
+  var addScores = function(e,i,l) {
+    total_score += e.calories;
+  };
+
+  var card_set = game(me).players.find(matchesP).card_set;
+  card_set.forEach(addScores);
+  return total_score;
+}

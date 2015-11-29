@@ -130,16 +130,32 @@ new_board = function () {
   return board;
 };
 
-best_possible_score = function(board) {
-  var best = 0;
+lowest_possible_score = function(board) {
+  board.sort(function(a,b){
+    a.calories < b.calories;
+  });
+  return sumTopThree(board)
+};
+
+highest_possible_score = function(board) {
   board.sort(function(a,b){
     a.calories > b.calories;
   });
-  for (var i = 3; i >= 0; i--) {
-    best+=board[i].calories;
-  };
-  return best;
+  return sumTopThree(board)
 };
+
+sumTopThree = function(board) {
+  var sum = 0;
+  for (var i = 3; i >= 0; i--) {
+    sum+=board[i].calories;
+  };
+  return sum;
+};
+
+
+//
+// Server specific stuff (why is this here instead of in server/game.js?)
+//
 
 if (Meteor.isServer) {
   // publish all the non-idle players.

@@ -97,6 +97,7 @@ execute_round = function(player,game_id) {
 
   // wind down the game CLOCK
   var clock = 5;
+  Games.update({_id: game_id}, {$set: {clock: clock}});
   var interval = Meteor.setInterval(function () {
     Games.update({_id: game_id}, {$set: {clock: clock}});
     // end of game
@@ -107,7 +108,6 @@ execute_round = function(player,game_id) {
       var actual_score = 0;//this needs to be actual score ONLY for a single round
       var addScores = function(e,i,l) {
         actual_score += e.calories;
-        return '';
       };
       var matchesP = function(e,i,l){
         return (e._id == player._id);
@@ -117,7 +117,9 @@ execute_round = function(player,game_id) {
       card_set.forEach(addScores);
 
       r = Games.findOne({_id: game_id}).rounds;   
-      perf = actual_score/best_possible_score(r[r.length-1]);
+
+      //TODO: this is where do a bit of data crunching to make analysis later on
+      perf = [actual_score, lowest_possible_score(r[r.length-1]), highest_possible_score(r[r.length-1])];
 
       Players.update({_id:player._id}, {$push: {performance:perf}});
 
