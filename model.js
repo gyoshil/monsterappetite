@@ -146,12 +146,13 @@ highest_possible_score = function(board) {
 
 sumTopThree = function(board) {
   var sum = 0;
-  for (var i = 3; i >= 0; i--) {
+  for (var i = 0; i < 3; i++) {
     sum+=board[i].calories;
   };
   return sum;
 };
 
+roundsPerGame = 6;
 
 //
 // Server specific stuff (why is this here instead of in server/game.js?)
@@ -166,7 +167,7 @@ if (Meteor.isServer) {
   // publish single games
   Meteor.publish('games', function (id) {
     check(id, String);
-    console.log("subscripbing to");
+    console.log("subscripbing to");//TODO this subscribes to all games from the user, not just the current one
     console.log(Games.find({players: { $elemMatch : {_id : id}}}).fetch());
     return (Games.find({players: { $elemMatch : {_id : id}}}));
   });

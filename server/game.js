@@ -74,7 +74,7 @@ Meteor.methods ({
     var g = Games.findOne(game_id);
     //console.log(g);
     //play up to n rounds
-    if (g.rounds.length <=2 ) {
+    if (g.rounds.length < roundsPerGame ) {
       new_round_set = g.rounds;//.push() returns new length
       new_round_set.push(new_board());
       Games.update({_id: game_id},
