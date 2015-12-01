@@ -157,9 +157,24 @@ Template.board.helpers({
     var display_card = '';
 
     if (g != null && g && g.rounds[g.rounds.length-1] != null) {
-      display_card = 'imgs/'+g.rounds[g.rounds.length-1][i].card_name+'.jpeg';
+      display_card = 'imgs/cards/'+g.rounds[g.rounds.length-1][i].card_name+'.jpeg';
     }
-    else display_card = 'imgs/monster'+(random(6)+1)+'.png';
+    else {
+      var x = random(1200)
+      var size = "" 
+      if (x < 300) size = "1"
+      else if (x < 600) size = "2"
+      else if (x < 900) size = "3"
+      else size = "4"
+      var avatar = random(5)+1 
+      var color = ""
+      if (avatar==1) color = "Yellow"
+      else if (avatar==2) color = "Blue"
+      else if (avatar==3) color = "Green"
+      else if (avatar==4) color = "Orange"
+      else if (avatar==5) color = "Purple"
+      display_card = 'imgs/monsters/'+color+"_stage"+size+'.png ';
+    }
     return display_card
   },
 
@@ -356,7 +371,19 @@ Template.player.helpers({
   //not good, but works
   random_monster : function () {
     var me = player();
-    return 'imgs/monster'+me.avatar+'.png ';
+    var x = getPlayerScore(me);
+    var size = "" 
+    if (x < 300) size = "1"
+    else if (x < 600) size = "2"
+    else if (x < 900) size = "3"
+    else size = "4"
+    var color = ""
+    if (me.avatar==1) color = "Yellow"
+    else if (me.avatar==2) color = "Blue"
+    else if (me.avatar==3) color = "Green"
+    else if (me.avatar==4) color = "Orange"
+    else if (me.avatar==5) color = "Purple"
+    return 'imgs/monsters/'+color+"_stage"+size+'.png ';
   },
 
   monster_size : function () {
