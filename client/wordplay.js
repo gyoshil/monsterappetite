@@ -65,11 +65,11 @@ Template.lobby.events({
   'click button.startgame': function () {
     var me = player();
     //////////////////////////////////// START NEW GAME method is called //////////////////////////////////
-  Meteor.call('start_new_game', me._id, function (error, result) {
-    if (error) {
+    Meteor.call('start_new_game', me._id, function (error, result) {
+      if (error) {
       // handle error
       //console.error("you have made a mistake");
-    }  else {
+      }  else {
       //////////////////////////////////// NEW ROUND method is called //////////////////////////////////
       //console.log("starting a new round");
       Meteor.call('new_round',player(),result);
@@ -106,7 +106,6 @@ Template.overlay.helpers({
     var g  = game(me);
     if (g == null) return ""
 
-    //TODO actually calculate total possible from a day
     r = g.rounds;   
     var totalPossiblePoints = 0
     if(grp =="loss"){
@@ -121,8 +120,9 @@ Template.overlay.helpers({
           lowest_possible_score(r[r.length-2]) +
           lowest_possible_score(r[r.length-3])
     }     
-      
-    var score_sentance = "Today you ate "+ getPlayerScore(me) +" calories out of "+ totalPossiblePoints +" possible. "
+    
+    //TODO getPLayerScorePERDAY  
+    var score_sentance = "SUMMARY OF THE DAY: you ate "+ getPlayerScore(me) +" calories out of "+ totalPossiblePoints +" possible. "
 
     var framing_sentance = ""
     if (grp =="loss") {
@@ -146,7 +146,6 @@ Template.overlay.helpers({
 
 Template.board.helpers({
   group_aim : function () {
-    var aim = ""
     me = player();
     return getGroupAim(me) + " caloric"
   },
@@ -207,10 +206,10 @@ Template.board.helpers({
 
   clock : function () {
     var me = player();
-    if (game(me) == null || game(me).clock === 0)
+    if (game(me) == null || game(me).clock == 0)
       return;
 
-    var clock = game(me) && game(me).clock;
+    var clock =  game(me).clock;
     // format into Minute : Seconds like 0:03
     var min = Math.floor(clock / 60);
     var sec = clock % 60;
@@ -274,7 +273,7 @@ Template.postgame.helpers({
   finishedGame: function () {
     var me = player();
     var g = game(me);
-    return (g && g.rounds.length == 3 && g.clock ==0);
+    return (g && g.rounds.length == roundsPerGame && g.clock ==0);
   },
   endOfRound: function () {
     try {document.getElementById('postgame').style.visibility = 'visible';}
@@ -475,7 +474,7 @@ function getCookieValue(a) {
 }
 
 var game = function (me) {
-  Session.get("game ready trigger");
+  //Session.get("game ready trigger");
   if(me == null) return false;
   var g = Games.findOne(me.game_id);
   //console.log(me);
@@ -495,9 +494,9 @@ var getGroup = function (me){
 
 var getGroupAim = function(me){
   aim = ""
-  g = getGroup(me);
-  if (g=="loss") aim = "highest"
-  else if (g=="gain") aim = "lowest"
+  grp = getGroup(me);
+  if (grp=="loss") aim = "highest"
+  else if (grp=="gain") aim = "lowest"
   return aim
 }
 
@@ -521,3 +520,4 @@ var getPlayerScore = function(me) {
   card_set.forEach(addScores);
   return total_score;
 }
+
