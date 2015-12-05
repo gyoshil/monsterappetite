@@ -9,7 +9,7 @@ Router.configure({
 Template.datapage.helpers({
 
  returnVal : function () {
-  var output = "f";
+  var output = "";
   var players = Players.find().fetch();
   console.log(Players); 
   console.log(players); 
@@ -17,7 +17,7 @@ Template.datapage.helpers({
   	if (p.name!="") {
   	//everytime we load the main page we add a user with ablank user name. ya, this code is that bad
   	//at the very least, we should clean the database out of these entries here
-  		output += p.name+ ","+p.performance+"; ";
+  		output += p.name+ ", "+p.performance+"; ";
       //console.error(p.performance);
   	};
   });

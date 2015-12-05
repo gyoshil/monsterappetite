@@ -1,5 +1,5 @@
 Router.route('/snackazon/PDQ',{
-  template: 'snackazon/PDQ'
+  template: 'PDQ'
 });
 
 Router.configure({

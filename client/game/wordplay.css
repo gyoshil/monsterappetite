@@ -5,10 +5,10 @@ body {
 }
 
 /* base styles */
+/*    height: 50px;
+    width: 300px; */
 
 input {
-    height: 50px;
-    width: 300px;
     font-size: 2em;
     border: 2px solid black;
     padding: 5px;

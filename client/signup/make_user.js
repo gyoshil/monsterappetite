@@ -1,5 +1,5 @@
-Router.route('/makeUser',{
-  template: 'id'
+Router.route('/signup',{
+  template: 'make_user'
 });
 
 Router.configure({

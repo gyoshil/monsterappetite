@@ -1,0 +1,33 @@
+<template name="select">
+  <div id="main" class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+      <h1>Please answer the following question</h1>
+
+      <!--href leads to "game" and that is why when you click these images they lead you to the game-->
+      {{#each items}}
+        {{> item ind = @index cards=items}}
+      {{/each}}
+             
+    </div>
+    <a href="PDQ"><button>Made my choice</button></a>
+    </div>
+    </div>
+    
+</template>
+
+<template name="item">
+
+  <label class="radio-inline">
+    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+    <img width="150px" height="150px" src="{{ itemImg }}">
+  </label>
+  <button class="top">Get Info</button>
+  <div id="{{ind}}" style="display:none">
+    {{ itemCalories }} calories
+    <button class="bottom">Get More Info</button>
+    <div id="more_{{ind}}" style="display:none">
+      has lots of protien
+    </div>
+  </div>
+</template>
