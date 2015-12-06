@@ -35,7 +35,7 @@ function rI(a) {
   return a[random(a.length)];
 }
 
-Template.id.helpers({
+Template.make_user.helpers({
   userName: function () {
     var nm = rI(firstName) +" "+
              rI(lastName1) +
@@ -46,9 +46,10 @@ Template.id.helpers({
 });
 
 
-Template.id.events({
+Template.make_user.events({
  'submit form': function(event){
-    
+
+    //TODO: this will create a user every time, even if the email is invalid    
     var p_id = createUser()
     console.log("sent email to "+event.target.email.vale);
     Meteor.call('send_email',event.target.email.value, username);
@@ -67,7 +68,13 @@ function createUser() {
    var this_group = "";
    if (Math.random()>0.5) {this_group="loss"}
    else {this_group = "gain"};
-   var player_id = Players.insert({game_id:null,name: username, idle: false, avatar: random(6)+1, performance:[], group:this_group});
+   var player_id = Players.insert({game_id:null,
+                                   name: username, 
+                                   idle: false, 
+                                   avatar: random(6)+1, 
+                                   performance:[], 
+                                   snackazonChoices:[],
+                                   group:this_group});
    document.cookie="u_id="+player_id+"; path=/";
    return player_id;
 

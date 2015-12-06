@@ -108,6 +108,21 @@ DECK = [
             {card_name:'onionrings',calories:230},
             ];
 
+SNACKAZON_DECK = [
+
+            //first set of choices
+            {card_name:'goldencrisp',calories:147},
+            {card_name:'luckycharms',calories:147},
+            {card_name:'jujubes',calories:110},
+            
+            //second set of choices
+            {card_name:'goldencrisp',calories:147},
+            {card_name:'luckycharms',calories:147},
+            {card_name:'jujubes',calories:110},
+
+            {card_name: 'trolli_crawlers', calories:110}
+
+];
 // generate a new random selection of cards.
 new_board = function () {
   var board = [];
@@ -152,6 +167,11 @@ sumTopThree = function(board) {
   return sum;
 };
 
+getCookieValue = function(a) {
+  var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
+};
+
 roundsPerGame = 6;
 
 //
@@ -180,5 +200,5 @@ if (Meteor.isServer) {
     check(player_id, String);
     return Cards.find({$or: [{game_id: game_id, state: 'good'},
                              {player_id: player_id}]});
-  });*/
+  });*///
 }

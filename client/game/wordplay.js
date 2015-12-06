@@ -457,7 +457,13 @@ var player = function () {
   if(getCookieValue('u_id')=='') {
      //console.log("no player found, making a new one");
       var player_id =
-         Players.insert({game_id:null,name: "New User", idle: false, avatar: random(6)+1, performance:[], group: "loss"});
+         Players.insert({game_id:null,
+                         name: "New User", 
+                         idle: false, 
+                         avatar: random(6)+1,
+                         performance:[],
+                         snackazonChoices:[],
+                         group: "loss"});
       document.cookie="u_id="+player_id+"; path=/";
   }
   else{
