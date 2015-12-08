@@ -1,5 +1,5 @@
 <template name="page">
-  <div id="main" class="container-fluid">
+  <div id="main" >
     {{> overlay }}
     <div class="row">
 
@@ -19,11 +19,17 @@
 </template>
 
 <template name="overlay">
-  {{#if show }}
-  <div class="alert alert-success" role="alert">
-    {{ text }}
-  </div>     
-  {{/if}}
+    {{#if show }}
+  <!---<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">-->
+        <div class="alert alert-success" role="alert" align="center"><h2>
+          {{ text }}
+        </h2></div>
+      <!---</div>
+    </div>
+  </div> -->      
+    {{/if}}
 </template>
 
 <template name="board">

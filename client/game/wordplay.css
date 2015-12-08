@@ -79,6 +79,16 @@ button:active {
     float: right;
 }
 
+#overlay {
+    padding:10px;
+    color: red;
+    background-color:red;
+}
+#instructions {
+    color: green;
+    font-size: 20px;
+}
+
 /*this is the squares inside the boards but NOT the food image sizes*/
 /*increased width and height; added padding-top so RED is revealed when item is selected */
 .square {

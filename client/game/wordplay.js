@@ -122,19 +122,19 @@ Template.overlay.helpers({
     }     
     
     //TODO getPLayerScorePERDAY  
-    var score_sentance = "SUMMARY OF THE DAY: you ate "+ getPlayerScore(me) +" calories out of "+ totalPossiblePoints +" possible. "
+    var score_sentance = "SUMMARY OF THE DAY: You ate "+ getPlayerScore(me) +" calories out of "+ totalPossiblePoints +" possible. "
 
     var framing_sentance = ""
     if (grp =="loss") {
-      framing_sentance = "Wow, you sure ate a lot - if you get diabetes you will suffer a terrible fate. "
+      framing_sentance = "Wow, you sure ATE a LOT of calories. You are at a HIGHER RISK for type 2 diabetes. "
     }
     else if (grp =="gain"){
-      framing_sentance = "Wow, you sure ate a lot - if you don't get diabetes you will live long and prosper. "
+      framing_sentance = "Wow, you sure AVOIDED a lot calories. You are at a LOWER RISK for type 2 diabetes. "
     }
 
-    var continue_sentance = "get ready for the next goal, eat like a monster! "
+    //var continue_sentance = "Get ready for the next goal! "
 
-    return score_sentance + framing_sentance + continue_sentance;
+    return score_sentance + framing_sentance ;
   }
 });
 
