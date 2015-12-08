@@ -128,10 +128,13 @@ Template.overlay.helpers({
     if (grp =="loss") {
       framing_sentance = "Wow, you sure ATE a LOT of calories. You are at a HIGHER RISK for type 2 diabetes. "
     }
+    // if (grp == "loss" SOMETHING that indicates the round number: roundNumber%3 or %6 as it will be multiples of 3)
+    //framing_sentance = "Wow, you sure ATE a LOT of calories. You are at a HIGHER RISK for suffering a STROKE. " }
+
     else if (grp =="gain"){
       framing_sentance = "Wow, you sure AVOIDED a lot calories. You are at a LOWER RISK for type 2 diabetes. "
     }
-
+    //framing_sentance = "Wow, you sure AVOIDED a lot of calories. You are at a LOWER RISK for suffering a STROKE. " }
     //var continue_sentance = "Get ready for the next goal! "
 
     return score_sentance + framing_sentance ;

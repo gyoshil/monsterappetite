@@ -1,33 +1,46 @@
 <template name="select">
-  <div id="main" class="container-fluid">
+  <div id="main" class="continer-fluid">
     <div class="row">
-    <div class="col-md-12">
-      <h1>Please answer the following question</h1>
-
+    
+    <div class="jumbotron" align="center">
+      <h2><em>Snackazon:</em> Please select one of the following items for delivery</h2><br><br>
+    
       <!--href leads to "game" and that is why when you click these images they lead you to the game-->
+    
       {{#each items}}
         {{> item ind = @index cards=items}}
-      {{/each}}
-             
+      {{/each}} <br><br><br><br>            
     </div>
-    <a href="{{nextStage}}"><button>Made my choice</button></a>
+      <div align="center">
+        <a href="{{nextStage}}" ><button >Made my choice</button></a>
+      </div>
     </div>
-    </div>
-    
+    </div>   
 </template>
 
-<template name="item">
 
+
+<template name="item">
+  
   <label class="radio-inline">
     <input type="radio" id="inlineRadio1" name="item" value="{{itemName}}">
-    <img width="150px" height="150px" src="{{ itemImg }}">
+    <img width="300px" height="300px" src="{{ itemImg }}">
   </label>
-  <button class="top">Get Info</button>
+  
+    
+    <button class="top"><h3>Get Info</h3></button>
+  
+  
   <div id="{{ind}}" style="display:none">
-    {{ itemCalories }} calories
-    <button class="bottom">Get More Info</button>
+    {{ itemCalories }} calories <br>
+    <!--TO BE ADDED INFORMATION-->
+    {{ itemIngredients }} <br>
+    {{ itemSource }}
+      <button class="bottom">Get More Info</button>
     <div id="more_{{ind}}" style="display:none">
-      has lots of protien
+      has lots of protien <br>
+      unsaturated fat
     </div>
   </div>
+
 </template>
