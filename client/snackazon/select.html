@@ -9,13 +9,13 @@
     
       <!--href leads to "game" and that is why when you click these images they lead you to the game-->
     
-    <div class="row" style="padding-left:25px">
+    <div class="row">
       {{#each items}}
         {{> item ind = @index cards=items}}
       {{/each}} <br>   
     </div>
     
-  <div class="row" style="padding-left:25px">
+  <div class="row">
     <div align="center">
        <a href="{{nextStage}}" ><button >Made my choice</button></a>
     </div>
