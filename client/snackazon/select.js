@@ -35,13 +35,18 @@ var getCurrentStage = function(){
     else return parseInt(currentStage)
   }
 Template.select.events ({
-  'click button': function(event,template) {
+  'click .done': function(event,template) {
     //record selected item in db
     var element = template.find('input:radio[name=item]:checked');
     var itemName = $(element).val();
     //player=loggedInPlayer()
     var p = Players.findOne(getCookieValue('u_id'))
     Players.update({_id:p._id}, {$push: {snackazonItemChoices: itemName}})
+
+    for (i=0; i<3; i++){
+      document.getElementById(i).style.display = "none"
+      document.getElementById("more_"+i).style.display = "none"
+    }
   }
 
 })
