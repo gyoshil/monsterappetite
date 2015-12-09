@@ -57,7 +57,13 @@ Template.item.helpers ({
  
   itemCalories : function () {
     return this.cards[this.ind].calories
-  } 
+  }, 
+  itemIngredients :function () {
+    return this.cards[this.ind].ingredients;
+  },
+  itemSource : function () {
+    return this.cards[this.ind].source_;
+  }
 })
 
 Template.item.events ({

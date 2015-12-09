@@ -113,7 +113,7 @@ SNACKAZON_DECK = [
             //first set of choices
             {card_name:'goldencrisp',calories:147},
             {card_name:'luckycharms',calories:147},
-            {card_name:'jujubes',calories:110},
+            {card_name:'Brownies_Beaver',calories:110, source_:"local", ingredients: "chocolate", protein:"none" },
             
             //second set of choices
             {card_name:'goldencrisp',calories:147},
