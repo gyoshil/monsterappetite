@@ -1,22 +1,44 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
 <template name="PDQ">
   <div id="main" class="container-fluid">
     <div class= "container">
       <div class="jumbotron">
-        <h2>For each previous snack you have selected answer <br>the following question:<small> <strong> Which top <em><u>three</u></em> aspects influenced your selection? </strong> </small></h2>
+        <h2>For each previous snack you have selected you will <br>be asked a question:<small> <strong> Which top <em><u>three</u></em> aspects influenced your choice? </strong> </small></h2>
       </div>
-
     {{#each choices }}
       {{> chosenItem }}
     {{/each}}
-
   </div>
   <button><a href="{{afterPDQ}}">I am done</a></button>
 </div>
 </template>
 
-<template name="chosenItem">
-  <div class="row">
-  <img src="{{itemImg}}" align="top" />
-  <iframe src="https://tccolumbia.qualtrics.com/SE/?SID=SV_8G1eWjPG3kRA2gd" width="1100px" height="1000px"></iframe>
+
+<template name="chosenItem" class="container-fluid">
+  <div class="panel panel-success">
+    <div class="panel-heading"><h3>This is your previous snack selection. Answer the question on the right for this snack item. Make sure to click <strong>>></strong> grey button after each question. </h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <img src="{{itemImg}}" align="top" width="250px" height="250px"/>
+          </div>
+          <div class="col-sm-9">
+            <iframe src="https://tccolumbia.qualtrics.com/SE/?SID=SV_8G1eWjPG3kRA2gd" width="800px" height="1000px"></iframe>
+          </div>
+        </div>
+      </div>   
   </div>
 </template>
+
+
+
+      
+      
+    
