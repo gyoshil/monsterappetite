@@ -4,43 +4,53 @@
     
     <div class="jumbotron" align="center">
       <h2><em>Snackazon:</em> Please select one of the following items for delivery</h2><br><br>
+    </div>
+    </div>
     
       <!--href leads to "game" and that is why when you click these images they lead you to the game-->
     
+    <div class="row" style="padding-left:25px">
       {{#each items}}
         {{> item ind = @index cards=items}}
-      {{/each}} <br><br><br><br>            
+      {{/each}} <br>   
     </div>
-      <div align="center">
-        <a href="{{nextStage}}" ><button >Made my choice</button></a>
-      </div>
+    
+  <div class="row" style="padding-left:25px">
+    <div align="center">
+       <a href="{{nextStage}}" ><button >Made my choice</button></a>
     </div>
-    </div>   
+  </div>   
+</div>   
 </template>
 
 
 
 <template name="item">
-  
+ 
+<div class="col-md-4">
+  <div class="text-center"> 
   <label class="radio-inline">
     <input type="radio" id="inlineRadio1" name="item" value="{{itemName}}">
-    <img width="300px" height="300px" src="{{ itemImg }}">
+    <img class="center" width="250px" height="250px" src="{{ itemImg }}">
   </label>
+  </div>
   
-    
-    <button class="top"><h3>Get Info</h3></button>
+   <br> 
+    <div class="text-center"><button class="top">Get Info</button>
   
   
   <div id="{{ind}}" style="display:none">
     {{ itemCalories }} calories <br>
     <!--TO BE ADDED INFORMATION-->
     {{ itemIngredients }} ingredients <br>
-    {{ itemSource }} source
+    {{ itemSource }} source <br>
       <button class="bottom">Get More Info</button>
     <div id="more_{{ind}}" style="display:none">
       has lots of protien <br>
       unsaturated fat
     </div>
+    </div>
   </div>
+</div>
 
 </template>
