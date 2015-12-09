@@ -32,7 +32,7 @@ DECK = [
             {card_name:'goldencrisp',calories:147},
             {card_name:'luckycharms',calories:147},
             {card_name:'jujubes',calories:110},
-            {card_name: 'trolli_crawlers', calories:110},
+            {card_name:'trolli_crawlers', calories:110},
             {card_name:'salsa',calories:10},
             {card_name:'smuckers',calories:50},
             {card_name:'hersheys',calories:60},
@@ -111,16 +111,19 @@ DECK = [
 SNACKAZON_DECK = [
 
             //first set of choices
-            {card_name:'goldencrisp',calories:147},
-            {card_name:'luckycharms',calories:147},
-            {card_name:'Brownies_Beaver',calories:110, source_:"local", ingredients: "chocolate", protein:"none" },
+            {card_name:'Brownies_Beaver',calories:110, source_:"local", ingredients: "chocolate + eggs", protein:"none" },
+            {card_name:'Brownies_Monkey',calories:90, source_:"local", ingredients: "chocolate", protein:"none" },
+            {card_name:'Brownies_Panda',calories:180, source_:"non-local", ingredients: "chocolate", protein:"none" },
             
             //second set of choices
-            {card_name:'goldencrisp',calories:147},
-            {card_name:'luckycharms',calories:147},
-            {card_name:'jujubes',calories:110},
+            {card_name:'goldencrisp',calories:147, source_:"non-local", ingredients: "honey" },
+            {card_name:'luckycharms',calories:147, source_:"non-local", ingredients: "sugar" },
+            {card_name:'golden_grahams',calories:160, source_:"local", ingredients: "cinnamon" },
 
-            {card_name: 'trolli_crawlers', calories:110}
+            //third set of choices
+            {card_name:'trolli_crawlers', calories:110, ingredients: "sugar", source_:"non-local"},
+            {card_name:'starburst',calories:160, ingredients: "sugar", source_:"non-local"},
+            {card_name:'mike&ike',calories:140, ingredients: "sugar",  source_:"non-local"},
 
 ];
 // generate a new random selection of cards.
