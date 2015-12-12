@@ -10,7 +10,7 @@
   <div id="main" class="container-fluid">
     <div class= "container">
       <div class="jumbotron">
-        <h2>For each previous snack you have selected you will <br>be asked a question:<small> <strong> Which top <em><u>three</u></em> aspects influenced your choice? </strong> </small></h2>
+        <h2>For each previous snack you have selected you will <br>be asked a question:<small> <strong> Which top <em><u>three</u></em> reasons influenced your choice? </strong> </small></h2>
       </div>
     {{#each choices }}
       {{> chosenItem }}
@@ -23,7 +23,9 @@
 
 <template name="chosenItem" class="container-fluid">
   <div class="panel panel-success">
-    <div class="panel-heading"><h3>This is your previous snack selection. Answer the question on the right for this snack item. Make sure to click <strong>>></strong> grey button after each question. </h3></div>
+    <div class="panel-heading"><h3>The following includes the 6 snacks you just selected. Answer the question on the right for each snack item on the left. Make sure to click on the blue "<strong>Submit</strong>" button when you are done with each snack. 
+
+    </h3></div>
       <div class="panel-body">
         <div class="row">
           <div class="col-sm-3">
