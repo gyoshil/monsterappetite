@@ -45,8 +45,11 @@ function processData(allText) {
     return (allCards)
 }
 
-var d = processData(Assets.getText("foodcard_database.csv"));
-//DECK = d
+if (Meteor.isServer) {
+  var d = processData(Assets.getText("foodcard_database.csv"));
+  console.log(d)
+  //DECK = d
+}
 
 DECK = [
             

@@ -13,7 +13,7 @@ Template.biq.events ({
     //var element = template.find('input:radio[name=item]:checked');
     //var itemName = $(element).val();
     //player=loggedInPlayer()
-    var p = Players.findOne(getCookieValue('u_id'))
+    var p = player()
     Players.update({_id:p._id}, {$push: {biqTimes: 1}})
   }
 })
@@ -35,7 +35,7 @@ Template.biq.helpers({
 }) 
 
 var getAnswers = function(){
-    var p = Players.findOne(getCookieValue('u_id'))
+    var p = player()
     //my question is where is "intentionItemChoices" defined?
     //in PDQ it is return p.snackazonItemChoices. WHERE is this defined?
     if (p.biqTimes==null) return []
