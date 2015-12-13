@@ -1,3 +1,5 @@
+
+
 ////////// Shared code (client and server) //////////
 
 Games = new Mongo.Collection('games');
@@ -23,6 +25,29 @@ Players = new Mongo.Collection('players');
 
 //DECK2 = readAsJSON(foodDatabase.csv)
 //these things go into a board
+function processData(allText) {
+    console.log(allText)
+    var allTextLines = allText.split(/\r\n|\n/);
+    var headers = allTextLines[0].split(',');
+    var allCards = [];
+
+    for (var i=1; i<allTextLines.length; i++) {
+        var data = allTextLines[i].split(',');
+        if (data.length == headers.length) {
+
+            var card = {};
+            for (var j=0; j<headers.length; j++) {
+                card[headers[j]] = data[j];
+            }
+            allCards.push(card);
+        }
+    }
+    return (allCards)
+}
+
+var d = processData(Assets.getText("foodcard_database.csv"));
+//DECK = d
+
 DECK = [
             
             //pairs that are on the pre and post test
@@ -205,3 +230,9 @@ if (Meteor.isServer) {
                              {player_id: player_id}]});
   });*///
 }
+
+
+
+
+
+
