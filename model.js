@@ -198,11 +198,6 @@ sumTopThree = function(board) {
   return sum;
 };
 
-getCookieValue = function(a) {
-  var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-  return b ? b.pop() : '';
-};
-
 roundsPerGame = 6;
 
 //

@@ -22,8 +22,13 @@ Template.PDQ.helpers({
 
 
 var getChosenOnes = function(){
-    var p = Players.findOne(getCookieValue('u_id'))
-    return p.snackazonItemChoices
+    var p = player()
+    var c = p.snackazonItemChoices.slice(0,2)
+    if (c.length<3){
+      console.error("user should have 3 choices by this time, something is wrong")
+    }
+    return c
+    
 }
 //use http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/example-code-snippets/
 // to set fields within the survey

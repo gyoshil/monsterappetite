@@ -40,7 +40,7 @@ Template.select.events ({
     var element = template.find('input:radio[name=item]:checked');
     var itemName = $(element).val();
     //player=loggedInPlayer()
-    var p = Players.findOne(getCookieValue('u_id'))
+    var p = player()
     Players.update({_id:p._id}, {$push: {snackazonItemChoices: itemName}})
 
     for (i=0; i<3; i++){
