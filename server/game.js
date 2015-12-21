@@ -14,7 +14,7 @@ Meteor.methods ({
     //actual email sending method
     Email.send({
       to: email,
-      from: "msantolucuito13@gmail.com",
+      from: "monsterappetite499@gmail.com",
       subject: "Monster Apettite",
       text: "your name is"+name
     });
