@@ -154,13 +154,26 @@ Template.board.helpers({
     return getGroupAim(me) + " caloric"
   },
 
-  square : function (i) {
+  cardSet : function (){
+    var me = player();
+    g = game(me);
+    if(g){
+      return g.rounds[g.rounds.length-1];
+    }
+    else {
+      return ([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+    }
+  },
+
+  getImage : function (i) {
     var me = player();
     var g = game(me);
     var display_card = '';
 
     if (g != null && g && g.rounds[g.rounds.length-1] != null) {
-      display_card = 'imgs/cards/'+g.rounds[g.rounds.length-1][i].card_name+'.jpg';
+      console.log(i);
+      console.log(this);
+      display_card = 'imgs/cards/'+this.card_name+'.jpg';
     }
     else {
       display_card = random_monster(random(1200),random(5)+1);
