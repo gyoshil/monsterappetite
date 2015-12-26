@@ -55,8 +55,6 @@ Template.lobby.helpers ({
 });
 
 
-var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
-
 Template.lobby.events({
   'keyup input#myname': function (evt) {
     var name = trim($('#lobby input#myname').val());
@@ -121,8 +119,6 @@ Template.overlay.helpers({
           lowest_possible_score(r[r.length-3])
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-
     //TODO getPLayerScore PER DAY
     var score_sentance = "SUMMARY OF THE DAY: You ate "+ getPlayerScore(me) +" calories today. "
 
@@ -168,7 +164,6 @@ Template.board.helpers({
     }
     else {
       display_card = random_monster(random(1200),random(5)+1);
-
     }
     return display_card
   },

@@ -24,6 +24,8 @@ random = function(i) {
   return Math.floor(Math.random() * (i));
 }
 
+var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
+
 random_monster = function (sizeVal,avatar) {
   var size = ""
   if (sizeVal < 300) size = "1"
