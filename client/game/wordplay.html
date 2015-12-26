@@ -43,7 +43,7 @@
   <div id="board" style="background-color:{{bkgd}}">
       {{#each cardSet}}
       <div id="card_{{@index}}" class="square {{ selected @index }}">
-        <img src={{getImage}} style="width:95%;height:95%">
+        <img src={{getImage}} style="margin-top:2%;width:95%;height:95%">
         {{#if selected @index}}<h2 class="square-text">{{calories}}</h2> {{/if}}
       </div>
       {{/each}}
