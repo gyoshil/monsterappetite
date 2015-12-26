@@ -115,11 +115,11 @@ execute_round = function(player,game_id) {
       g = Games.findOne({_id : game_id});
       var card_set = g.players.find(matchesP).card_set;
       console.log(card_set);
-      while ( g.players.find(matchesP).card_set.length%3!=0) {
+      /*while ( g.players.find(matchesP).card_set.length%3!=0) {
         console.log("added");
         var blank_card = {card_name:"Nothing",calories:0}
         g.players.find(matchesP).card_set.push(blank_card);
-      }
+      }*/
       card_set.forEach(addScores);
 
       r = Games.findOne({_id: game_id}).rounds;

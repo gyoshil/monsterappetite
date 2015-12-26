@@ -165,14 +165,12 @@ Template.board.helpers({
     }
   },
 
-  getImage : function (i) {
+  getImage : function () {
     var me = player();
     var g = game(me);
     var display_card = '';
 
     if (g != null && g && g.rounds[g.rounds.length-1] != null) {
-      console.log(i);
-      console.log(this);
       display_card = 'imgs/cards/'+this.image_location+'.jpg';
     }
     else {
@@ -227,7 +225,6 @@ Template.board.events({
     var me = player();
     if (game(me) && game(me).clock != 0 && cards_selected < 3) {
     //when you change the last number on this line, change "instructions" in html
-
     /////////////// this is finding the food card id in a complex way //////////
     // card id might be in this div
     var dom_card_id = evt.target.id;
@@ -240,21 +237,14 @@ Template.board.events({
     //but it wont be in both (ie one will be empty)
     var id = c_id + pc_id;
 
-
     if (Session.get('selected_'+id)!='last_in_path') {
       Session.set('selected_' + id, 'last_in_path');
 
       //GET CARD NAME
       var g = game(me);
-      var card_name = g.rounds[g.rounds.length-1][id].card_name;
+      var this_card_name = g.rounds[g.rounds.length-1][id].card_name;
 
-      //TODO - merge and extract these, need currying, does js have this?
-      //return true or false, if the item matches the car_name variable
-      var matchesC = function(e,i,l){
-        return (e.card_name == card_name)
-      };
-
-      new_card = DECK.find({card_name:card_name});
+      new_card = DECK.findOne({card_name:this_card_name});
 
       all_players = g.players;
       all_players.find(matchesP).card_set.push(new_card);
@@ -385,6 +375,7 @@ Template.player.helpers({
   cards : function() {
     var me = player();
     g = game(me);
+    console.log(g.players.find(matchesP).card_set);
     return g.players.find(matchesP).card_set.reverse();
   }
 });
@@ -402,8 +393,8 @@ Meteor.startup(function () {
   // Session.get('player_id') will return a real id. We should check for
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
+  Meteor.subscribe('deck');
   Meteor.subscribe('players');
-
   // subscribe to all the players, the game i'm in, and all
   // the words(i.e., food cards) in that game.
   //Deps.autorun(function () {

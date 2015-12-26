@@ -13,7 +13,7 @@ player = function () {
       document.cookie="u_id="+player_id+"; path=/";
   }
   else{
-     console.log("ate cookie and found user");
+     //console.log("ate cookie and found user");
   }
   //this is a huge performance hit i bet
   return Players.findOne(getCookieValue('u_id'));
