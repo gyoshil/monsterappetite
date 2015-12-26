@@ -51,8 +51,9 @@ Template.select.events ({
       Session.set(SHOW_ERROR, true);
       return;
     }
-    console.log("dont break");
-    showError = false;
+    Session.set(SHOW_ERROR, false);
+    element.checked = false;
+
     var itemName = $(element).val();
     //player=loggedInPlayer()
     var p = player()
