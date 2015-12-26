@@ -9,9 +9,7 @@
 <template name="PDQ">
   <div id="main" class="container-fluid">
     <div class= "container">
-      <div class="jumbotron">
-        <h2>For each previous snack you have selected you will <br>be asked a question:<small> <strong> Which top <em><u>three</u></em> reasons influenced your choice? </strong> </small></h2>
-      </div>
+      
     {{#each choices }}
       {{> chosenItem }}
     {{/each}}
@@ -25,7 +23,7 @@
 
 <template name="chosenItem" class="container-fluid">
   <div class="panel panel-success">
-    <div class="panel-heading"><h3>Answer the question on the right for each snack item on the left. Make sure to click <br>on the blue "<strong>Submit</strong>" button when you are done with each snack. 
+    <div class="panel-heading" align="center"><h3>Answer the question for each snack item on the left. Make sure to click <br>on the blue "<strong>Submit</strong>" button when you are done with each snack. 
 
     </h3></div>
       <div class="panel-body">
@@ -34,7 +32,7 @@
             <img src="{{itemImg}}" align="top" width="250px" height="250px"/>
           </div>
           <div class="col-sm-9">
-            <iframe src="https://tccolumbia.qualtrics.com/SE/?SID=SV_8G1eWjPG3kRA2gd" width="800px" height="1000px"></iframe>
+            <iframe src="https://tccolumbia.qualtrics.com/SE/?SID=SV_8G1eWjPG3kRA2gd" width="800px" height="950px"></iframe>
           </div>
         </div>
       </div>   
