@@ -173,7 +173,7 @@ Template.board.helpers({
     if (g != null && g && g.rounds[g.rounds.length-1] != null) {
       console.log(i);
       console.log(this);
-      display_card = 'imgs/cards/'+this.card_name+'.jpg';
+      display_card = 'imgs/cards/'+this.image_location+'.jpg';
     }
     else {
       display_card = random_monster(random(1200),random(5)+1);
@@ -254,7 +254,7 @@ Template.board.events({
         return (e.card_name == card_name)
       };
 
-      new_card = DECK.find(matchesC);
+      new_card = DECK.find({card_name:card_name});
 
       all_players = g.players;
       all_players.find(matchesP).card_set.push(new_card);
