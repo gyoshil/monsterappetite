@@ -4,8 +4,8 @@ player = function () {
      //console.log("no player found, making a new one");
       var player_id =
          Players.insert({game_id:null,
-                         name: "New User", 
-                         idle: false, 
+                         name: "New User",
+                         idle: false,
                          avatar: random(6)+1,
                          performance:[],
                          snackazonChoices:[],
@@ -17,11 +17,26 @@ player = function () {
   }
   //this is a huge performance hit i bet
   return Players.findOne(getCookieValue('u_id'));
- 
+
 };
 
 random = function(i) {
   return Math.floor(Math.random() * (i));
+}
+
+random_monster = function (sizeVal,avatar) {
+  var size = ""
+  if (sizeVal < 300) size = "1"
+  else if (sizeVal < 600) size = "2"
+  else if (sizeVal < 900) size = "3"
+  else size = "4"
+  var color = ""
+  if (avatar==1) color = "Yellow"
+  else if (avatar==2) color = "Blue"
+  else if (avatar==3) color = "Green"
+  else if (avatar==4) color = "Orange"
+  else if (avatar==5) color = "Purple"
+  return 'imgs/monsters/'+color+"_stage"+size+'.png ';
 }
 
 var getCookieValue = function(a) {
@@ -70,4 +85,3 @@ getGroupAim = function(me){
   else if (grp=="gain") aim = "lowest"
   return aim
 }
-
