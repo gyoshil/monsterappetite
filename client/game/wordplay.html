@@ -26,7 +26,7 @@
         </div>
       <!---</div>
     </div>
-  </div> -->      
+  </div> -->
     {{/if}}
 </template>
 
@@ -36,67 +36,17 @@
   </div>
   <div id="instructions">
     <!---INSTRUCTIONS-->
-    <p align="center"> <em> After you click the "Play Solo" button, you will have 35 seconds to choose the <strong> top 3 {{group_aim}} </strong> 
-      food items </em> to feed your monster. 
+    <p align="center"> <em> After you click the "Play Solo" button, you will have 35 seconds to choose the <strong> top 3 {{group_aim}} </strong>
+      food items </em> to feed your monster.
     </p>
   </div>
   <div id="board" style="background-color:{{bkgd}}">
-    <div>
-      <div id="card_0" class="square {{ selected 0 }}">
-        <img src={{ square 0 }} style={{squaresize}}>
+      {{#each cardSet}}
+      <div id="card_{{@index}}" class="square {{ selected @index }}">
+        <img src={{getImage}} style="width:95%;height:95%">
+        {{#if selected @index}}<h2 class="square-text">test</h2> {{/if}}
       </div>
-      <div id="card_1" class="square {{ selected 1 }}">
-        <img src={{ square 1 }} style={{squaresize}}>
-      </div>
-      <div id="card_2" class="square {{ selected 2 }}">
-        <img src={{ square 2 }} style={{squaresize}}>
-      </div>
-      <div id="card_3" class="square {{ selected 3 }}">
-        <img src={{ square 3 }} style={{squaresize}}>
-      </div>
-    </div>
-    <div>
-      <div id="card_4" class="square {{ selected 4 }}">
-        <img src={{ square 4 }} style={{squaresize}}>
-      </div>
-      <div  id="card_5" class="square {{ selected 5 }}">
-        <img src={{ square 5 }} style={{squaresize}}>
-      </div>
-      <div id="card_6" class="square {{ selected 6 }}">
-        <img src={{ square 6 }} style={{squaresize}}>
-      </div>
-      <div id="card_7" class="square {{ selected 7 }}">
-        <img src={{ square 7 }} style={{squaresize}}>
-      </div>
-    </div>
-    <div>
-      <div id="card_8" class="square {{ selected 8 }}">
-        <img src={{ square 8 }} style={{squaresize}}>
-      </div>
-      <div id="card_9" class="square {{ selected 9 }}">
-        <img src={{ square 9 }} style={{squaresize}}>
-      </div>
-      <div id="card_10" class="square {{ selected 10 }}">
-        <img src={{ square 10 }} style={{squaresize}}>
-      </div>
-      <div id="card_11" class="square {{ selected 11 }}">
-        <img src={{ square 11 }} style={{squaresize}}>
-      </div>
-    </div>
-    <div>
-      <div id="card_12" class="square {{ selected 12 }}">
-        <img src={{ square 12 }} style={{squaresize}}>
-      </div>
-      <div id="card_13" class="square {{ selected 13 }}">
-        <img src={{ square 13}} style={{squaresize}}>
-      </div>
-      <div id="card_14" class="square {{ selected 14 }}">
-        <img src={{ square 14 }} style={{squaresize}}>
-      </div>
-      <div id="card_15" class="square {{ selected 15 }}">
-        <img src={{ square 15 }} style={{squaresize}}>
-      </div>
-    </div>
+      {{/each}}
   </div>
 </template>
 
@@ -129,7 +79,7 @@
 
 
 <template name="postgame">
-  <!--ODOMETER DIV is here 
+  <!--ODOMETER DIV is here
   <div id="odometer" class="odometer">0</div>-->
   <div>
   {{#if inGame}}
@@ -141,10 +91,10 @@
         {{#if endOfRound}}
           <button name="backtolobby" class="lobby">Next Round</button>
         {{else}}
-         <button style="visibility:hidden;"></button> 
+         <button style="visibility:hidden;"></button>
         {{/if}}
       {{/if}}
-      
+
     </div>
   {{/if}}
   </div>

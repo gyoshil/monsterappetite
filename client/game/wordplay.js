@@ -20,15 +20,15 @@ Template.lobby.helpers ({
     var me = player();
     return !game(me);
   },
-  
+
   waiting : function () {
     var players = Players.find({_id: {$eq: Session.get('player_id')},
                                 game_id: {$exists: false}});
     return players;
   },
 
-  count : function () { 
-    //$ne selects the documents where the value of the field is NOT EQUAL (i.e. !=) to the specified value. 
+  count : function () {
+    //$ne selects the documents where the value of the field is NOT EQUAL (i.e. !=) to the specified value.
     //This includes documents that do not contain the field.
     var players = Players.find({_id: {$ne: Session.get('player_id')},
                                 name: {$ne: ''},
@@ -50,12 +50,10 @@ Template.lobby.helpers ({
     else{
       return ""
     }
-  } 
+  }
 
 });
 
-
-var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
 
 Template.lobby.events({
   'keyup input#myname': function (evt) {
@@ -64,13 +62,13 @@ Template.lobby.events({
   },
   'click button.startgame': function () {
     var me = player();
-    //////////////////////////////////// START NEW GAME method is called //////////////////////////////////
+    //////////////////////////////////// START NEW GAME method is called /////////////////
     Meteor.call('start_new_game', me._id, function (error, result) {
       if (error) {
       // handle error
       //console.error("you have made a mistake");
       }  else {
-      //////////////////////////////////// NEW ROUND method is called //////////////////////////////////
+      //////////////////////////////////// NEW ROUND method is called ////////////////////
       //console.log("starting a new round");
       Meteor.call('new_round',player(),result);
       //console.log(result)
@@ -99,42 +97,42 @@ Template.overlay.helpers({
       return true;
     }
   },
- 
+
   text : function () {
     var me = player();
     var grp = getGroup(me);
     var g  = game(me);
     if (g == null) return ""
 
-    r = g.rounds;   
+    r = g.rounds;
     var totalPossiblePoints = 0
     if(grp =="loss"){
-      totalPossiblePoints = 
+      totalPossiblePoints =
           highest_possible_score(r[r.length-1]) +
           highest_possible_score(r[r.length-2]) +
           highest_possible_score(r[r.length-3])
-    }     
+    }
     else if (grp =="gain"){
-      totalPossiblePoints = 
+      totalPossiblePoints =
           lowest_possible_score(r[r.length-1]) +
           lowest_possible_score(r[r.length-2]) +
           lowest_possible_score(r[r.length-3])
-    }  
+    }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    //TODO getPLayerScore PER DAY  
+    //TODO getPLayerScore PER DAY
     var score_sentance = "SUMMARY OF THE DAY: You ate "+ getPlayerScore(me) +" calories today. "
 
     var framing_sentance = ""
     if (grp =="loss") {
-      framing_sentance = "If you EAT " + (totalPossiblePoints - getPlayerScore(me))+ " more calories you are at a HIGHER RISK for type 2 diabetes. "
+      framing_sentance = "If you EAT " + (totalPossiblePoints - getPlayerScore(me))+
+       " more calories you are at a HIGHER RISK for type 2 diabetes. "
     }
     // if (grp == "loss" SOMETHING that indicates the round number: roundNumber%3 or %6 as it will be multiples of 3)
     //framing_sentance = "Wow, you sure ATE a LOT of calories. You are at a HIGHER RISK for suffering a STROKE. " }
 
     else if (grp =="gain"){
-      framing_sentance = "if you AVOID " + (getPlayerScore(me) - totalPossiblePoints) + " more you are at a LOWER RISK for type 2 diabetes. "
+      framing_sentance = "if you AVOID " + (getPlayerScore(me) - totalPossiblePoints) +
+       " more you are at a LOWER RISK for type 2 diabetes. "
       //can I make it switch from type 2 diabetes, heart attack, and something else?
     }
     //framing_sentance = "Wow, you sure AVOIDED a lot of calories. You are at a LOWER RISK for suffering a STROKE. " }
@@ -146,7 +144,7 @@ Template.overlay.helpers({
 
 //////
 ////// BOARD template: renders the board and the clock given the
-////// current game.  
+////// current game.
 //////
 
 
@@ -156,29 +154,29 @@ Template.board.helpers({
     return getGroupAim(me) + " caloric"
   },
 
-  square : function (i) {
+  cardSet : function (){
+    var me = player();
+    g = game(me);
+    if(g){
+      return g.rounds[g.rounds.length-1];
+    }
+    else {
+      return ([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+    }
+  },
+
+  getImage : function (i) {
     var me = player();
     var g = game(me);
     var display_card = '';
 
     if (g != null && g && g.rounds[g.rounds.length-1] != null) {
-      display_card = 'imgs/cards/'+g.rounds[g.rounds.length-1][i].card_name+'.jpg';
+      console.log(i);
+      console.log(this);
+      display_card = 'imgs/cards/'+this.card_name+'.jpg';
     }
     else {
-      var x = random(1200)
-      var size = "" 
-      if (x < 300) size = "1"
-      else if (x < 600) size = "2"
-      else if (x < 900) size = "3"
-      else size = "4"
-      var avatar = random(5)+1 
-      var color = ""
-      if (avatar==1) color = "Yellow"
-      else if (avatar==2) color = "Blue"
-      else if (avatar==3) color = "Green"
-      else if (avatar==4) color = "Orange"
-      else if (avatar==5) color = "Purple"
-      display_card = 'imgs/monsters/'+color+"_stage"+size+'.png ';
+      display_card = random_monster(random(1200),random(5)+1);
     }
     return display_card
   },
@@ -227,29 +225,29 @@ var cards_selected=0;
 Template.board.events({
   'click .square': function (evt) {
     var me = player();
-    if (game(me) && game(me).clock != 0 && cards_selected < 3) { 
+    if (game(me) && game(me).clock != 0 && cards_selected < 3) {
     //when you change the last number on this line, change "instructions" in html
-    
+
     /////////////// this is finding the food card id in a complex way //////////
     // card id might be in this div
     var dom_card_id = evt.target.id;
     var c_id = dom_card_id.substring(5);
-    
+
     //or might be in parent div
     var p_card_id = evt.target.parentNode.id;
     var pc_id = p_card_id.substring(5);
-    
+
     //but it wont be in both (ie one will be empty)
     var id = c_id + pc_id;
 
 
     if (Session.get('selected_'+id)!='last_in_path') {
       Session.set('selected_' + id, 'last_in_path');
-      
+
       //GET CARD NAME
       var g = game(me);
-      var card_name = g.rounds[g.rounds.length-1][id].card_name;                      
-      
+      var card_name = g.rounds[g.rounds.length-1][id].card_name;
+
       //TODO - merge and extract these, need currying, does js have this?
       //return true or false, if the item matches the car_name variable
       var matchesC = function(e,i,l){
@@ -260,9 +258,9 @@ Template.board.events({
 
       all_players = g.players;
       all_players.find(matchesP).card_set.push(new_card);
-      
+
       //can't set fields of fields. can only change top level fields of mongo
-      Games.update({_id:g._id}, {$set: {players: all_players}}); 
+      Games.update({_id:g._id}, {$set: {players: all_players}});
       ////console.error(g.players.find(matchesP).card_set);
       cards_selected+=1;
     }
@@ -300,9 +298,9 @@ Template.postgame.events({
     //setTimeout(function(){
     //odometer.innerHTML = 456;
     //}, 1000);
-    
+
     //this pop up window comes up after "NEXT ROUND" is clicked
-    //MAYBE have this only after the 10 or so practice rounds before the "TEST" round. 
+    //MAYBE have this only after the 10 or so practice rounds before the "TEST" round.
     //window.alert("Next round will be a test to see if you choose the highest three");
 
     //multiple ROUNDS fxn is called here
@@ -333,7 +331,8 @@ Template.scores.helpers({
 
 Template.player.helpers({
   winner : function () {
-  //the following winner function was brought back from being commented out and nothing happens. Winner still doesn't show up. 
+  //the following winner function was brought back from being commented out and
+  //nothing happens. Winner still doesn't show up.
   var me = player();
   var g = game(me);
   if (g.winners && _.include(g.winners, this._id))
@@ -341,12 +340,12 @@ Template.player.helpers({
     return '';
   },
 
-  // how total score is added (selected items show their individual scores even w/o this code, 
+  // how total score is added (selected items show their individual scores even w/o this code,
   // but TOTAL is not calculated w/o this section)
   total_score : function () {
     var me = player();
     var total_score = getPlayerScore(me);
- 
+
     var oldVal = $("#total_score").text();
     if (oldVal != total_score) {
       foo(oldVal,total_score);
@@ -355,7 +354,7 @@ Template.player.helpers({
     function foo(oldV,newV) {
       var $el = $("#total_score"),
           value = newV;
-    
+
       $({percentage: oldV}).stop(true).animate({percentage: value}, {
         duration : 500,
         easing: "linear",
@@ -369,26 +368,14 @@ Template.player.helpers({
           // sure the value is correct
           $el.text(value);
         });
-   }; 
+   };
   },
 
   //this 'updates' the avatar id every second
   //not good, but works
   random_monster : function () {
     var me = player();
-    var x = getPlayerScore(me);
-    var size = "" 
-    if (x < 300) size = "1"
-    else if (x < 600) size = "2"
-    else if (x < 900) size = "3"
-    else size = "4"
-    var color = ""
-    if (me.avatar==1) color = "Yellow"
-    else if (me.avatar==2) color = "Blue"
-    else if (me.avatar==3) color = "Green"
-    else if (me.avatar==4) color = "Orange"
-    else if (me.avatar==5) color = "Purple"
-    return 'imgs/monsters/'+color+"_stage"+size+'.png ';
+    return random_monster(getPlayerScore(me),me.avatar);
   },
 
   monster_size : function () {
@@ -416,13 +403,13 @@ Meteor.startup(function () {
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
   Meteor.subscribe('players');
-  
+
   // subscribe to all the players, the game i'm in, and all
   // the words(i.e., food cards) in that game.
   //Deps.autorun(function () {
   //  Meteor.subscribe('players');
-  
-  
+
+
   Tracker.autorun(function () {
     //console.log("checking for games");
     if (Session.get("ingame")) {
@@ -434,7 +421,7 @@ Meteor.startup(function () {
         Session.set("game ready trigger",Math.random());
       }
     }
-  }); 
+  });
   //Meteor.subscribe('games');
   // send keepalives so the server can tell when we go away.
   //
@@ -462,5 +449,3 @@ var clear_selected_positions = function () {
   for (var pos = 0; pos < 16; pos++)
     Session.set('selected_' + pos, false);
 };
-
-

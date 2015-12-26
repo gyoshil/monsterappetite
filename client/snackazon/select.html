@@ -3,27 +3,33 @@
 
   <div id="main" class="continer-fluid">
     <div class="row">
-    
+
+
     <div class="jumbotron" align="center">
-      <h2><em>Snackazon:</em> Please select one of the following items for delivery</h2><br><br>
+      <h2><em>Snackazon:</em> Please select one of the following items for delivery</h2>
     </div>
+    {{#if showError}}
+      <div align="center" style="width: 50%; margin: auto; margin-bottom: 15px;" class="alert alert-danger" role="alert">
+        <strong>Oops!</strong> You must select an item!
+      </div>
+    {{ /if }}
     </div>
-    
+
       <!--href leads to "game" and that is why when you click these images they lead you to the game-->
-    
+
     <div class="row">
       {{#each items}}
         {{> item ind = @index cards=items}}
-      {{/each}} <br>   
+      {{/each}} <br>
     </div>
-    
+
   <div class="row">
     <div align="center">
-       <a href="{{nextStage}}" ><button class="done">Made my choice</button></a>
+       <button class="done">Made my choice</button>
     </div>
-  </div>   
-</div> 
- 
+  </div>
+</div>
+
 </template>
 
 
@@ -31,17 +37,17 @@
 <template name="item">
 
 <div class="col-md-4">
-  <div class="text-center"> 
+  <div class="text-center">
   <label class="radio-inline">
-    <input type="radio" id="inlineRadio1" name="item" value="{{itemName}}">
+    <input type="radio" id="inlineRadio1" name="item" value="{{itemName}}" required>
     <img class="center" width="250px" height="250px" src="{{ itemImg }}">
   </label>
   </div>
-  
-   <br> 
+
+   <br>
     <div class="text-center"><button class="top">Get Info</button><br><br>
-  
-  
+
+
   <div id="{{ind}}" style="display:none">
     <h3>{{ itemCalories }} calories <br>
     <!--TO BE ADDED INFORMATION-->
@@ -57,4 +63,3 @@
 </div>
 
 </template>
-

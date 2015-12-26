@@ -63,17 +63,17 @@ button:active {
     font-size: 3em;
 }
 
-/*increased board size from 472 to 672px */
 #board {
     margin: auto;
     border:2px solid #999999;
     border-radius: 4px;
     -moz-border-radius: 4px;
     padding:2px;
-    width:640px;
+    width:100%;
     height:630px;
     background-color:#999999;
 }
+
 
 #avatar {
     float: right;
@@ -93,29 +93,37 @@ button:active {
 /*increased width and height; added padding-top so RED is revealed when item is selected */
 .square {
     cursor: pointer;
-    width:150px;
-    height:146px;
+    width:23%;
+    height:23%;
     /*the border here is the one that needs to turn RED for selection*/
     /*border:5.5px solid #eeeee8;*/
     border-radius: 4px;
     -moz-border-radius: 4px;
-    margin: 4px;
-    padding-top:3px;
+    margin: 1%;
     float:left;
     text-align: center;
     /*this might be the one that needs to turn RED for selection*/
     background-color:#eeeee8;
 }
 
-/*red color for the path of the selected cards*/ 
+/*red color for the path of the selected cards*/
 .square.last_in_path {
     background-color: #ff0000;
 }
-/*this one is the letters that are not typed the last*/ 
+/*this one is the letters that are not typed the last*/
 .square.in_path {
     background-color: #990000;
 }
 
+.square-text {
+  position: relative;
+  top: -55%;
+  width: 50%;
+  color: white;
+  font: bold 24px/45px Helvetica, Sans-Serif;
+  background: rgb(0, 0, 0); /* fallback color */
+  background: rgba(0, 0, 0, 0.7);
+}
 #cards {
     width: 95%;
     max-width: 646px;
@@ -135,7 +143,7 @@ button:active {
     float: left;
     width: 33%;
 }
- 
+
 
 #login {
     margin: 100px auto;
@@ -227,7 +235,7 @@ button:active {
 }
 
 
-/*  Odometer  
+/*  Odometer
 <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css" />
 <script src="http://github.hubspot.com/odometer/odometer.js"></script>
 <style>
