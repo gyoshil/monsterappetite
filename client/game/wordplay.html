@@ -44,7 +44,7 @@
       {{#each cardSet}}
       <div id="card_{{@index}}" class="square {{ selected @index }}">
         <img src={{getImage}} style="width:95%;height:95%">
-        {{#if selected @index}}<h2 class="square-text">test</h2> {{/if}}
+        {{#if selected @index}}<h2 class="square-text">{{calories}}</h2> {{/if}}
       </div>
       {{/each}}
   </div>

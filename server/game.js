@@ -34,7 +34,7 @@ Meteor.methods ({
                    {$set: {game_id: game_id}});
                    //{multi: true});
     console.log(Players.findOne(player_id).game_id );
-    
+
     // Save a record of who is in the game, so when they leave we can
     // still show them.
 
@@ -68,7 +68,7 @@ Meteor.methods ({
     Players.update({_id: player_id},
                   {$set: {idle: true}});
   },
-  
+
   new_round: function(player,game_id) {
 
     var g = Games.findOne(game_id);
@@ -114,9 +114,15 @@ execute_round = function(player,game_id) {
       };
       g = Games.findOne({_id : game_id});
       var card_set = g.players.find(matchesP).card_set;
+      console.log(card_set);
+      while ( g.players.find(matchesP).card_set.length%3!=0) {
+        console.log("added");
+        var blank_card = {card_name:"Nothing",calories:0}
+        g.players.find(matchesP).card_set.push(blank_card);
+      }
       card_set.forEach(addScores);
 
-      r = Games.findOne({_id: game_id}).rounds;   
+      r = Games.findOne({_id: game_id}).rounds;
 
       //TODO: this is where do a bit of data crunching to make analysis later on
       perf = [actual_score, lowest_possible_score(r[r.length-1]), highest_possible_score(r[r.length-1])];
@@ -133,7 +139,7 @@ execute_round = function(player,game_id) {
 
   Meteor.setInterval(function () {
   var now = (new Date()).getTime();
-  var idle_threshold = now - 10*1000; 
+  var idle_threshold = now - 10*1000;
 
   Players.update({last_keepalive: {$lt: idle_threshold}},
                  {$set: {idle: true}});
