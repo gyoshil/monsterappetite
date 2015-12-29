@@ -1,4 +1,5 @@
 Meteor.startup(function() {
+  DECK.remove({});
   if (DECK.find().count() === 0) {
     var allText = Assets.getText("foodcard_database.csv");
     var allTextLines = allText.split(/\r|\n/);
