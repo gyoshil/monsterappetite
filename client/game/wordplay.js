@@ -104,7 +104,7 @@ Template.overlay.helpers({
     var g  = game(me);
     if (g == null) return ""
 
-    r = g.rounds;
+    var r = g.rounds;
     var totalPossiblePoints = 0
     if(grp =="loss"){
       totalPossiblePoints =
@@ -120,7 +120,8 @@ Template.overlay.helpers({
     }
 
     //TODO getPLayerScore PER DAY
-    var score_sentance = "SUMMARY OF THE DAY: You ate "+ getPlayerScore(me) +" calories today. "
+    var day_number = Math.floor(r.length/3)
+    var score_sentance = "SUMMARY OF DAY "+day_number+": You ate "+ getPlayerScore(me) +" calories today. "
 
     var framing_sentance = ""
     if (grp =="loss") {
