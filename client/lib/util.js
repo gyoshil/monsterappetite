@@ -48,12 +48,24 @@ var getCookieValue = function(a) {
 
 getPlayerScore = function(me) {
 
+  var days = Math.ceil(game(me).rounds.length/3)
+  total_score = 0
+  for (var i = 1; i <= days; i++) {
+   total_score += getPlayerScoreforDay(me,i)
+    }
+  return total_score
+}
+
+getPlayerScoreforDay = function(me,day_number) {
+
   var total_score = 0;
   var addScores = function(e,i,l) {
     total_score += e.calories;
   };
 
-  var card_set = game(me).players.find(matchesP).card_set;
+  var begin = (day_number-1)*9
+  var end = begin +9
+  var card_set = game(me).players.find(matchesP).card_set.slice(begin,end);
   card_set.forEach(addScores);
   return total_score;
 }

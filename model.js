@@ -23,16 +23,19 @@ new_board = function () {
 
 lowest_possible_score = function(board) {
   board.sort(function(a,b){
-    a.calories < b.calories;
+    //ascending order
+    return a.calories - b.calories;
   });
   return sumTopThree(board)
 };
 
 highest_possible_score = function(board) {
-  board.sort(function(a,b){
-    a.calories > b.calories;
+
+  var b = board.sort(function(a,b){
+    //decending order
+    return b.calories - a.calories;
   });
-  return sumTopThree(board)
+  return sumTopThree(b)
 };
 
 sumTopThree = function(board) {

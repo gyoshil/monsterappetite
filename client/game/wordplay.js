@@ -121,11 +121,11 @@ Template.overlay.helpers({
 
     //TODO getPLayerScore PER DAY
     var day_number = Math.floor(r.length/3)
-    var score_sentance = "SUMMARY OF DAY "+day_number+": You ate "+ getPlayerScore(me) +" calories today. "
+    var score_sentance = "SUMMARY OF DAY "+day_number+": You ate "+ getPlayerScoreforDay(me,day_number) +" calories today. "
 
     var framing_sentance = ""
     if (grp =="loss") {
-      framing_sentance = "If you EAT " + (totalPossiblePoints - getPlayerScore(me))+
+      framing_sentance = "If you EAT " + (totalPossiblePoints - getPlayerScoreforDay(me,day_number))+
        " more calories you are at a HIGHER RISK for type 2 diabetes. "
     }
     // if (grp == "loss" SOMETHING that indicates the round number: roundNumber%3 or %6 as it will be multiples of 3)
