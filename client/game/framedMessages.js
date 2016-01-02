@@ -33,20 +33,19 @@ Template.overlay.helpers({
 
     var framing_sentance = ""
     if (grp =="loss") {
-      framing_sentance = "If you EAT " + (totalPossiblePoints - getPlayerScoreforDay(me,day_number))+
-       " more calories you are at a HIGHER RISK for type 2 diabetes. "
+      framing_sentance = "If you have EATEN " + (totalPossiblePoints - getPlayerScoreforDay(me,day_number))+
+       " MORE calories to reach the HIGHEST CALORIC consumption of DAY " + day_number+", you would be at a HIGHER RISK for type 2 diabetes. "
     }
     // if (grp == "loss" SOMETHING that indicates the round number: roundNumber%3 or %6 as it will be multiples of 3)
     //framing_sentance = "Wow, you sure ATE a LOT of calories. You are at a HIGHER RISK for suffering a STROKE. " }
 
     else if (grp =="gain"){
-      framing_sentance = "if you AVOID " + (getPlayerScore(me) - totalPossiblePoints) +
-       " more you are at a LOWER RISK for type 2 diabetes. "
+      framing_sentance = "If you have AVOIDED " + (getPlayerScore(me) - totalPossiblePoints) +
+       " calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you are at a LOWER RISK for type 2 diabetes. "
       //can I make it switch from type 2 diabetes, heart attack, and something else?
     }
-    //framing_sentance = "Wow, you sure AVOIDED a lot of calories. You are at a LOWER RISK for suffering a STROKE. " }
-    //var continue_sentance = "Get ready for the next goal! "
-
+    
     return score_sentance + framing_sentance ;
   }
 });
+
