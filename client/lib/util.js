@@ -98,4 +98,17 @@ getGroupAim = function(me){
   if (grp=="loss") aim = "highest"
   else if (grp=="gain") aim = "lowest"
   return aim
+};
+
+CARDS_SELECTED = "cards_selected"
+Session.setDefault(CARDS_SELECTED, "");
+
+endOfRound = function(me,cards_selected){
+  var g  = game(me);
+  console.log((g.clock == 0) || (Session.get(CARDS_SELECTED)==3));
+  if (!g) {return false}
+  if ((g.clock == 0) || (Session.get(CARDS_SELECTED)==3) ){
+    return true;
+  }
+  return false
 }

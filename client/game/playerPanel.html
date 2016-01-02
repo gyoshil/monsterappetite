@@ -1,0 +1,35 @@
+<template name="playerPanel">
+  <div>
+    {{#if show}}
+    <div id="scores">
+      {{#each players}}
+        {{> player }}
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="player">
+  <div class="player">
+    <img src={{ random_monster }} align="right" style="width:{{monster_size}}; height:{{monster_size}}; margin-bottom:10px" >
+    <div class="header {{winner}}">
+      {{#if name}}
+        {{name}}
+      {{else}}
+        <span class="unnamed">no name</span>
+      {{/if}}
+      <span id="total_score" class="score">{{total_score}}</span>
+      {{#if winner}}
+        <span class="winner_text">WINNER</span>
+      {{/if}}
+    </div>
+    <div id="cards">
+    <div class="row">
+      {{#each cards}}
+        {{> card}}
+      {{/each}}
+    </div>
+    </div>
+  </div>
+</template>

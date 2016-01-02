@@ -1,0 +1,38 @@
+<template name="page">
+  <div id="main" >
+    {{> overlay }}
+    <div class="row">
+      <div class="col-md-6">
+        {{> board }}
+      </div>
+      <div class="col-md-6">
+        {{> lobby }}
+        {{> postgame }}
+        {{> playerPanel }}
+      </div>
+    </div>
+  </div>
+<script src="js/jquery.2-1-3.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
+</template>
+
+
+<template name="postgame">
+
+  <div>
+  {{#if inGame}}
+    <div id="postgame">
+      {{#if finishedGame}}
+        <button name="backtolobby" class="lobby">Return to Lobby</button>
+      {{else}}
+        {{#if endOfRound}}
+          <button name="backtolobby" class="lobby">Next Round</button>
+        {{else}}
+         <button style="visibility:hidden;"></button>
+        {{/if}}
+      {{/if}}
+
+    </div>
+  {{/if}}
+  </div>
+</template>
