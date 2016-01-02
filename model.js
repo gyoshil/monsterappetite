@@ -47,7 +47,3 @@ sumTopThree = function(board) {
 };
 
 roundsPerGame = 6;
-
-//
-// Server specific stuff (why is this here instead of in server/game.js?)
-//

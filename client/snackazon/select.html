@@ -19,7 +19,7 @@
 
     <div class="row">
       {{#each items}}
-        {{> item ind = @index cards=items}}
+        {{> item }}
       {{/each}} <br>
     </div>
 
@@ -39,24 +39,25 @@
 <div class="col-md-4">
   <div class="text-center">
   <label class="radio-inline">
-    <input type="radio" id="inlineRadio1" name="item" value="{{itemName}}" required>
+    <input type="radio" id="inlineRadio1" name="item" value="{{this.card_name}}" required>
     <img class="center" width="250px" height="250px" src="{{ itemImg }}">
   </label>
   </div>
 
    <br>
-    <div class="text-center"><button class="top">Get Info</button><br><br>
+    <div class="text-center"><button class="top">Get Info</button>
 
-
-  <div id="{{ind}}" style="display:none">
-    <h3>{{ itemCalories }} calories <br>
-    <!--TO BE ADDED INFORMATION-->
-    {{ itemIngredients }} ingredients <br>
-    {{ itemSource }} source <br></h3><br>
-      <button class="bottom">Get More Info</button><br><br>
-    <div id="more_{{ind}}" style="display:none">
-      <h3>High in protien <br>
-      Low in unsaturated fat</h3><br><br>
+  <div id="{{this.card_name}}" style="display:none">
+    <h3>
+      {{ this.calories }} calories
+    </h3>
+    <br>
+      <button class="bottom">Get More Info</button><br>
+    <div id="more_{{this.card_name}}" style="display:none">
+      <h3>
+        {{this.sugars}} sugars
+        <br>{{ this.fat }} fats
+      </h3>
     </div>
     </div>
   </div>

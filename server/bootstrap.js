@@ -1,4 +1,5 @@
 Meteor.startup(function() {
+  SNACKAZON_DECK.remove({});
   DECK.remove({});
   if (DECK.find().count() === 0) {
     var allText = Assets.getText("foodcard_database.csv");
@@ -18,6 +19,7 @@ Meteor.startup(function() {
             }
           }
           DECK.insert(card);
+          SNACKAZON_DECK.insert(card);
       }
     }
   }

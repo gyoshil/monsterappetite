@@ -54,6 +54,7 @@ Meteor.startup(function () {
   // a pre-existing player, and if it exists, make sure the server still
   // knows about us.
   Meteor.subscribe('deck');
+  Meteor.subscribe('snackazon_deck');
   Meteor.subscribe('players');
   // subscribe to all the players, the game i'm in, and all
   // the words(i.e., food cards) in that game.

@@ -21,8 +21,12 @@ Template.select.helpers ({
     var currentStage = getCurrentStage()
     var is = []
     for (i=currentStage*3-3; i<currentStage*3; i++){
-      is.push(SNACKAZON_DECK[i])
+      //TODO need proper selection criteria
+      //maybe each card in the snackazon deck also has a round associated with it
+      //so we know when to display it
+      is.push(SNACKAZON_DECK.find().fetch()[i])
     }
+    console.log(is);
     return is
   },
 
@@ -70,31 +74,19 @@ Template.select.events ({
 
 Template.item.helpers ({
   itemImg : function() {
-    return '/imgs/cards/'+this.cards[this.ind].card_name+'.jpeg';
+    console.log(this);
+    return '/imgs/cards/'+this.image_location+'.jpg';
   },
 
-  itemName : function() {
-    return this.cards[this.ind].card_name;
-  },
-
-  itemCalories : function () {
-    return this.cards[this.ind].calories
-  },
-  itemIngredients :function () {
-    return this.cards[this.ind].ingredients;
-  },
-  itemSource : function () {
-    return this.cards[this.ind].source_;
-  }
 })
 
 Template.item.events ({
   'click .top': function () {
-    document.getElementById(this.ind).style.display = "block"
+    document.getElementById(this.card_name).style.display = "block"
     //record this in the database for the logged-in player
   },
   'click .bottom': function () {
-    document.getElementById("more_"+this.ind).style.display = "block"
+    document.getElementById("more_"+this.card_name).style.display = "block"
     //record this in the database for the logged-in player
   }
 })
