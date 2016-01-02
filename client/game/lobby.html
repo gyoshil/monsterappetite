@@ -1,0 +1,26 @@
+
+<template name="lobby">
+  <div>
+    {{#if show }}
+    <div id="lobby">
+      <img src="imgs/splash.png" style="width:500px" align="center">
+      <h1>Welcome to the feast,</h1>
+      <h1> {{username}}</h1>
+      {{#if count}}
+      <h1>{{count}} other players are in the lobby:</h1>
+      {{#each waiting }}
+      <div class="player">{{name}}</div>
+      {{/each}}
+      {{/if}}
+      <div>
+        <button id="startgame" class="startgame" {{disabled}}>
+          {{#if count}} It's on! {{else}} Play solo {{/if}}
+        </button><br><br>
+      </div>
+          <button>
+            <a href="biq">I'm done playing</a>
+          </button>
+    </div>
+    {{/if}}
+  </div>
+</template>
