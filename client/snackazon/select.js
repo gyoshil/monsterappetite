@@ -6,47 +6,20 @@ Router.configure({
     layoutTemplate: 'main'
 });
 
+
 var SHOW_ERROR = "showError"
-Session.setDefault("showError", false);
+Session.setDefault(SHOW_ERROR, false);
 
 
 Template.select.helpers ({
-
   showError : function () {
      return Session.get(SHOW_ERROR)
   },
-
   items : function () {
-
-    var currentStage = getCurrentStage()
-    var is = []
-    for (i=currentStage*3-3; i<currentStage*3; i++){
-      //TODO need proper selection criteria
-      //maybe each card in the snackazon deck also has a round associated with it
-      //so we know when to display it
-      is.push(SNACKAZON_DECK.find().fetch()[i])
-    }
-    console.log(is);
-    return is
+    return getItems()
   },
-
 })
 
-nextStage = function () {
-  var currentStage = getCurrentStage()
-  if(currentStage<3){
-    return "/snackazon/select?which=" + (currentStage+1)
-  }
-  else return "/snackazon/PDQ"
-}
-
-var getCurrentStage = function(){
-    var currentStage = Router.current().params.query.which
-    if(currentStage==null){
-      return 1
-    }
-    else return parseInt(currentStage)
-  }
 Template.select.events ({
   'click .done': function(event,template) {
     //record selected item in db
@@ -59,14 +32,16 @@ Template.select.events ({
     element.checked = false;
 
     var itemName = $(element).val();
-    //player=loggedInPlayer()
+    var itemSave = SNACKAZON_DECK.findOne({card_name:itemName})
     var p = player()
-    Players.update({_id:p._id}, {$push: {snackazonItemChoices: itemName}})
+    Players.update({_id:p._id}, {$push: {snackazonItemChoices: {item:itemSave,round:getCurrentStage(),date: new Date()}}})
 
+    var is = getItems()
     for (i=0; i<3; i++){
-      document.getElementById(i).style.display = "none"
-      document.getElementById("more_"+i).style.display = "none"
+      document.getElementById(is[i].card_name).style.display = "none"
+      document.getElementById("more_"+is[i].card_name).style.display = "none"
     }
+    window.scrollTo(0,0)
     Router.go(nextStage())
   }
 
@@ -83,10 +58,46 @@ Template.item.helpers ({
 Template.item.events ({
   'click .top': function () {
     document.getElementById(this.card_name).style.display = "block"
-    //record this in the database for the logged-in player
+    //TODO: record info seeking behavior
+    saveButtonPress(1,this.card_name)
   },
   'click .bottom': function () {
     document.getElementById("more_"+this.card_name).style.display = "block"
-    //record this in the database for the logged-in player
+    saveButtonPress(2,this.card_name)
   }
 })
+
+  var getItems = function() {   
+    var currentStage = getCurrentStage()
+    var is = []
+    for (i=currentStage*3-3; i<currentStage*3; i++){
+      //TODO need proper selection criteria
+      //maybe each card in the snackazon deck also has a round associated with it
+      //so we know when to display it
+      is.push(SNACKAZON_DECK.find().fetch()[i])
+    }
+    return is
+  }
+
+  var saveButtonPress = function(i,name){
+    var p = player()
+    var round = getCurrentStage()
+    Players.update({_id:p._id}, {$push: {informationSeekingBehavior: {name:name,button:i,round:round,date: new Date()}}})
+  }
+
+  var nextStage = function() {
+    var currentStage = getCurrentStage()
+    if(currentStage<3){
+      return "/snackazon/select?which=" + (currentStage+1)
+    }
+    else return "/snackazon/PDQ"
+  }
+
+  var getCurrentStage = function(){
+    var currentStage = Router.current().params.query.which
+    if(currentStage==null){
+      return 1
+    }
+    else return parseInt(currentStage)
+  }
+
