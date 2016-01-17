@@ -26,18 +26,23 @@ Template.postgame.helpers({
 });
 
 Template.postgame.events({
+
   'click button': function (evt) {
-
-    //clear_selected_positions
-    for (var pos = 0; pos < 16; pos++)
-      Session.set('selected_' + pos, false);
-
-    Session.set(CARDS_SELECTED,0) ;
-
-    //multiple ROUNDS fxn is called here
     var me = player();
-    Meteor.call('new_round',me,game(me)._id);
+    var g = game(me);
+    if (g.rounds.length == 6){
+      Router.go('/biq')
+    }
+    else{
+      //clear_selected_positions
+      for (var pos = 0; pos < 16; pos++)
+        Session.set('selected_' + pos, false);
 
+      Session.set(CARDS_SELECTED,0) ;
+
+      //multiple ROUNDS fxn is called here
+      Meteor.call('new_round',me,game(me)._id);
+    }
   }
 });
 

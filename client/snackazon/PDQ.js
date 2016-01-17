@@ -39,8 +39,6 @@ var getAllChosenOnes = function() {
   return d
 }
 
-
-
 //use http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/example-code-snippets/
 // to set fields within the survey
 Template.chosenItem.helpers({

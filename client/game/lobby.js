@@ -41,10 +41,10 @@ Template.lobby.helpers ({
 
 
 Template.lobby.events({
-  'keyup input#myname': function (evt) {
-    var name = trim($('#lobby input#myname').val());
-    Players.update(Session.get('player_id'), {$set: {name: name}});
-  },
+  //'keyup input#myname': function (evt) {
+  //  var name = trim($('#lobby input#myname').val());
+  //  Players.update(Session.get('player_id'), {$set: {name: name}});
+  //},
   'click button.startgame': function () {
     var me = player();
     //////////////////////////////////// START NEW GAME method is called /////////////////

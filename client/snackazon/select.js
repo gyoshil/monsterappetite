@@ -86,11 +86,22 @@ Template.item.events ({
   }
 
   var nextStage = function() {
+    var p = player()
     var currentStage = getCurrentStage()
     if(currentStage<3){
       return "/snackazon/select?which=" + (currentStage+1)
     }
-    else return "/snackazon/PDQ"
+    else {
+      var l = p.snackazonItemChoices.slice(-3)
+      console.log(l)
+      var i1 = l[0].item.image_location
+      var i2 = l[1].item.image_location
+      var i3 = l[2].item.image_location
+      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_8G1eWjPG3kRA2gd" + "&" + 
+                              "i1=" + i1 + "&" +
+                              "i2=" + i2 + "&" + 
+                              "i3=" + i3 
+    }
   }
 
   var getCurrentStage = function(){

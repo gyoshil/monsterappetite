@@ -28,10 +28,14 @@ var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
 
 random_monster = function (sizeVal,avatar) {
   var size = ""
-  if (sizeVal < 300) size = "1"
-  else if (sizeVal < 600) size = "2"
-  else if (sizeVal < 900) size = "3"
-  else size = "4"
+  if (sizeVal < 500) size = "1"
+  else if (sizeVal < 1000) size = "2"
+  else if (sizeVal < 1500) size = "3"
+  else if (sizeVal < 2000) size = "4"
+  else if (sizeVal < 2500) size = "5"
+  else if (sizeVal < 3000) size = "6"
+  else if (sizeVal >== 3000) size = "7"
+
   var color = ""
   if (avatar==1) color = "Yellow"
   else if (avatar==2) color = "Blue"
@@ -101,7 +105,7 @@ getGroupAim = function(me){
 };
 
 CARDS_SELECTED = "cards_selected"
-Session.setDefault(CARDS_SELECTED, "");
+Session.setDefault(CARDS_SELECTED, 0);
 
 endOfRound = function(me,cards_selected){
   var g  = game(me);
