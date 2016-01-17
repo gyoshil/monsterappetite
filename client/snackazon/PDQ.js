@@ -13,9 +13,12 @@ Template.PDQ.helpers({
     return getChosenOnes()
   },
   afterPDQ : function () {
-    c = getChosenOnes()
-    if (c.length%6==0) return "/thanks"
-    if (c.length%3==0) return "/biq"
+    d = getAllChosenOnes()
+    //console.log(c)
+    if (d.length%6==0) return "/thanks"
+      //test if the console.error below shows up or not after running thru all the steps on localhost
+      console.error("user should have 6 choices in total but only 3 should show up at PDQ")
+    if (d.length%3==0) return "/biq"
     else return "" //shouldnt get here
   }
 })
@@ -29,6 +32,14 @@ var getChosenOnes = function(){
     }
     return c
 }
+
+var getAllChosenOnes = function() {
+  var p = player()
+  var d = p.snackazonItemChoices
+  return d
+}
+
+
 
 //use http://www.qualtrics.com/university/researchsuite/developer-tools/custom-programming/example-code-snippets/
 // to set fields within the survey

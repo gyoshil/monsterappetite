@@ -1,4 +1,3 @@
-
 Template.lobby.helpers ({
 
   show: function () {
