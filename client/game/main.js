@@ -31,7 +31,7 @@ Template.postgame.events({
     var me = player();
     var g = game(me);
     if (g.rounds.length == 6){
-      Router.go('/biq')
+      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_3DUw19B1ItmEKQl"
     }
     else{
       //clear_selected_positions

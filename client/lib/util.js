@@ -34,7 +34,7 @@ random_monster = function (sizeVal,avatar) {
   else if (sizeVal < 2000) size = "4"
   else if (sizeVal < 2500) size = "5"
   else if (sizeVal < 3000) size = "6"
-  else if (sizeVal >== 3000) size = "7"
+  else if (sizeVal >= 3000) size = "7"
 
   var color = ""
   if (avatar==1) color = "Yellow"
