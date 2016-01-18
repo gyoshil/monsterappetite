@@ -14,7 +14,7 @@ Meteor.startup(function() {
           var card = {};
           for (var j=0; j<headers.length; j++) {
             card[headers[j]] = data[j];
-            if (j==2) {//calopries should be numbers so we can add later
+            if (j==2 || j==9) {//calopries should be numbers so we can add later
               card[headers[j]] = parseInt(data[j]);
             }
           }

@@ -6,9 +6,9 @@ player = function () {
          Players.insert({game_id:null,
                          name: "New User",
                          idle: false,
-                         avatar: random(6)+1,
+                         avatar: random(5)+1,
                          performance:[],
-                         snackazonChoices:[],
+                         snackazonItemChoices:[],
                          group: "loss"});
       document.cookie="u_id="+player_id+"; path=/";
   }
@@ -27,7 +27,7 @@ random = function(i) {
 var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
 
 random_monster = function (sizeVal,avatar) {
-  var size = ""
+  var size = "1"
   if (sizeVal < 500) size = "1"
   else if (sizeVal < 1000) size = "2"
   else if (sizeVal < 1500) size = "3"
@@ -35,8 +35,7 @@ random_monster = function (sizeVal,avatar) {
   else if (sizeVal < 2500) size = "5"
   else if (sizeVal < 3000) size = "6"
   else if (sizeVal >= 3000) size = "7"
-
-  var color = ""
+  var color = "Yellow"
   if (avatar==1) color = "Yellow"
   else if (avatar==2) color = "Blue"
   else if (avatar==3) color = "Green"
@@ -109,7 +108,7 @@ Session.setDefault(CARDS_SELECTED, 0);
 
 endOfRound = function(me,cards_selected){
   var g  = game(me);
-  console.log((g.clock == 0) || (Session.get(CARDS_SELECTED)==3));
+  //console.log((g.clock == 0) || (Session.get(CARDS_SELECTED)==3));
   if (!g) {return false}
   if ((g.clock == 0) || (Session.get(CARDS_SELECTED)==3) ){
     return true;

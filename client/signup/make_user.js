@@ -71,9 +71,9 @@ function createUser() {
    var player_id = Players.insert({game_id:null,
                                    name: username, 
                                    idle: false, 
-                                   avatar: random(6)+1, 
+                                   avatar: random(5)+1, 
                                    performance:[], 
-                                   snackazonChoices:[],
+                                   snackazonItemChoices:[],
                                    group:this_group});
    document.cookie="u_id="+player_id+"; path=/";
    return player_id;

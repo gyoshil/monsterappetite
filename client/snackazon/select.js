@@ -22,6 +22,13 @@ Template.select.helpers ({
 
 Template.select.events ({
   'click .done': function(event,template) {
+    var is = getItems()
+    for (i=0; i<3; i++){
+      document.getElementById(is[i].card_name).style.display = "none"
+      document.getElementById("more_"+is[i].card_name).style.display = "none"
+    }
+    window.scrollTo(0,0)
+
     //record selected item in db
     var element = template.find('input:radio[name=item]:checked');
     if (element==null) {
@@ -33,15 +40,11 @@ Template.select.events ({
 
     var itemName = $(element).val();
     var itemSave = SNACKAZON_DECK.findOne({card_name:itemName})
+  
     var p = player()
     Players.update({_id:p._id}, {$push: {snackazonItemChoices: {item:itemSave,round:getCurrentStage(),date: new Date()}}})
 
-    var is = getItems()
-    for (i=0; i<3; i++){
-      document.getElementById(is[i].card_name).style.display = "none"
-      document.getElementById("more_"+is[i].card_name).style.display = "none"
-    }
-    window.scrollTo(0,0)
+    console.log(nextStage())
     Router.go(nextStage())
   }
 
@@ -67,16 +70,12 @@ Template.item.events ({
   }
 })
 
-  var getItems = function() {   
-    var currentStage = getCurrentStage()
-    var is = []
-    for (i=currentStage*3-3; i<currentStage*3; i++){
-      //TODO need proper selection criteria
-      //maybe each card in the snackazon deck also has a round associated with it
-      //so we know when to display it
-      is.push(SNACKAZON_DECK.find().fetch()[i])
-    }
-    return is
+  var getItems = function() {
+    console.log (player())   
+    var currentRound = player().snackazonItemChoices.length+1
+    console.log (DECK.find({round:currentRound}).fetch())
+
+    return DECK.find({round:currentRound}).fetch()
   }
 
   var saveButtonPress = function(i,name){
@@ -103,6 +102,7 @@ Template.item.events ({
                               "i3=" + i3 
     }
   }
+
 
   var getCurrentStage = function(){
     var currentStage = Router.current().params.query.which
