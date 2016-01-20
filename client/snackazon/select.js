@@ -96,10 +96,14 @@ Template.item.events ({
       var i1 = l[0].item.image_location
       var i2 = l[1].item.image_location
       var i3 = l[2].item.image_location
-      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_8G1eWjPG3kRA2gd" + "&" + 
+      var i4 = l[2].item.image_location
+      var i5 = l[2].item.image_location
+      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_e4isOXkrY07CTZ3" + "&" + 
                               "i1=" + i1 + "&" +
                               "i2=" + i2 + "&" + 
-                              "i3=" + i3 
+                              "i3=" + i3 + "&" + 
+                              "i4=" + i4 + "&" + 
+                              "i5=" + i5 
     }
   }
 
