@@ -27,7 +27,7 @@ Template.board.helpers({
     var display_card = '';
 
     if (g != null && g && g.rounds[g.rounds.length-1] != null) {
-      display_card = 'imgs/cards/'+this.image_location+'.jpg';
+      display_card = 'imgs/cards/'+this.image_location+'.jpeg';
     }
     else {
       display_card = random_monster(random(1200),random(5)+1);

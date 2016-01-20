@@ -43,7 +43,7 @@ var getAllChosenOnes = function() {
 // to set fields within the survey
 Template.chosenItem.helpers({
   itemImg : function () {
-    return "/imgs/cards/"+this.item.image_location+".jpg"
+    return "/imgs/cards/"+this.item.image_location+".jpeg"
   }
 })
 

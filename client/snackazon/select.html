@@ -25,7 +25,7 @@
 
   <div class="row">
     <div align="center">
-       <br><br><button class="done">Made my choice</button>
+       <br><br><br><button class="done">Made my choice</button>
     </div>
   </div>
 </div>
@@ -49,16 +49,16 @@
 
   <div id="{{this.card_name}}" style="display:none">
     <h3>
-      Ingredients: {{ this.ingredients }}, {{ this.ingredients_1 }} <br><br>
-      {{ this.source}} <br><br>
-      Per-serving calories: {{ this.calories }} calories 
+      <code><strong class="bg-danger text-left">Ing:</strong></code> {{ this.ingredients }}, {{ this.ingredients_1 }} <br><br>
+      <code><strong class="bg-danger text-left">Source:</strong></code> {{ this.source}} <br><br>
+      <code><strong class="bg-danger text-left">Per-serv calories:</strong></code> {{ this.calories }} 
     </h3>
     <br>
       <button class="bottom">Get More Info</button><br>
     <div id="more_{{this.card_name}}" style="display:none">
       <h3>
-        Sugars: {{this.sugars}} grams <br><br>
-        Fats: {{ this.fat }} grams <br>
+        <code><strong class="bg-danger text-left"> Sugars:</strong></code> {{this.sugars}} grams <br><br>
+        <code><strong class="bg-danger text-left"> Fats:</strong></code> {{ this.fat }} grams <br>
       </h3>
     </div>
     </div>

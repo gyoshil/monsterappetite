@@ -53,7 +53,7 @@ Template.select.events ({
 Template.item.helpers ({
   itemImg : function() {
     console.log(this);
-    return '/imgs/cards/'+this.image_location+'.jpg';
+    return '/imgs/cards/'+this.image_location+'.jpeg';
   },
 
 })
