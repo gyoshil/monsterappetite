@@ -20,6 +20,17 @@ Template.select.helpers ({
   },
 })
 
+
+/*var DIRECT_BUTTON = "directButton"
+
+Template.select.helpers ({
+  directButton : 
+    document.getElementById("directButton").onclick = function () {
+        location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_e4isOXkrY07CTZ3";
+    };
+})
+*/
+
 Template.select.events ({
   'click .done': function(event,template) {
     var is = getItems()
@@ -87,17 +98,19 @@ Template.item.events ({
   var nextStage = function() {
     var p = player()
     var currentStage = getCurrentStage()
-    if(currentStage<3){
+    if(currentStage<5){
       return "/snackazon/select?which=" + (currentStage+1)
     }
     else {
-      var l = p.snackazonItemChoices.slice(-3)
+      var l = p.snackazonItemChoices.slice(-5)
       console.log(l)
       var i1 = l[0].item.image_location
       var i2 = l[1].item.image_location
       var i3 = l[2].item.image_location
-      var i4 = l[2].item.image_location
-      var i5 = l[2].item.image_location
+      var i4 = l[3].item.image_location
+      var i5 = l[4].item.image_location
+      
+      //<button onclick="location.href = 'www.yoursite.com';" class="submit-button" >Made my choice</button>
       window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_e4isOXkrY07CTZ3" + "&" + 
                               "i1=" + i1 + "&" +
                               "i2=" + i2 + "&" + 
