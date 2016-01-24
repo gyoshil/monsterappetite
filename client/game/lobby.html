@@ -6,6 +6,9 @@
       <img src="imgs/splash.png" style="width:500px" align="center">
       <h1>Welcome to the feast,</h1>
       <h1> {{username}}</h1>
+        <p align="center"> <h2><em> After you click the "Play Solo" button, you will have <strong class="text-danger">20 seconds</strong> to choose the <strong class="text-danger"> top 3 {{group_aim}} </strong>
+        food items to feed your monster. </em></h2>
+        </p>
       {{#if count}}
       <h1>{{count}} other players are in the lobby:</h1>
       {{#each waiting }}
@@ -13,8 +16,8 @@
       {{/each}}
       {{/if}}
       <div>
-        <button id="startgame" class="startgame" {{disabled}}>
-          {{#if count}} It's on! {{else}} Play solo {{/if}}
+        <button type="button" id="startgame" class="startgame btn btn-primary btn-lg" {{disabled}} >
+          {{#if count}} It's on! {{else}} Play Monster Appetite {{/if}}
         </button><br><br>
       </div>
           
