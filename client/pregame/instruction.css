@@ -1,0 +1,12 @@
+.container{ 
+   clear: both;
+}
+.steps { 
+   clear: both;
+}
+.last { 
+   clear: both;
+   border-radius: 1px/1px;
+   padding: 20px; 
+   border-style: solid;
+}

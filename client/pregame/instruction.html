@@ -1,35 +1,60 @@
 <template name="instruction">
   <div id="main" >
   <body>
-    <div class= "container" >
+    <!--<div class= "container" >-->
       <div class="jumbotron" align="center">
       <h1>How to play <strong><em>Monster Appetite</em></strong></h1><br><br>
       </div>
-    </div>
+    <!--</div>-->
     <!--INSTRUCTIONS STARTS HERE-->
 
-
-    <div>
-      <ul><h3>
-        <li>Step 1: Look at your food options</li>
-        <li>Step 2: Choose the food items that you think has the most per-serving calories within 20 sec </li>
-        <li>Step 3: Review the food items you have selected and calories your monster consumed</li>
-        <li>Step 4: Click "<u>Next Round</u>" on the top right to continue playing</li>
-        <li>Step 5: Repeat 1 through 4 till the end of game</li>
-      </h3></ul>
+  <!--<div class= "container" >-->
+    <div class="col-sm-3 col-md-6">
+      <img src="imgs/Food_board.png">
     </div>
+    <div>
+      <ul><h1>
+        <li><em>Step 1</em>: Look at your food options on the left 4x4 board</li><br><br>
+        <li><em>Step 2</em>: Choose the 3 food items that you think has the most per-serving calories within 20 sec </li><br><br><br><br><br><br><br><br>
+      </h1></ul> 
+    </div>
+    <hr />
 
-
-
-
+    
+    <div id="steps" class="col-sm-9 col-md-6 col-lg-8">
+      <ul><h1>
+        <li><em>Step 3</em>: Review the food items you have selected and calories your monster has consumed</li><br>
+      </h1></ul>
+    </div>
     <div >
+      <img src="imgs/Three_selections.png">
+    </div><br>
+    <hr /><br><br>
+    
+
+
+    <div id="last" class="col-sm-3 col-md-6">
+      <ul><h1>
+        <li><em>Step 4</em>: Click "<u>Next Round</u>" on the top right to continue playing</li><br>
+        <li><em>Step 5</em>: Repeat steps 1 through 4 till the end of game</li>
+      </h1></ul>
+    </div>
+    <div id="last" >
+      <img src="imgs/Next_Round.png">
+    </div>
+    <hr />
+
+  <div class= "container" >
+    <div ><br><br><br><br>
         <blockquote>
           <p>The image below shows a screenshot of a round in the game, <em><strong>Monster Appetite</strong></em>, you are about to play. On the left is the board from which you choose the food items. The <strong class="bg-danger">blue</strong> circle shows a snack that has been selected indicated by the tag with the per-serving calories of that chosen item. As you can see the items that have not been selected doesn't have a tag with the calories on them. The selected items are also shown on the right of the page like you can see in the orange circle. The place where the <strong class="bg-danger">orange</strong> circle is will always indicate the last item you have chosen in the game. The <strong class="bg-danger">green</strong> circle will show your monster's name and next to that in the <strong class="bg-danger">purple</strong> indicates the accumulative calories your monster has consumed throughout all the rounds you have played. Last, the <strong class="bg-danger">red</strong> circle on the top left indicates how much time is left in the round you are in. It will count down from 20 for each round. Once the clock hits 0:00 you will no longer be able to select any more foods and feed your monster for that round. </p> 
         </blockquote>
     </div>
+  </div>
     <div align="center">
       <img src="imgs/instruc_1.png" style="width:500px height:500px" align="center">
     </div>
+    
       
       <div>
   			<div align="center"><br><br><br>
