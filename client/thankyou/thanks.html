@@ -3,7 +3,16 @@
         <title>Test</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script type="text/javascript">
-        
+	        function codeAddress() {  
+	            var cron = require('cron');
+				var cronJob = cron.job("*/5 * * * * *", function(){
+	    		 perform operation e.g. GET request http.get() etc.
+	    			console.info('cron job completed');
+				}); 
+				cronJob.start();
+	        }
+	        window.onload = codeAddress;
+
         </script>
     </head> -->
 
