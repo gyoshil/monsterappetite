@@ -114,14 +114,14 @@ Template.item.events ({
       var i4 = l[3].item.image_location
       var i5 = l[4].item.image_location
       
-      //<button onclick="location.href = 'www.yoursite.com';" class="submit-button" >Made my choice</button>
-      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_e4isOXkrY07CTZ3" + "&" + 
-                              "i1=" + i1 + "&" +
-                              "i2=" + i2 + "&" + 
-                              "i3=" + i3 + "&" + 
-                              "i4=" + i4 + "&" + 
-                              "i5=" + i5 
-      return "/"
+      itemParams = 
+        "i1=" + i1 + "&" +
+        "i2=" + i2 + "&" + 
+        "i3=" + i3 + "&" + 
+        "i4=" + i4 + "&" + 
+        "i5=" + i5 
+
+      return "qualtrics/"+itemParams
 
     }
 
