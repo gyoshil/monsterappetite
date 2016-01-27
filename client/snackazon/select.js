@@ -50,7 +50,7 @@ Template.select.events ({
     element.checked = false;
 
     var itemName = $(element).val();
-    var itemSave = SNACKAZON_DECK.findOne({card_name:itemName})
+    var itemSave = DECK.findOne({card_name:itemName})
   
     var p = player()
     Players.update({_id:p._id}, {$push: {snackazonItemChoices: {item:itemSave,round:getCurrentStage(),date: new Date()}}})
@@ -84,10 +84,14 @@ Template.item.events ({
   var getItems = function() {
     console.log (player())   
     var currentRound = player().snackazonItemChoices.length+1
+    if ((player().snackazonItemChoices.length+1) % 5 == 0) {
+        setTimeout(function(){ }, 30000);
+    }
+    console.log(((player().snackazonItemChoices.length+1) % 5 == 0))
     console.log (DECK.find({round:currentRound}).fetch())
-
     return DECK.find({round:currentRound}).fetch()
   }
+
 
   var saveButtonPress = function(i,name){
     var p = player()
@@ -117,7 +121,7 @@ Template.item.events ({
                               "i3=" + i3 + "&" + 
                               "i4=" + i4 + "&" + 
                               "i5=" + i5 
-      setTimeout(function(){ }, 3000);
+      return "/"
 
     }
 
