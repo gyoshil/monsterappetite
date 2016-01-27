@@ -117,6 +117,8 @@ Template.item.events ({
                               "i3=" + i3 + "&" + 
                               "i4=" + i4 + "&" + 
                               "i5=" + i5 
+      setTimeout(function(){ }, 3000);
+
     }
 
   }
