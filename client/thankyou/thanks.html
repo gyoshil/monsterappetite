@@ -1,4 +1,20 @@
 <template name="thanks">
+	<head>
+        <title>Test</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript">
+        function codeAddress() {  
+            var cron = require('cron');
+			var cronJob = cron.job("*/5 * * * * *", function(){
+    			// perform operation e.g. GET request http.get() etc.
+    			console.info('cron job completed');
+			}); 
+			cronJob.start();
+        }
+        window.onload = codeAddress;
+        </script>
+    </head>
+
 	<div id="main" class="container-fluid">
 		<div class="jumbotron" align="center">
 		  <h4>Thank you for participating in the first part of this study. We will contact you in <strong class="text-danger">24 hours</strong> for the second half of the study. 
