@@ -121,7 +121,7 @@ Template.item.events ({
         "i4=" + i4 + "&" + 
         "i5=" + i5 
 
-      return "qualtrics/"+itemParams
+      return "/qualtrics/"+itemParams
 
     }
 
