@@ -1,12 +1,16 @@
+/*
+
+just learned that nothing in this file is doing anything. 
+
 .container{ 
    clear: both;
 }
 .steps { 
    clear: both;
+
 }
-.last { 
-   clear: both;
-   border-radius: 1px/1px;
-   padding: 20px; 
-   border-style: solid;
+.last {
+	line-height: 200%;
 }
+
+*/
