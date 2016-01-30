@@ -32,7 +32,7 @@ Template.postgame.events({
     var g = game(me);
     //this is where you will change the NUMBER OF ROUNDS TO PLAY
     if (g.rounds.length == 6){
-      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_3DUw19B1ItmEKQl"
+      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_3DUw19B1ItmEKQl" + "&" + "uid=" + me._id
     }
     else{
       //clear_selected_positions
