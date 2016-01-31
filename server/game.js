@@ -13,10 +13,10 @@ Meteor.methods ({
 
     //actual email sending method
     Email.send({
-      to: email,
+      to: email, 
       from: "monsterappetite499@gmail.com",
-      subject: "Monster Apettite",
-      text: "your name is"+name
+      subject: "Monster Appetite",
+      text: "Thank you for participating in the study (IRB 16-145). Your monster name for this study is "+name+ ". You don't have to take any further actions regarding this email. This is just to confirm your email address."
     });
   },
 
