@@ -8,6 +8,6 @@ Router.configure({
 
 Template.select.events ({
   'click .done': function(event,template) {
-    document.getElementById('header').scrollIntoView();
+    window.scrollTo(0,0)
 	}
 })

@@ -63,6 +63,7 @@ Template.lobby.events({
                      function(e,i){
                        Session.set("ingame",Math.random());});
     }
+    window.scrollTo(0,0)
   });
   }
 });
