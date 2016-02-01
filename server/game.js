@@ -95,7 +95,7 @@ execute_round = function(player,game_id) {
 
 
   // wind down the game CLOCK
-  var clock = 5;
+  var clock = 20;
   Games.update({_id: game_id}, {$set: {clock: clock}});
   var interval = Meteor.setInterval(function () {
     Games.update({_id: game_id}, {$set: {clock: clock}});
