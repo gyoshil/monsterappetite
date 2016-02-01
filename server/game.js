@@ -13,7 +13,7 @@ Meteor.methods ({
 
     //actual email sending method
     Email.send({
-      to: email, 
+      to: email,
       from: "monsterappetite499@gmail.com",
       subject: "Monster Appetite",
       text: "Thank you for participating in the study (IRB 16-145). Your monster name for this study is "+name+ ". You don't have to take any further actions regarding this email. This is just to confirm your email address."
@@ -28,12 +28,12 @@ Meteor.methods ({
 
     // move everyone who is ready in the lobby to the game
     //Players.update({game_id: null, idle: false, name: {$ne: ''}},
-    console.log("assigning players to new game");
-    console.log(Players.findOne(player_id).game_id );
+    //console.log("assigning players to new game");
+    //console.log(Players.findOne(player_id).game_id );
     Players.update({_id:player_id},
                    {$set: {game_id: game_id}});
                    //{multi: true});
-    console.log(Players.findOne(player_id).game_id );
+    //console.log(Players.findOne(player_id).game_id );
 
     // Save a record of who is in the game, so when they leave we can
     // still show them.
@@ -52,7 +52,7 @@ Meteor.methods ({
     //console.error(pl.rounds[pl.rounds.length-1][0]);
 
     //execute_round(game_id);
-    console.log(Players.findOne(player_id).game_id );
+    //console.log(Players.findOne(player_id).game_id );
     return game_id;
   },
   //this must be the part that keeps or chaches the players to show multiple players
@@ -97,10 +97,13 @@ execute_round = function(player,game_id) {
   // wind down the game CLOCK
   var clock = 20;
   Games.update({_id: game_id}, {$set: {clock: clock}});
+  var thisRoundNum = Games.findOne({_id: game_id}).rounds.length
   var interval = Meteor.setInterval(function () {
     Games.update({_id: game_id}, {$set: {clock: clock}});
+    //every round, check to see if the player has a new round number
+    var g = Games.findOne({_id: game_id})
     // end of game
-    if (clock === 0) {
+    if (clock === 0 || g.rounds.length > thisRoundNum) {
       // stop the clock
       Meteor.clearInterval(interval);
       //when the clock stops, record the players performance data for easy retrival later
@@ -113,7 +116,7 @@ execute_round = function(player,game_id) {
       };
       g = Games.findOne({_id : game_id});
       var card_set = g.players.find(matchesP).card_set;
-      console.log(card_set);
+      //console.log(card_set);
       /*while ( g.players.find(matchesP).card_set.length%3!=0) {
         console.log("added");
         var blank_card = {card_name:"Nothing",calories:0}
