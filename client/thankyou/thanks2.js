@@ -1,6 +1,6 @@
 
-Router.route('/thanks',{
-  template: 'thanks'
+Router.route('/thanks2',{
+  template: 'thanks2'
 });
 
 Router.configure({
