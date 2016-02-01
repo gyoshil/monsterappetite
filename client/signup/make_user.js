@@ -53,7 +53,7 @@ Template.make_user.events({
     var p_id = createUser()
     console.log("sent email to "+event.target.email.vale);
     Meteor.call('send_email',event.target.email.value, username);
-    window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_bseHv5LT13UBWAd" + "&"+
+    window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_4HMmHnVpjXOYcNT" + "&"+
                            "uid=" + p_id;
 
    //just to keep html happy return false
