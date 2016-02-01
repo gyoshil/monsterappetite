@@ -46,4 +46,4 @@ sumTopThree = function(board) {
   return sum;
 };
 
-roundsPerGame = 6;
+roundsPerGame = 21;
