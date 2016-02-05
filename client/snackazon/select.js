@@ -123,7 +123,7 @@ Template.item.events ({
         "i4=" + i4 + "&" + 
         "i5=" + i5 
 
-        return "/qualtrics"+r+"/"+itemParams + "&" + "uid=" + p._id
+        return "/qualtrics"+r+"/"+ "&" + itemParams + "&" + "uid=" + p._id
 
     }
 
