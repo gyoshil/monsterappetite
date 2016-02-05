@@ -50,8 +50,9 @@ Template.make_user.events({
  'submit form': function(event){
 
     //TODO: this will create a user every time, even if the email is invalid    
-    var p_id = createUser()
-    console.log("sent email to "+event.target.email.vale);
+    var email = event.target.email.value
+    var p_id = createUser(email)
+    console.log("sent email to "+event.target.email.value);
     Meteor.call('send_email',event.target.email.value, username);
     window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_4HMmHnVpjXOYcNT" + "&"+
                            "uid=" + p_id;
@@ -63,7 +64,7 @@ Template.make_user.events({
 });
 
 
-function createUser() {
+function createUser(email) {
 
    var this_group = "";
    if (Math.random()>0.5) {this_group="loss"}
@@ -74,7 +75,8 @@ function createUser() {
                                    avatar: random(5)+1, 
                                    performance:[], 
                                    snackazonItemChoices:[],
-                                   group:this_group});
+                                   group:this_group,
+                                   email: email});
    document.cookie="u_id="+player_id+"; path=/";
    return player_id;
 

@@ -47,3 +47,24 @@ sumTopThree = function(board) {
 };
 
 roundsPerGame = 21;
+
+
+
+/*sendEmail = function(player) {
+  if (Meteor.isServer) {
+    sender = "monster@gmail.com"
+    recipient = player.email
+    toSendTime = Date.Now() + 60
+    //toSendTime = Date.Now() + 24*60*60
+
+    //we need to make a login page
+    linkToPlay = "monster-appetitie.meteor.com/login?uid="+player._id
+
+    Email.send({
+      from: sender,
+      to: recipient,
+      subject: "Subject",
+      text: "Please contine the study at "+linkToPlay
+      setSendAt: toSendTime
+    });
+  }*/
