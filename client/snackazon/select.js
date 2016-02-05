@@ -102,6 +102,8 @@ Template.item.events ({
   var nextStage = function() {
     var p = player()
     var currentStage = getCurrentStage()
+    var r = p.snackazonItemChoices.length/5
+    
     if(currentStage<5){
       return "/snackazon/select?which=" + (currentStage+1)
     }
@@ -121,7 +123,7 @@ Template.item.events ({
         "i4=" + i4 + "&" + 
         "i5=" + i5 
 
-      return "/qualtrics/"+itemParams + "&" + "uid="
+        return "/qualtrics"+r+"/"+itemParams + "&" + "uid=" + p._id
 
     }
 

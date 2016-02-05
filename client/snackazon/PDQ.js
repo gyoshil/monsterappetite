@@ -12,13 +12,16 @@ Template.PDQ.helpers({
     console.log(getChosenOnes())
     return getChosenOnes()
   },
+  
+//This whole section below is not working. That is probably because now PDQ is done WITHIN qualtrics !!!
   afterPDQ : function () {
     d = getAllChosenOnes()
-    //console.log(c)
-    if (d.length%6==0) return "/thanks"
+    console.log(d)
+    console.log("is this working?")
+    if (d.length%10==0) return "/thanks"
       //test if the console.error below shows up or not after running thru all the steps on localhost
       console.error("user should have 6 choices in total but only 3 should show up at PDQ")
-    if (d.length%3==0) return "/biq"
+    if (d.length%5==0) return "/biq"
     else return "" //shouldnt get here
   }
 })
