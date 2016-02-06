@@ -20,17 +20,6 @@ Template.select.helpers ({
   },
 })
 
-
-/*var DIRECT_BUTTON = "directButton"
-
-Template.select.helpers ({
-  directButton : 
-    document.getElementById("directButton").onclick = function () {
-        location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_e4isOXkrY07CTZ3";
-    };
-})
-*/
-
 Template.select.events ({
   'click .done': function(event,template) {
     var is = getItems()

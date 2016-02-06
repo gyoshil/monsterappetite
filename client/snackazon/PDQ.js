@@ -14,7 +14,7 @@ Template.PDQ.helpers({
   },
   
 //This whole section below is not working. That is probably because now PDQ is done WITHIN qualtrics !!!
-  afterPDQ : function () {
+  /*afterPDQ : function () {
     d = getAllChosenOnes()
     console.log(d)
     console.log("is this working?")
@@ -23,7 +23,7 @@ Template.PDQ.helpers({
       console.error("user should have 6 choices in total but only 3 should show up at PDQ")
     if (d.length%5==0) return "/biq"
     else return "" //shouldnt get here
-  }
+  }*/
 })
 
 
