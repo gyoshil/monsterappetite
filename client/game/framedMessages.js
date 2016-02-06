@@ -40,7 +40,7 @@ Template.overlay.helpers({
     //framing_sentance = "Wow, you sure ATE a LOT of calories. You are at a HIGHER RISK for suffering a STROKE. " }
 
     else if (grp =="gain"){
-      framing_sentance = "If you have AVOIDED " + (getPlayerScore(me) - totalPossiblePoints) +
+      framing_sentance = "If you have AVOIDED " + (getPlayerScoreforDay(me) - totalPossiblePoints) +
        " calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you would be at a LOWER RISK for type 2 diabetes. "
       //can I make it switch from type 2 diabetes, heart attack, and something else?
     }
