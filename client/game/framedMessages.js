@@ -15,16 +15,21 @@ Template.overlay.helpers({
     var r = g.rounds;
     var totalPossiblePoints = 0
     if(grp =="loss"){
-      totalPossiblePoints =
+      x =
           highest_possible_score(r[r.length-1]) +
           highest_possible_score(r[r.length-2]) +
           highest_possible_score(r[r.length-3])
+      console.log(x)
+      totalPossiblePoints = x
+
     }
     else if (grp =="gain"){
-      totalPossiblePoints =
+      x =
           lowest_possible_score(r[r.length-1]) +
           lowest_possible_score(r[r.length-2]) +
           lowest_possible_score(r[r.length-3])
+      console.log(x)
+      totalPossiblePoints = x
     }
 
     //TODO getPLayerScore PER DAY
@@ -33,15 +38,17 @@ Template.overlay.helpers({
 
     var framing_sentance = ""
     if (grp =="loss") {
-      framing_sentance = "If you have EATEN " + (totalPossiblePoints - getPlayerScoreforDay(me,day_number))+
-       " MORE calories to reach the HIGHEST CALORIC consumption of DAY " + day_number+", you would be at a HIGHER RISK for type 2 diabetes. "
+      framing_sentance =
+        "The HIGHEST possible calories your monster could have consumed today was " +
+        totalPossiblePoints + ". If you had eaten " + (totalPossiblePoints - getPlayerScoreforDay(me,day_number))+
+        " MORE calories to reach the HIGHEST CALORIC consumption of DAY " + day_number+", you would be at a HIGHER RISK for type 2 diabetes. "
     }
     // if (grp == "loss" SOMETHING that indicates the round number: roundNumber%3 or %6 as it will be multiples of 3)
     //framing_sentance = "Wow, you sure ATE a LOT of calories. You are at a HIGHER RISK for suffering a STROKE. " }
 
     else if (grp =="gain"){
-      framing_sentance = "If you have AVOIDED " + (getPlayerScoreforDay(me) - totalPossiblePoints) +
-       " calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you would be at a LOWER RISK for type 2 diabetes. "
+      framing_sentance = "The LOWEST possible calories your monster could have consumed today was " +totalPossiblePoints+ ". If you had eaten " + (getPlayerScoreforDay(me,day_number ) - totalPossiblePoints) +
+       " FEWER calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you would be at a LOWER RISK for type 2 diabetes. "
       //can I make it switch from type 2 diabetes, heart attack, and something else?
     }
 
