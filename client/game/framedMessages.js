@@ -41,11 +41,10 @@ Template.overlay.helpers({
 
     else if (grp =="gain"){
       framing_sentance = "If you have AVOIDED " + (getPlayerScore(me) - totalPossiblePoints) +
-       " calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you are at a LOWER RISK for type 2 diabetes. "
+       " calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you would be at a LOWER RISK for type 2 diabetes. "
       //can I make it switch from type 2 diabetes, heart attack, and something else?
     }
-    
+
     return score_sentance + framing_sentance ;
   }
 });
-
