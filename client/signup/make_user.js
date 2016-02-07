@@ -20,11 +20,11 @@ var firstName = ["Runny", "Buttercup", "Dinky", "Stinky", "Crusty",
 
 var lastName1 = ["Snicker", "Buffalo", "Gross", "Bubble", "Sheep",
  "Corset", "Toilet", "Lizard", "Waffle", "Kumquat", "Burger", "Chimp", "Liver",
- "Gorilla", "Rhino", "Emu", "Pizza", "Toad", "Gerbil", "Pickle", "Tofu", 
+ "Gorilla", "Rhino", "Emu", "Pizza", "Toad", "Gerbil", "Pickle", "Tofu",
 "Chicken", "Potato", "Hamster", "Lemur", "Vermin"];
-var lastName2 = ["face", "dip", "nose", "brain", "head", "breath", 
-"pants", "shorts", "lips", "mouth", "muffin", "butt", "bottom", "elbow", 
-"honker", "toes", "buns", "spew", "eater", "fanny", "squirt", "chunks", 
+var lastName2 = ["face", "dip", "nose", "brain", "head", "breath",
+"pants", "shorts", "lips", "mouth", "muffin", "butt", "bottom", "elbow",
+"honker", "toes", "buns", "spew", "eater", "fanny", "squirt", "chunks",
 "brains", "wit", "juice", "shower"];
 
 var random = function(i) {
@@ -49,11 +49,14 @@ Template.make_user.helpers({
 Template.make_user.events({
  'submit form': function(event){
 
-    //TODO: this will create a user every time, even if the email is invalid    
+    //TODO: this will create a user every time, even if the email is invalid
     var email = event.target.email.value
     var p_id = createUser(email)
-    console.log("sent email to "+event.target.email.value);
-    Meteor.call('send_email',event.target.email.value, username);
+    console.log("trying schedule email to "+event.target.email.value);
+    Meteor.call('sendMail',{to:event.target.email.value,
+                            from:"monsterappetite499@gmail.com",
+                            subject:username,
+                            date:new Date()});
     window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_26aaP0rO26NUmB7" + "&"+
                            "uid=" + p_id;
 
@@ -70,10 +73,10 @@ function createUser(email) {
    if (Math.random()>0.5) {this_group="loss"}
    else {this_group = "gain"};
    var player_id = Players.insert({game_id:null,
-                                   name: username, 
-                                   idle: false, 
-                                   avatar: random(5)+1, 
-                                   performance:[], 
+                                   name: username,
+                                   idle: false,
+                                   avatar: random(5)+1,
+                                   performance:[],
                                    snackazonItemChoices:[],
                                    group:this_group,
                                    email: email});
