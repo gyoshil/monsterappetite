@@ -3,22 +3,7 @@
 Meteor.methods ({
 
 
-  send_email: function(email,name){
-    console.error(name);
-    console.log(email);
 
-    // Let other method calls from the same client start running,
-    // without waiting for the email sending to complete.
-    this.unblock();
-
-    //actual email sending method
-    Email.send({
-      to: email,
-      from: "monsterappetite499@gmail.com",
-      subject: "Monster Appetite",
-      text: "Thank you for participating in the study (IRB 16-145). Your monster name for this study is "+name+ ". You don't have to take any further actions regarding this email. This is just to confirm your email address."
-    });
-  },
 
   start_new_game: function (player_id) {
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
