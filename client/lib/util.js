@@ -1,4 +1,3 @@
-
 player = function () {
   if(getCookieValue('u_id')=='') {
      //console.log("no player found, making a new one");
