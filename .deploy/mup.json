@@ -22,7 +22,7 @@
   // Install PhantomJS in the server
   "setupPhantom": true,
 
-  // Show a progress bar during the upload of the bundle to the server. 
+  // Show a progress bar during the upload of the bundle to the server.
   // Might cause an error in some rare cases if set to true, for instance in Shippable CI
   "enableUploadProgressBar": true,
 
@@ -37,7 +37,7 @@
     "ROOT_URL": "http://localhost",
     "PORT": 3000,
     "UPSTART_UID" : "meteoruser",
-    "MAIL_URL" : "smtp://username:password@smtp.sendgrid.net:587",
+    "MAIL_URL" : "smtp://localhost:25",
     "METEOR_ENV": "production"
   },
 
