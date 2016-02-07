@@ -29,7 +29,7 @@ sendMail : function(details) {
 	Email.send({
 		from: "root@monster",
 	  to: details.to,
-    subject: "Monster Appetite",
+    subject: details.subject,
     text: details.text
 	});
 },
