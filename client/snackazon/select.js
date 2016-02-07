@@ -74,7 +74,9 @@ Template.item.events ({
     console.log (player())   
     var currentRound = player().snackazonItemChoices.length+1
     if ((player().snackazonItemChoices.length+1) % 5 == 0) {
-        setTimeout(function(){ }, 30000);
+        //setTimeout(function(){ }, 30000);
+        $(document).ready(function() {
+          $('.getItems').hide().delay(3000).fadeIn(2200); });
     }
     console.log(((player().snackazonItemChoices.length+1) % 5 == 0))
     console.log (DECK.find({round:currentRound}).fetch())
@@ -112,10 +114,19 @@ Template.item.events ({
         "i4=" + i4 + "&" + 
         "i5=" + i5 
 
+        //instead of directly to qualtrics send the users to a blank page (monster-appetite.com/snackazon/q_redirect)
+        //and then go to qualtrics so that the 6th set of snackazon items are not displayed.
+        
+        //return "/snackazon/q_redirect"
+        
+        //top.location.href = "/qualtrics"+r+"/"+ "&" + itemParams + "&" + "uid=" + p._id;
+        /*function delayer(){
+          window.location = "/qualtrics"+r+"/"+ "&" + itemParams + "&" + "uid=" + p._id
+        }
+        onLoad="setTimeout('delayer()', 5000)"*/
+        //window.location = "/qualtrics"+r+"/"+ "&" + itemParams + "&" + "uid=" + p._id;
         return "/qualtrics"+r+"/"+ "&" + itemParams + "&" + "uid=" + p._id
-
     }
-
   }
 
 
