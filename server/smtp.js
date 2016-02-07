@@ -20,23 +20,17 @@ Meteor.methods ({
 
 sendMail : function(details) {
 
-  console.log("sent an email to "+details.to)
-  console.log(details);
   // Let other method calls from the same client start running,
   // without waiting for the email sending to complete.
   this.unblock();
 
 	Email.send({
-		from: "root@monster",
+		from: "study@monster-appetite.com",
 	  to: details.to,
     subject: details.subject,
     text: details.text
 	});
 },
-
-//"Thank you for participating in the study (IRB 16-145). Your monster name for this study is "+name+
-// ". You don't have to take any further actions regarding this email. This is just to confirm your email address."
-
 
  addTask:function(id, details) {
 
@@ -52,8 +46,6 @@ sendMail : function(details) {
 	        	return id;
 		}
 	});
-  console.log("scehduled to send")
-  console.log(details);
 
 },
 
