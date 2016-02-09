@@ -56,21 +56,22 @@ Template.make_user.events({
     //console.log("trying schedule email to "+event.target.email.value);
     Meteor.call('scheduleMail',{to:"monsterappetite499@gmail.com",
                             subject:username,
-                            text:"a new user signed up: username="+username+"email="+email
+                            text:"a new user signed up: username="+username+"email="+email,
                             date:new Date()});
 
+    var link = "http://www.monster.appetite.com/snackazon/intro_session2";
     //email to the participant 24hrs from now
     Meteor.call('scheduleMail',{to:email,
-                            subject: "Monster Appetite study Session 2 for:" + username,
-                            text:"Thank you for participating in the Monster Appetite study (IRB 16-145). 
-                            Session 2 will complete your participation in this study. 
-                            Please continue the study at "+link+". We appreciate your time."
-                            date:new Date(new Date().getTime() + (0.1 * 60 * 60 * 1000))});      
+                            subject: "Monster Appetite study Session 2 for: " + username,
+                            text:"Thank you for participating in the Monster Appetite study (IRB 16-145)." + 
+                            "Session 2 will complete your participation in this study." + 
+                            "Please continue the study at "+link+". We appreciate your time.",
+                            date:new Date(new Date().getTime() + (1000))});      
     
     window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_26aaP0rO26NUmB7" + "&"+
                            "uid=" + p_id;
 
-   //just to keep html happy return false
+    //just to keep html happy return false
     return false;
   }
 

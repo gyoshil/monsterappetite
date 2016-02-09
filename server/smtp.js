@@ -1,14 +1,18 @@
 Meteor.startup(function () {
-//  u="monsterappetite499"
-//  p = "m0nster99!"
-//  process.env.MAIL_URL = 'smtp:///'+u+':'+p+'@smtp.gmail.com:587';
+
+//this is just for testing - comment out when deploying
+  u="monsterappetite499"
+  p = "m0nster99!"
+
+  process.env.MAIL_URL = 'smtp://'+u+':'+p+'@smtp.gmail.com:587';
+  //process.env.MAIL_URL = 'smtp://localhost:25';
 
 
   FutureTasks.find().forEach(function(mail) {
     if (mail.date < new Date()) {
-      sendMail(mail)
+      Meteor.call('sendMail',mail)
     } else {
-      addTask(mail._id, mail);
+      Meteor.call('addTask',mail._id, mail);
     }
   });
   SyncedCron.start();
@@ -52,10 +56,10 @@ sendMail : function(details) {
  scheduleMail:function(details) {
 
 	if (details.date < new Date()) {
-		sendMail(details);
+		Meteor.call('sendMail',details);
 	} else {
 		var thisId = FutureTasks.insert(details);
-		addTask(thisId, details);
+		Meteor.call('addTask',thisId, details);
 	}
 	return true;
 
@@ -63,18 +67,4 @@ sendMail : function(details) {
 
 });
 
-/*
-send_email: function(email,name){
-  console.error(name);
-  console.log(email);
 
-
-
-  //actual email sending method
-  Email.send({
-    to: email,
-    from: "monsterappetite499@gmail.com",
-    subject: "Monster Appetite",
-    text: "Thank you for participating in the study (IRB 16-145). Your monster name for this study is "+name+ ". You don't have to take any further actions regarding this email. This is just to confirm your email address."
-  });
-},*/
