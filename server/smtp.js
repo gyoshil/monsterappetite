@@ -10,6 +10,8 @@ Meteor.startup(function () {
 
   FutureTasks.find().forEach(function(mail) {
     if (mail.date < new Date()) {
+	  FutureTasks.remove(mail._id);
+  	  SyncedCron.remove(mail._id);	
       Meteor.call('sendMail',mail)
     } else {
       Meteor.call('addTask',mail._id, mail);
@@ -47,7 +49,7 @@ sendMail : function(details) {
 			sendMail(details);
 			FutureTasks.remove(id);
 			SyncedCron.remove(id);
-	        	return id;
+    		return id;
 		}
 	});
 
