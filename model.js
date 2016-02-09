@@ -47,23 +47,3 @@ sumTopThree = function(board) {
 };
 
 roundsPerGame = 21;
-
-sendEmail = function(player) {
-  if (Meteor.isServer) {
-    sender = "monsterappetite499@gmail.com"
-    recipient = player.email
-    toSendTime = Date.Now() + 60*60
-    //toSendTime = Date.Now() + 24*60*60
-
-    //we need to make a login page -- DONE !!
-    linkToPlay = "monster-appetitie.com/login?uid="+player._id
-
-    Email.send({
-      from: sender,
-      to: recipient,
-      subject: "Monster Appetite study Session 2",
-      text: "Thank you for participating in the Monster Appetite study. Session 2 will complete your participation
-      in this study. Please continue the study at "+linkToPlay+". We apprecoate your time."
-      setSendAt: toSendTime
-    });
-  }

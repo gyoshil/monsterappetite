@@ -1,35 +1,43 @@
 
 <template name="make_user">
-<style type="text/css">
+  <head>
+      <button onclick="myFunction()"><u>Link to Session 2</u></button>
+      <script>
+      function myFunction() {
+          var link = str.link("http://www.monster.appetite.com/snackazon/intro_session2");
+      }
+      </script>
 
-  input:required:invalid, input:focus:invalid {
-    background-image: url(/images/invalid.png);
-    background-position: right top;
-    background-repeat: no-repeat;
-  }
-  input:required:valid {
-    background-image: url(/images/valid.png);
-    background-position: right top;
-    background-repeat: no-repeat;
-  }
+    <style type="text/css">
 
-</style>
+      input:required:invalid, input:focus:invalid {
+        background-image: url(/images/invalid.png);
+        background-position: right top;
+        background-repeat: no-repeat;
+      }
+      input:required:valid {
+        background-image: url(/images/valid.png);
+        background-position: right top;
+        background-repeat: no-repeat;
+      }
 
-  <div id="main" class="container-fluid">
-    <div class="jumbotron">
+    </style>
 
-    <div align="center">
-      <p>Thanks for being in my study</p>
-    </div>
-    </div>
+      <div id="main" class="container-fluid">
+        <div class="jumbotron">
 
-    <p><h5>Your monster is named <strong>{{userName}}</strong>. Good luck!</h5></p>
-    <p><h5>Type your email below and click next to begin the study</h5></p>
-    <form>
-    <input id="email" type="email" required placeholder="Enter a valid email address"/>
-    <input type="submit" value="Submit"/>
-    </form>
-    </div>
-  
+        <div align="center">
+          <p>Thanks for being in my study</p>
+        </div>
+        </div>
+
+        <p><h5>Your monster is named <strong>{{userName}}</strong>. Good luck!</h5></p>
+        <p><h5>Type your email below and click next to begin the study</h5></p>
+        <form>
+        <input id="email" type="email" required placeholder="Enter a valid email address"/>
+        <input type="submit" value="Submit"/>
+        </form>
+        </div>
+  </head>
 </template>
 
