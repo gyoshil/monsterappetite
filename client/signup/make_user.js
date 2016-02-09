@@ -52,11 +52,22 @@ Template.make_user.events({
     //TODO: this will create a user every time, even if the email is invalid
     var email = event.target.email.value
     var p_id = createUser(email)
-    console.log("trying schedule email to "+event.target.email.value);
-    Meteor.call('sendMail',{to:event.target.email.value,
-                            from:"monsterappetite499@gmail.com",
+    //console.log("trying schedule email to "+event.target.email.value);
+    Meteor.call('scheduleMail',{to:"monsterappetite499@gmail.com",
                             subject:username,
+                            text:"a new user signed up: username="+username+"email="+email
                             date:new Date()});
+
+    //email to the participant 24hrs from now
+    //TODO fill in the text and subject
+    /*Meteor.call('scheduleMail',{to:email,
+                            subject:username,
+                            text:"a new user signed up"+username
+                            date:new Date(new Date().getTime() + (24 * 60 * 60 * 1000))});      */
+    //"Thank you for participating in the study (IRB 16-145). Your monster name for this study is "+name+
+    // ". You don't have to take any further actions regarding this email. This is just to confirm your email address."
+
+
     window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_26aaP0rO26NUmB7" + "&"+
                            "uid=" + p_id;
 
