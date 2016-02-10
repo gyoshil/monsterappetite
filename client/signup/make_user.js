@@ -63,8 +63,8 @@ Template.make_user.events({
     //email to the participant 24hrs from now
     Meteor.call('scheduleMail',{to:email,
                             subject: "Monster Appetite study Session 2 for: " + username,
-                            text:"Thank you for participating in the Monster Appetite study (IRB 16-145)." + 
-                            "Session 2 will complete your participation in this study." + 
+                            text:"Thank you for participating in the Monster Appetite study (IRB 16-145). " + 
+                            "Session 2 will complete your participation in this study. " + 
                             "Please continue at "+link+". We appreciate your time.",
                             date:new Date(new Date().getTime() + (1000))});      
     
