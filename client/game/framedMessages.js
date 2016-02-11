@@ -37,21 +37,34 @@ Template.overlay.helpers({
     var score_sentance = "SUMMARY OF DAY "+day_number+": You ate "+ getPlayerScoreforDay(me,day_number) +" calories today. "
 
     var framing_sentance = ""
-    if (grp =="loss") {
+    if (grp =="loss" && (day_number % 2 ==1)) {
       framing_sentance =
         "The HIGHEST possible calories your monster could have consumed today was " +
         totalPossiblePoints + ". If you had eaten " + (totalPossiblePoints - getPlayerScoreforDay(me,day_number))+
-        " MORE calories to reach the HIGHEST CALORIC consumption of DAY " + day_number+", you would be at a HIGHER RISK for type 2 diabetes. "
+        " MORE calories to reach the HIGHEST CALORIC consumption of DAY " + day_number+ ", you would be at a HIGHER RISK for type 2 diabetes. "
     }
-    // if (grp == "loss" SOMETHING that indicates the round number: roundNumber%3 or %6 as it will be multiples of 3)
-    //framing_sentance = "Wow, you sure ATE a LOT of calories. You are at a HIGHER RISK for suffering a STROKE. " }
+    else if (grp =="loss" && (day_number % 2 ==0)) {
+      framing_sentance =
+        "The HIGHEST possible calories your monster could have consumed today was " +
+        totalPossiblePoints + ". If you had eaten " + (totalPossiblePoints - getPlayerScoreforDay(me,day_number))+
+        " MORE calories to reach the HIGHEST CALORIC consumption of DAY " + day_number+ ", you would be at a HIGHER RISK for a cardiovascular disease. "
+    }
 
-    else if (grp =="gain"){
+    return score_sentance + framing_sentance ;
+  
+
+    var framing_sentance = ""
+
+    if (grp =="gain" && (day_number % 2 ==1)){
       framing_sentance = "The LOWEST possible calories your monster could have consumed today was " +totalPossiblePoints+ ". If you had eaten " + (getPlayerScoreforDay(me,day_number ) - totalPossiblePoints) +
        " FEWER calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you would be at a LOWER RISK for type 2 diabetes. "
       //can I make it switch from type 2 diabetes, heart attack, and something else?
     }
 
+    else if (grp =="gain" && (day_number % 2 ==0)) {
+      framing_sentance = "The LOWEST possible calories your monster could have consumed today was " +totalPossiblePoints+ ". If you had eaten " + (getPlayerScoreforDay(me,day_number ) - totalPossiblePoints) +
+       " FEWER calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you would be at a LOWER RISK for a cardiovascular disease. "
+    }
     return score_sentance + framing_sentance ;
   }
 });
