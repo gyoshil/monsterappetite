@@ -9,6 +9,17 @@ Template.playerPanel.helpers({
   players : function () {
     var me = player();
     return game(me).players;
+  },
+  instructions : function () {
+    var me = player();
+    var grp = getGroup(me);
+      
+      if(grp =="loss"){ 
+        return "MORE"
+      }
+      else if (grp =="gain"){
+        return "LESS"
+      }
   }
 });
 

@@ -1,6 +1,9 @@
 <template name="playerPanel">
   <div>
     {{#if show}}
+      <div align="center" >
+        <p ><h2 > Feed me <strong class="text-danger"> {{ instructions }}</strong> food !!! <strong class="text-danger">{{ instructions }}</strong> CALORIES !!! </h2></p> 
+       </div>
     <div id="scores">
       {{#each players}}
         {{> player }}

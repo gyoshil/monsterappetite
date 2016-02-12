@@ -10,17 +10,16 @@
         high caloric foods to feed your monster. <br>When you are ready click below. </em></h2>  <br>
         </p>
       {{#if count}}
-      <h1>{{count}} other players are in the lobby:</h1>
+        <h1>{{count}} other players are in the lobby:</h1>
       {{#each waiting }}
-      <div class="player">{{name}}</div>
+        <div class="player">{{name}}</div>
       {{/each}}
       {{/if}}
       <div>
         <button type="button" id="startgame" class="startgame btn btn-primary btn-lg" {{disabled}} >
           {{#if count}} It's on! {{else}} Play Monster Appetite {{/if}}
         </button><br><br>
-      </div>
-          
+      </div>     
     </div>
     {{/if}}
   </div>
