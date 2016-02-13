@@ -83,8 +83,6 @@ function createUser(email) {
    var this_group = "";
    if (Math.random()>0.5) {this_group="loss"}
    else {this_group = "gain"};
-    //setting everything to gain group FOR NOW - NEED TO DELETE LATER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    this_group = "gain"
    var player_id = Players.insert({game_id:null,
                                    name: username,
                                    idle: false,
