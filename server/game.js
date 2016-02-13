@@ -2,9 +2,6 @@
 
 Meteor.methods ({
 
-
-
-
   start_new_game: function (player_id) {
     // TIME GIVEN FOR PLAYERS to CHOOSE FOOD ITEMS
 
@@ -110,9 +107,15 @@ execute_round = function(player,game_id) {
       card_set.forEach(addScores);
 
       r = Games.findOne({_id: game_id}).rounds;
-
-      //TODO: this is where do a bit of data crunching to make analysis later on
-      perf = [actual_score, lowest_possible_score(r[r.length-1]), highest_possible_score(r[r.length-1])];
+      
+     /* var perRoundCalories = 0
+      var addPerRoundCalories = function () {
+        perRoundCalories = calories //?????????????????????
+      }*/
+      
+      //TODO: this is where we're doing a bit of data crunching to make analysis later on
+      //below:accumulative,        lowest,                               highest  
+      perf = [actual_score,        lowest_possible_score(r[r.length-1]), highest_possible_score(r[r.length-1])];
 
       Players.update({_id:player._id}, {$push: {performance:perf}});
 
