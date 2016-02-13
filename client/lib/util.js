@@ -8,7 +8,7 @@ player = function () {
                          avatar: random(5)+1,
                          performance:[],
                          snackazonItemChoices:[],
-                         group: "gain"});
+                         group: "loss"});
       document.cookie="u_id="+player_id+"; path=/";
   }
   else{
