@@ -31,10 +31,11 @@ Template.postgame.events({
     var me = player();
     var g = game(me);
     //this is where you will change the NUMBER OF ROUNDS TO PLAY
-    if (g.rounds.length == 21){
+    if (me.performance.length == 21){
       window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_3DUw19B1ItmEKQl" + "&" + "uid=" + me._id
     }
-    if (g.rounds.length >= 40){
+    
+    else if (me.performance.length == 42){
       window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_0fjYOLFAcwDTKAZ" + "&" + "uid=" + me._id
     }
     else{
