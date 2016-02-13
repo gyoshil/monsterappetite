@@ -56,13 +56,15 @@ Template.overlay.helpers({
     var framing_sentance = ""
 
     if (grp =="gain" && (day_number % 2 ==1)){
-      framing_sentance = "The LOWEST possible calories your monster could have consumed today was " +totalPossiblePoints+ ". If you had eaten " + (getPlayerScoreforDay(me,day_number ) - totalPossiblePoints) +
+      framing_sentance = "The LOWEST possible calories your monster could have consumed today was " +
+      totalPossiblePoints+ ". If you had eaten " + (getPlayerScoreforDay(me,day_number ) - totalPossiblePoints) +
        " FEWER calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you would be at a LOWER RISK for type 2 diabetes. "
       //can I make it switch from type 2 diabetes, heart attack, and something else?
     }
 
     else if (grp =="gain" && (day_number % 2 ==0)) {
-      framing_sentance = "The LOWEST possible calories your monster could have consumed today was " +totalPossiblePoints+ ". If you had eaten " + (getPlayerScoreforDay(me,day_number ) - totalPossiblePoints) +
+      framing_sentance = "The LOWEST possible calories your monster could have consumed today was " +
+      totalPossiblePoints+ ". If you had eaten " + (getPlayerScoreforDay(me,day_number ) - totalPossiblePoints) +
        " FEWER calories to reach the LOWEST CALORIC consumption of DAY "+ day_number+ ", you would be at a LOWER RISK for a cardiovascular disease. "
     }
     return score_sentance + framing_sentance ;
