@@ -45,7 +45,7 @@ sendMail : function(details) {
 			return parser.recur().on(details.date).fullDate();
 		},
 		job: function() {
-			sendMail(details);
+			Meteor.call('sendMail',details);
 			FutureTasks.remove(id);
 			SyncedCron.remove(id);
     		return id;
