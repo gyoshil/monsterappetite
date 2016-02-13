@@ -1,9 +1,9 @@
 Meteor.startup(function () {
 
+//all this is taken care of by mup.json
 //this is just for testing - comment out when deploying
   u="monsterappetite499"
   p = "m0nster99!"
-
   process.env.MAIL_URL = 'smtp://'+u+':'+p+'@smtp.gmail.com:587';
   //process.env.MAIL_URL = 'smtp://localhost:25';
 
@@ -11,7 +11,7 @@ Meteor.startup(function () {
   FutureTasks.find().forEach(function(mail) {
     if (mail.date < new Date()) {
 	  FutureTasks.remove(mail._id);
-  	  SyncedCron.remove(mail._id);	
+  	  SyncedCron.remove(mail._id);
       Meteor.call('sendMail',mail)
     } else {
       Meteor.call('addTask',mail._id, mail);
@@ -19,7 +19,6 @@ Meteor.startup(function () {
   });
   SyncedCron.start();
 });
-
 
 // In this case, "details" should be an object containing a date, plus required e-mail details (recipient, content, etc.)
 Meteor.methods ({
@@ -31,7 +30,7 @@ sendMail : function(details) {
   this.unblock();
 
 	Email.send({
-		from: "study@monster-appetite.com",
+		from: "monsterappetite499@gmail.com",
 	  to: details.to,
     subject: details.subject,
     text: details.text
@@ -68,5 +67,3 @@ sendMail : function(details) {
 }
 
 });
-
-
