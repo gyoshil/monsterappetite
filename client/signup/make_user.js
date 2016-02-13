@@ -79,7 +79,11 @@ Template.make_user.events({
 
 
 function createUser(email) {
-   var pop = this.params.s
+   
+   
+   var pop = Router.current().params.query.s
+   //var pop = this.params.query.s  
+   
 
    var this_group = "";
    if (Math.random()>0.5) {this_group="loss"}

@@ -34,7 +34,7 @@ Template.postgame.events({
     if (g.rounds.length == 21){
       window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_3DUw19B1ItmEKQl" + "&" + "uid=" + me._id
     }
-    if (g.rounds.length == 42){
+    if (g.rounds.length >= 40){
       window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_0fjYOLFAcwDTKAZ" + "&" + "uid=" + me._id
     }
     else{
