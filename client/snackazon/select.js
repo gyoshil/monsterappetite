@@ -114,6 +114,7 @@ Template.item.events ({
         "i4=" + i4 + "&" + 
         "i5=" + i5 
 
+
         //instead of directly to qualtrics send the users to a blank page (monster-appetite.com/snackazon/q_redirect)
         //and then go to qualtrics so that the 6th set of snackazon items are not displayed.
         

@@ -6,6 +6,3 @@ Router.configure({
     layoutTemplate: 'main'
 });
 
-
-
-

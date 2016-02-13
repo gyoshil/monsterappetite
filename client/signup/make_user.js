@@ -79,6 +79,7 @@ Template.make_user.events({
 
 
 function createUser(email) {
+   var pop = this.params.s
 
    var this_group = "";
    if (Math.random()>0.5) {this_group="loss"}
@@ -90,7 +91,9 @@ function createUser(email) {
                                    performance:[],
                                    snackazonItemChoices:[],
                                    group:this_group,
-                                   email: email});
+                                   email: email,
+                                   pop: pop});
+
    document.cookie="u_id="+player_id+"; path=/";
    return player_id;
 

@@ -27,16 +27,12 @@ Template.q_redirect.helpers ({
 	    "i4=" + i4 + "&" + 
 	    "i5=" + i5 
          
+    if (r==4 && p.pop == "mt") {
+        r == 5
+    }
+
         window.location.href="/qualtrics"+r+"/"+ "&" + itemParams + "&" + "uid=" + p._id;  
     	return ""
-    	
 	}
-			
-	/*var getCurrentStage = function(){
-	    var currentStage = Router.current().params.query.which
-	    if(currentStage==null){
-	      return 1
-	    }
-	    else return parseInt(currentStage)
-	  }*/
+		
 })
