@@ -103,7 +103,7 @@ Template.board.events({
       new_card = DECK.findOne({card_name:this_card_name});
 
       all_players = g.players;
-      all_players.find(matchesP).card_set.push(new_card);
+      //all_players.find(matchesP).card_set.push(new_card);
 
       //can't set fields of fields. can only change top level fields of mongo
       Games.update({_id:g._id}, {$set: {players: all_players}});

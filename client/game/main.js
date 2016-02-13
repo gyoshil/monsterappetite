@@ -31,12 +31,13 @@ Template.postgame.events({
     var me = player();
     var g = game(me);
     //this is where you will change the NUMBER OF ROUNDS TO PLAY
-    if (me.performance.length == 21){
-      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_3DUw19B1ItmEKQl" + "&" + "uid=" + me._id
+    console.log(me.performance.length)
+    if (me.performance.length >= 40 &&  g.rounds.length == 21){
+      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_0fjYOLFAcwDTKAZ" + "&" + "uid=" + me._id
     }
     
-    else if (me.performance.length == 42){
-      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_0fjYOLFAcwDTKAZ" + "&" + "uid=" + me._id
+    else if ( g.rounds.length == 21){
+      window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_3DUw19B1ItmEKQl" + "&" + "uid=" + me._id
     }
     else{
       //clear_selected_positions
