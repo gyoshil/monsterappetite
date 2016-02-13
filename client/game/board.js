@@ -95,19 +95,18 @@ Template.board.events({
 
     if (Session.get('selected_'+id)!='last_in_path') {
       Session.set('selected_' + id, 'last_in_path');
-
-      //GET CARD NAME
-      var g = game(me);
-      var this_card_name = g.rounds[g.rounds.length-1][id].card_name;
-
-      new_card = DECK.findOne({card_name:this_card_name});
-
-      all_players = g.players;
-      all_players.find(matchesP).card_set.push(new_card);
-
-      //can't set fields of fields. can only change top level fields of mongo
-      Games.update({_id:g._id}, {$set: {players: all_players}});
       Session.set(CARDS_SELECTED,Session.get(CARDS_SELECTED)+1);
+
+      setTimeout(function(){
+        //GET CARD NAME
+        var g = game(me);
+        var this_card_name = g.rounds[g.rounds.length-1][id].card_name;
+        new_card = DECK.findOne({card_name:this_card_name});
+        all_players = g.players;
+        all_players.find(matchesP).card_set.push(new_card);
+        //can't set fields of fields. can only change top level fields of mongo
+        Games.update({_id:g._id}, {$set: {players: all_players}});
+      },0)
     }
   }
   }
