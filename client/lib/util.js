@@ -10,6 +10,10 @@ player = function () {
                          snackazonItemChoices:[],
                          group: "loss"});
       document.cookie="u_id="+player_id+"; path=/";
+
+      // if this player function has no cookie value I want to use
+      // Router.go and redirect players to a page that will make them a user ID
+
   }
   else{
      //console.log("ate cookie and found user");
@@ -27,13 +31,13 @@ var trim = function (string) { return string.replace(/^\s+|\s+$/g, ''); };
 
 random_monster = function (sizeVal,avatar) {
   var size = "1"
-  if (sizeVal < 1000) size = "1"
-  else if (sizeVal < 2500) size = "2"
+  if (sizeVal < 1500) size = "1"
+  else if (sizeVal < 3000) size = "2"
   else if (sizeVal < 5000) size = "3"
   else if (sizeVal < 6500) size = "4"
-  else if (sizeVal < 8000) size = "5"
-  else if (sizeVal < 9500) size = "6"
-  else if (sizeVal >= 9500) size = "7"
+  else if (sizeVal < 8300) size = "5"
+  else if (sizeVal < 10500) size = "6"
+  else if (sizeVal >= 10500) size = "7"
   var color = "Yellow"
   if (avatar==1) color = "Yellow"
   else if (avatar==2) color = "Blue"
