@@ -59,7 +59,7 @@ Template.make_user.events({
                             text:"a new user signed up: username="+username+"email="+email,
                             date:new Date()});
 
-    var link = "http://monster-appetite.com/login/" + p_id ;
+    var link = "http://monster-appetite.com/session2/login/" + p_id ;
     //email to the participant 24hrs from now
     Meteor.call('scheduleMail',{to:email,
                             subject: "Monster Appetite study Session 2 for: " + username,
