@@ -1,6 +1,8 @@
 player = function () {
   if(getCookieValue('u_id')=='') {
      //console.log("no player found, making a new one");
+     Router.go('/login')
+     /*
       var player_id =
          Players.insert({game_id:null,
                          name: "New User",
@@ -10,7 +12,7 @@ player = function () {
                          snackazonItemChoices:[],
                          group: "loss"});
       document.cookie="u_id="+player_id+"; path=/";
-
+      */
       // if this player function has no cookie value I want to use
       // Router.go and redirect players to a page that will make them a user ID
 

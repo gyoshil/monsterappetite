@@ -3,3 +3,8 @@ Router.route('/login/:player_id', function () {
   document.cookie="u_id="+player_id+"; path=/";
   Router.go("/snackazon/intro_session2")
 });
+
+Router.route('/login', function () {
+	this.render('login')
+ 	window.location.assign("monster-appetite.com/login");
+});
