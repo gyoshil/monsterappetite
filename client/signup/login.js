@@ -6,5 +6,4 @@ Router.route('/login/:player_id', function () {
 
 Router.route('/login', function () {
 	this.render('login')
- 	window.location.assign("monster-appetite.com/login");
 });

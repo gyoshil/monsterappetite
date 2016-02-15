@@ -1,7 +1,8 @@
 player = function () {
   if(getCookieValue('u_id')=='') {
      //console.log("no player found, making a new one");
-     Router.go('/login')
+     //Router.go('/login')
+     window.location.href = '/login'
      /*
       var player_id =
          Players.insert({game_id:null,
