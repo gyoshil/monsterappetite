@@ -96,7 +96,8 @@ function createUser(email) {
                                    snackazonItemChoices:[],
                                    group:this_group,
                                    email: email,
-                                   pop: pop});
+                                   pop: pop,
+                                   createdOn: new Date()});
 
    document.cookie="u_id="+player_id+"; path=/";
    return player_id;
