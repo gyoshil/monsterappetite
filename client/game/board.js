@@ -5,10 +5,6 @@
 
 
 Template.board.helpers({
-  group_aim : function () {
-    me = player();
-    return getGroupAim(me) + " caloric"
-  },
 
   cardSet : function (){
     var me = player();

@@ -1,5 +1,10 @@
 Template.lobby.helpers ({
 
+  group_aim : function () {
+    me = player();
+    return getGroupAim(me) + " calorie"
+  },
+
   show: function () {
     // only show lobby if we're not in a game
     var me = player();
