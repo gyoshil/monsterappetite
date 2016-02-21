@@ -11,7 +11,7 @@ Template.q_redirect.helpers ({
 
 	var p = player()
     //var currentStage = getCurrentStage()
-    var r = p.snackazonItemChoices.length/5
+    var r = Math.floor(p.snackazonItemChoices.length/5)
     var l = p.snackazonItemChoices.slice(-5)
 	      
 	var i1 = l[0].item.image_location
