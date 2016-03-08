@@ -56,8 +56,8 @@ Template.make_user.events({
     //console.log("trying schedule email to "+event.target.email.value);
     Meteor.call('scheduleMail',{to:"monsterappetite499@gmail.com",
                             subject:username,
-                            text:"a new user signed up: username="+username+"email="+email,
-                            date:new Date()});
+                            text:"a new user signed up: username="+username+" and email="+email,
+                            date:new Date()-1000});
 
     var link = "http://monster-appetite.com/login/" + p_id ;
     //email to the participant 24hrs from now

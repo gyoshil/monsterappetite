@@ -37,7 +37,7 @@
     "ROOT_URL": "http://localhost",
     "PORT": 3000,
     "UPSTART_UID" : "meteoruser",
-    "MAIL_URL" : "smtp://localhost:25",
+    "MAIL_URL" : "smtp://monsterappetite499:m0nster99!@smtp.gmail.com:465",
     "METEOR_ENV": "production"
   },
 
