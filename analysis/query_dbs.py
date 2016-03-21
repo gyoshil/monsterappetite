@@ -18,8 +18,10 @@ def tagMongoPlayers(players,valueFunc):
     players[p[0]][valueFunc.__name__]=valueFunc(p)
 
 
-def tagCSVPlayers(csvFile,players,valueFunc):
-  id_index = {"PDQ2.csv":3,"PDQ4.csv":4,"BIQ1.csv":0,"BIQ2.csv":3,"BIQ3.csv":3,"BIQ4.csv":0}
+def tagCSVPlayers(csvFile,players,fieldName,valueFunc):
+  id_index = {"PDQ2.csv":3,"PDQ4.csv":4,
+    "BIQ1.csv":0,"BIQ2.csv":0,"BIQ3.csv":0,"BIQ4.csv":0,
+    "PDQ1.csv":4,"PDQ2.csv":4,"PDQ3.csv":4,"PDQ4.csv":4}
   with open(dataDir+csvFile, mode='r') as infile:
     qualtrics = list(csv.reader(infile))
     count =0
@@ -28,7 +30,7 @@ def tagCSVPlayers(csvFile,players,valueFunc):
       for qp in qualtrics:
         if(p[0]==qp[id_index[csvFile]]):
           q = qp
-      players[p[0]][valueFunc.__name__]=valueFunc(p,q)
+      players[p[0]][fieldName]=valueFunc(p,q)
 
 
 def allMongoPlayers():
