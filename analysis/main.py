@@ -18,7 +18,10 @@ def completedPDQ4(mongoP,qualtricsP):
   return (qualtricsP!="NONE")
 query_dbs.tagCSVPlayers("PDQ4.csv",all,completedPDQ4)
 
-def riskLevel(mongoP,qualtricsP):
+######
+# RISK
+######
+def risk_level(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
   def q2(p):return p[4] =='4' or p[4] =='5'
@@ -28,18 +31,66 @@ def riskLevel(mongoP,qualtricsP):
   if (q2(qualtricsP) or q3(qualtricsP) or q6(qualtricsP) or q7(qualtricsP)):
     return "high"
   return "low"
-query_dbs.tagCSVPlayers("BIQ1.csv",all,riskLevel)
+def risk_level_pre1(m,q): return risk_level(m,q)
+query_dbs.tagCSVPlayers("BIQ1.csv",all,risk_level_pre1)
+def risk_level_post1(m,q): return risk_level(m,q)
+query_dbs.tagCSVPlayers("BIQ2.csv",all,risk_level_post1)
+def risk_level_pre2(m,q): return risk_level(m,q)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,risk_level_pre2)
+def risk_level_post2(m,q): return risk_level(m,q)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,risk_level_post2)
 
-def pre1(p): return infoSeekingClicks.gatherClicks(0,p)
-query_dbs.tagMongoPlayers(all,pre1)
+########
+# Calories
+########
+def calorie_seeker(mongoP,qualtricsP):
+  if(qualtricsP=="NONE"):
+    return "empty"
+  def q4(p):return p[4] =='4' or p[4] =='5'
+  if (q4(qualtricsP)):
+    return "high"
+  return "low"
+def calorie_seeker_pre1(m,q): return calorie_seeker(m,q)
+query_dbs.tagCSVPlayers("BIQ1.csv",all,calorie_seeker_pre1)
+def calorie_seeker_post1(m,q): return calorie_seeker(m,q)
+query_dbs.tagCSVPlayers("BIQ2.csv",all,calorie_seeker_post1)
+def calorie_seeker_pre2(m,q): return calorie_seeker(m,q)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,calorie_seeker_pre2)
+def calorie_seeker_post2(m,q): return calorie_seeker(m,q)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,calorie_seeker_post2)
 
-def post1(p): return infoSeekingClicks.gatherClicks(1,p)
-query_dbs.tagMongoPlayers(all,post1)
 
-def pre2(p): return infoSeekingClicks.gatherClicks(2,p)
-query_dbs.tagMongoPlayers(all,pre2)
+########
+## INFO SEEKING
+#######
+def pre1_getInfo(p): return infoSeekingClicks.gatherClicks(1,0,p)
+def pre1_moreInfo(p): return infoSeekingClicks.gatherClicks(2,0,p)
+query_dbs.tagMongoPlayers(all,pre1_getInfo)
+query_dbs.tagMongoPlayers(all,pre1_moreInfo)
 
-def post2(p): return infoSeekingClicks.gatherClicks(3,p)
-query_dbs.tagMongoPlayers(all,post2)
+def post1_getInfo(p): return infoSeekingClicks.gatherClicks(1,1,p)
+def post1_moreInfo(p): return infoSeekingClicks.gatherClicks(2,1,p)
+query_dbs.tagMongoPlayers(all,post1_getInfo)
+query_dbs.tagMongoPlayers(all,post1_moreInfo)
+
+def pre2_getInfo(p): return infoSeekingClicks.gatherClicks(1,2,p)
+def pre2_moreInfo(p): return infoSeekingClicks.gatherClicks(2,2,p)
+query_dbs.tagMongoPlayers(all,pre2_getInfo)
+query_dbs.tagMongoPlayers(all,pre2_moreInfo)
+
+def post2_getInfo(p): return infoSeekingClicks.gatherClicks(1,3,p)
+def post2_moreInfo(p): return infoSeekingClicks.gatherClicks(2,3,p)
+query_dbs.tagMongoPlayers(all,post2_getInfo)
+query_dbs.tagMongoPlayers(all,post2_moreInfo)
+
+######
+# GROUP
+######
+def group(p):
+  player = query_dbs.findPlayerInMongo('_id',p[0])
+  return player['group']
+query_dbs.tagMongoPlayers(all,group)
+
+
 
 print (all['HzyJf3ecpepyFffL9'])

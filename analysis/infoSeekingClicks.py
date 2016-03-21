@@ -9,14 +9,20 @@ def splitInfo(info):
    prev=next
   return [info]
 
-def gatherClicks(session,p):
+def gatherClicks(which,session,p):
   try:
-    i = splitInfo(query_dbs.findPlayerInMongo('_id',p[0])['informationSeekingBehavior'])
+    mongoPlayer = query_dbs.findPlayerInMongo('_id',p[0])
+    filteredInfo = mongoPlayer['informationSeekingBehavior']
+    i = splitInfo(filteredInfo)
   except KeyError:
     i = [[]]
   i.append([])
   i.append([])
   i.append([])
-  i = list(map(len,i))
 
-  return (i[session])
+  sessionInfo = i[session]
+  count = 0
+  for b in sessionInfo:
+    if (b['button']==which):
+      count = count+1
+  return count

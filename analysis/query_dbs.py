@@ -19,7 +19,7 @@ def tagMongoPlayers(players,valueFunc):
 
 
 def tagCSVPlayers(csvFile,players,valueFunc):
-  id_index = {"PDQ2.csv":3,"PDQ4.csv":4,"BIQ1.csv":0}
+  id_index = {"PDQ2.csv":3,"PDQ4.csv":4,"BIQ1.csv":0,"BIQ2.csv":3,"BIQ3.csv":3,"BIQ4.csv":0}
   with open(dataDir+csvFile, mode='r') as infile:
     qualtrics = list(csv.reader(infile))
     count =0
