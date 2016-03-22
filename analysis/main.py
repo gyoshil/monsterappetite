@@ -2,7 +2,9 @@ import higher_order
 
 import query_dbs
 import infoSeekingClicks
+from pprint import pprint
 
+import csv_printer
 
 all = query_dbs.allMongoPlayers()
 def sic(p):
@@ -26,7 +28,7 @@ def csv_answer_check(mongoP,qualtricsP,answer_checks):
     return "empty"
   meets_condition = False
   for a in answer_checks:
-    meets_condition = meets_condition or qualtricsP[a[0]] ==a[1]
+    meets_condition = meets_condition or (qualtricsP[a[0]] ==str(a[1]))
   return meets_condition
 
 def risk_level(mongoP,qualtricsP):
@@ -70,6 +72,20 @@ query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1",calorie_influen
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_pre2",calorie_influence)
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_post2",calorie_influence);
 
+########
+# PDQ
+#######
+def calorie_influence(mongoP,qualtricsP):
+  if(qualtricsP=="NONE"):
+    return "empty"
+  x = qualtricsP[18]
+  if(x==""): x=0
+  return x
+
+query_dbs.tagCSVPlayers("PDQ1.csv",all,"calorie_influence_pre1",calorie_influence)
+query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1",calorie_influence)
+query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_pre2",calorie_influence)
+query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_post2",calorie_influence);
 
 
 ########
@@ -103,6 +119,72 @@ def group(p):
   return player['group']
 query_dbs.tagMongoPlayers(all,group)
 
+######
+# PERFORMANCE
+######
 
+# :: String -> Int -> [Int] -> Int
+def collapseOneRound (group,prev_score,this_round):
+  h = this_round[2]
+  l = this_round[1]
+  a = this_round[0]-prev_score
+  score = (a-l)/(h-l)
+  if(score<0 or score>1):
+    print ("%s,%s,%s(%s) -> %s" % (h,l,a,this_round[0],score))
 
-print (all['HzyJf3ecpepyFffL9'])
+  return score
+
+# :: Player -> [Int]
+def collapseOnePlayer (mongoP):
+  group = mongoP['group']
+  rounds = mongoP['performance'] # [[Int]]
+  prev_score = 0
+  average_scores = []
+  for r in rounds:
+    r_avg = collapseOneRound(group,prev_score,r)
+    average_scores.append(r_avg)
+    prev_score = r[0]
+    #print (mongoP[''])
+  print()
+  return average_scores
+
+def average(l):
+  return sum(l)/len(l)
+
+x = list(map(collapseOnePlayer,query_dbs.mongoPlayers))
+
+#pprint (x)
+
+'''
+average_scores = [(0,0)]*23 #(avg,len)
+for (round_num,round_avg_score) in enumerate(average_scores):
+  round_score = []
+  for p in all.items():
+    player = query_dbs.findPlayerInMongo('_id',p[0])
+    try :
+      h = player['performance'][round_num]
+      l = player['performance'][round_num]
+      a = player['performance'][round_num]
+      if (player['group']=='gain'):
+        score = (l-h)/(a-h)
+      if (player['group']=='loss'):
+        score = (l-h)/(a-h)
+      round_score.append(score)
+    except:
+      pass
+    if (len(player['performance'])>0):
+      print (player['performance'],end=', \n')
+
+  sum_scores = sum(round_score)
+  try:
+    average_scores[round_num] = (sum_scores/len(round_score),len(round_score))
+  except ZeroDivisionError:
+    pass
+
+pprint (average_scores)
+'''
+
+######
+# PRINT
+######
+#csv_printer.printAll(all)
