@@ -120,22 +120,30 @@ query_dbs.tagCSVPlayers("FFQ1.csv",all,"ffq1_risk",ffq1_risk)
 ########
 # FFQ 2nd
 #######
+score = 0
 def ffq2_score(mongoP,qualtricsP):
+  global score
   if(qualtricsP=="NONE"):
     return "empty"
   score = 0
   completed = 23 #(22 now tho...)
   def check2(q) :
-    if (qualtricsP[q]==2): score+=1
+    global score
+    if (qualtricsP[q]=='2'): score+=1
   def check1(q) :
-    if (qualtricsP[q]==1): score+=1
+    global score
+    if (qualtricsP[q]=='1'): score+=1
   #healthy answer is 2
   healthy2 = [4,9,16,20,24]
   #healthy answer is 1
   healthy1 = [2,3,5,6,7,8,10,11,13,14,15,17,18,19,21,23]
   #no 12 and 22 (see attention_pass)
-  map(check2,healthy2)
-  map(check1,healthy1)
+
+  for n in healthy1:
+    check1(n)
+  for n in healthy2:
+    check2(n)
+
   return score*(23/completed)
 
 query_dbs.tagCSVPlayers("FFQ2.csv",all,"ffq2_score",ffq2_score)
