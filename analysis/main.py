@@ -57,11 +57,8 @@ query_dbs.tagMongoPlayers(all,snackChoicePost2)
 def completedPDQ(mongoP,qualtricsP):
   return (qualtricsP!="NONE")
 query_dbs.tagCSVPlayers("PDQ1.csv",all,"completedPDQ1",completedPDQ)
-
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"completedPDQ2",completedPDQ)
-
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"completedPDQ3",completedPDQ)
-
 query_dbs.tagCSVPlayers("PDQ4.csv",all,"completedPDQ4",completedPDQ)
 
 ######
@@ -116,6 +113,24 @@ query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1",calorie_influen
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_pre2",calorie_influence)
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_post2",calorie_influence);
 
+def calorie_influence_fake(qs,mongoP,qualtricsP):
+  if(qualtricsP=="NONE"):
+    return "empty"
+  x = 0
+  for q in qs:
+    if(qualtricsP[q]!=""):
+      x += (1/int(qualtricsP[q]))
+  return x
+
+def calorie_influence_pre1_fake(m,q) : return calorie_influence_fake([18,50,66],m,q)
+def calorie_influence_post1_fake(m,q) : return calorie_influence_fake([34,50,66],m,q)
+def calorie_influence_pre2_fake(m,q) : return calorie_influence_fake([18,66,82],m,q)
+def calorie_influence_post2_fake(m,q) : return calorie_influence_fake([18,66,82],m,q)
+
+query_dbs.tagCSVPlayers("PDQ1.csv",all,"calorie_influence_pre1_fake",calorie_influence_pre1_fake)
+query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1_fake",calorie_influence_post1_fake)
+query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_pre2_fake",calorie_influence_pre2_fake)
+query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_post2_fake",calorie_influence_post2_fake);
 ########
 # DQ
 #######
@@ -225,10 +240,20 @@ def pre1_moreInfo_fake(p): return infoSeekingClicks.gatherClicksFake(2,0,p)
 query_dbs.tagMongoPlayers(all,pre1_getInfo_fake)
 query_dbs.tagMongoPlayers(all,pre1_moreInfo_fake)
 
-def post1_getInfo(p): return infoSeekingClicks.gatherClicks(1,1,p)
-def post1_moreInfo(p): return infoSeekingClicks.gatherClicks(2,1,p)
-query_dbs.tagMongoPlayers(all,post1_getInfo)
-query_dbs.tagMongoPlayers(all,post1_moreInfo)
+def post1_getInfo_fake(p): return infoSeekingClicks.gatherClicksFake(1,1,p)
+def post1_moreInfo_fake(p): return infoSeekingClicks.gatherClicksFake(2,1,p)
+query_dbs.tagMongoPlayers(all,post1_getInfo_fake)
+query_dbs.tagMongoPlayers(all,post1_moreInfo_fake)
+
+def pre2_getInfo_fake(p): return infoSeekingClicks.gatherClicksFake(1,2,p)
+def pre2_moreInfo_fake(p): return infoSeekingClicks.gatherClicksFake(2,2,p)
+query_dbs.tagMongoPlayers(all,pre2_getInfo_fake)
+query_dbs.tagMongoPlayers(all,pre2_moreInfo_fake)
+
+def post2_getInfo_fake(p): return infoSeekingClicks.gatherClicksFake(1,2,p)
+def post2_moreInfo_fake(p): return infoSeekingClicks.gatherClicksFake(2,2,p)
+query_dbs.tagMongoPlayers(all,post2_getInfo_fake)
+query_dbs.tagMongoPlayers(all,post2_moreInfo_fake)
 
 ######
 # GROUP
@@ -342,15 +367,21 @@ csv_printer.printAll(filtered_all)
 ######
 # ANSWERS TO RESEARCH QUESTIONS
 ######
-print ("RQ1\n")
+print ("RQ1...\n")
 research_questions.r1(filtered_all)
+print ("DONE\n")
 
-print ("\n\nRQ2\n")
+print ("\nRQ2...\n")
 research_questions.r2(filtered_all)
+print ("DONE\n")
 
-print ("\n\nRQ3\n")
+print ("\nRQ3...\n")
 research_questions.r3(filtered_all)
+print ("DONE\n")
 
+print ("\nRQ4...\n")
+research_questions.r4(filtered_all)
+print ("DONE\n")
 
 ######
 # Change in snackazon choices
