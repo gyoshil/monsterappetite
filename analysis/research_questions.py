@@ -4,8 +4,9 @@ results_dir = "analysis/spss_ready/"
 def r1(all):
 
   def completed(p):
-    return (p['ffq1_risk']==1 and (p['ffq2_score']<=11.45))
+    return (p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45))
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
+  print (len(filtered_list))
 
   with open(results_dir+'RQ1.csv', 'w') as f:
     for (id,p) in filtered_list.items():
@@ -69,7 +70,7 @@ def r4(all):
 
     with open(results_dir+'RQ4_sessionPre1.csv', 'w') as f:
       for (id,p) in filtered_list1.items():
-        snacking_behavior = int((p['ffq1_risk']==1 and (p['ffq2_score']<=11.45)))
+        snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
         f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
                 (snacking_behavior,
@@ -87,7 +88,7 @@ def r4(all):
 
     with open(results_dir+'RQ4_sessionPost1.csv', 'w') as f:
       for (id,p) in filtered_list2.items():
-        snacking_behavior = int((p['ffq1_risk']==1 and (p['ffq2_score']<=11.45)))
+        snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
         if(p['calorie_seeker_post1']!='empty'):
           f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
@@ -106,7 +107,7 @@ def r4(all):
 
     with open(results_dir+'RQ4_sessionPre2.csv', 'w') as f:
       for (id,p) in filtered_list3.items():
-        snacking_behavior = int((p['ffq1_risk']==1 and (p['ffq2_score']<=11.45)))
+        snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
         if(p['calorie_seeker_pre2']!='empty'):
           f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
@@ -125,7 +126,7 @@ def r4(all):
 
     with open(results_dir+'RQ4_sessionPost2.csv', 'w') as f:
       for (id,p) in filtered_list4.items():
-        snacking_behavior = int((p['ffq1_risk']==1 and (p['ffq2_score']<=11.45)))
+        snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
         if(p['calorie_seeker_post2']!='empty'):
           f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
