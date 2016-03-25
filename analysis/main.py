@@ -6,10 +6,11 @@ from pprint import pprint
 import sys
 
 import csv_printer
+import research_questions
+import card_info
+
 
 all = query_dbs.allMongoPlayers()
-
-
 
 ########
 # SNACKZON
@@ -23,54 +24,16 @@ query_dbs.tagMongoPlayers(all,sic)
 def snackChoice(round,p):
   player = query_dbs.findPlayerInMongo('_id',p[0])
   score = 0
-  bad_cards = ["Boar Cookie"
-              ,"Walrus Pretzels"
-              ,"Rooster Potato Chips"
-              ,"Fox Chocolate Bar"
-              ,"Wolf crackers"
-              ,"Donkey Popsicle"
-              ,"Hedgehog PB cup"
-              ,"Cougar Popcorn"
-              ,"Tiger Protein Bar"
-              ,"Bear tortilla chips"
-              ,"Beaver Brownie"
-              ,"Pig Candy"]
-  ok_cards = ["Fox Cookie"
-              ,"Penguin Pretzels"
-              ,"Rabbit Potato Chips"
-              ,"Eagle Chocolate Bar"
-              ,"Duck crackers"
-              ,"Reindeer Popsicle"
-              ,"Elk PB cup"
-              ,"Owl Popcorn"
-              ,"Squirrel Protein Bar"
-              ,"Owl tortilla chips"
-              ,"Monkey Brownie"
-              ,"Leopard Candy"]
-  good_cards = ["Cow Cookie"
-              ,"Zebra Pretzels"
-              ,"Panther Potato Chips"
-              ,"Moose Chocolate Bar"
-              ,"Lion crackers"
-              ,"Goat Popsicle"
-              ,"Bear PB cup"
-              ,"Sheep Popcorn"
-              ,"Elephant Protein Bar"
-              ,"Orangutan tortilla chips"
-              ,"Panda Brownie"
-              ,"Hen Candy"]
 
-  if (len(ok_cards)!=len(good_cards) or len(bad_cards)!=len(good_cards)):
-    sys.exit("bad card input lengths")
   if ((round+1)*5>len(player['snackazonItemChoices'])):
     return "empty"
   for i in player['snackazonItemChoices']:
     if i['item']['round'] > (round *5) and i['item']['round'] <= ((round+1) *5):
-      if i['item']['card_name'] in bad_cards :
+      if i['item']['card_name'] in card_info.bad_cards :
         score += (-1)
-      elif i['item']['card_name'] in ok_cards :
+      elif i['item']['card_name'] in card_info.ok_cards :
         score += 0
-      elif i['item']['card_name'] in good_cards :
+      elif i['item']['card_name'] in card_info.good_cards :
         score += 1
   return score
 
@@ -91,13 +54,15 @@ query_dbs.tagMongoPlayers(all,snackChoicePost2)
 ########
 # PDQ COMPLETION
 #######
-def completedPDQ2(mongoP,qualtricsP):
+def completedPDQ(mongoP,qualtricsP):
   return (qualtricsP!="NONE")
-query_dbs.tagCSVPlayers("PDQ2.csv",all,"completedPDQ2",completedPDQ2)
+query_dbs.tagCSVPlayers("PDQ1.csv",all,"completedPDQ1",completedPDQ)
 
-def completedPDQ4(mongoP,qualtricsP):
-  return (qualtricsP!="NONE")
-query_dbs.tagCSVPlayers("PDQ4.csv",all,"completedPDQ4",completedPDQ4)
+query_dbs.tagCSVPlayers("PDQ2.csv",all,"completedPDQ2",completedPDQ)
+
+query_dbs.tagCSVPlayers("PDQ3.csv",all,"completedPDQ3",completedPDQ)
+
+query_dbs.tagCSVPlayers("PDQ4.csv",all,"completedPDQ4",completedPDQ)
 
 ######
 # RISK
@@ -115,8 +80,8 @@ def risk_level(mongoP,qualtricsP):
     return "empty"
   good_answers = [(4,4),(4,5),(5,4),(5,5),(7,1),(7,2),(8,1),(8,2)]
   if(csv_answer_check(mongoP,qualtricsP,good_answers)):
-    return "high"
-  return "low"
+    return "1"
+  return "0"
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"risk_level_pre1",risk_level)
 query_dbs.tagCSVPlayers("BIQ2.csv",all,"risk_level_post1",risk_level)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"risk_level_pre2",risk_level)
@@ -189,8 +154,8 @@ def ffq1_risk(mongoP,qualtricsP):
                   (13,1),(13,2),(13,3),
                   (14,1),(14,2),(14,3)]
   if(csv_answer_check(mongoP,qualtricsP,good_answers)):
-    return "high"
-  return "low"
+    return "1"
+  return "0"
 
 query_dbs.tagCSVPlayers("FFQ1.csv",all,"ffq1_risk",ffq1_risk)
 
@@ -251,6 +216,19 @@ def post2_getInfo(p): return infoSeekingClicks.gatherClicks(1,3,p)
 def post2_moreInfo(p): return infoSeekingClicks.gatherClicks(2,3,p)
 query_dbs.tagMongoPlayers(all,post2_getInfo)
 query_dbs.tagMongoPlayers(all,post2_moreInfo)
+
+########
+## INFO SEEKING FAKE
+#######
+def pre1_getInfo_fake(p): return infoSeekingClicks.gatherClicksFake(1,0,p)
+def pre1_moreInfo_fake(p): return infoSeekingClicks.gatherClicksFake(2,0,p)
+query_dbs.tagMongoPlayers(all,pre1_getInfo_fake)
+query_dbs.tagMongoPlayers(all,pre1_moreInfo_fake)
+
+def post1_getInfo(p): return infoSeekingClicks.gatherClicks(1,1,p)
+def post1_moreInfo(p): return infoSeekingClicks.gatherClicks(2,1,p)
+query_dbs.tagMongoPlayers(all,post1_getInfo)
+query_dbs.tagMongoPlayers(all,post1_moreInfo)
 
 ######
 # GROUP
@@ -355,10 +333,28 @@ def attention_pass(p) :
 
 filtered_all = {k:v for (k,v) in all.items() if attention_pass(v)}
 
+print ("Removed "+ str(len(all) - (len(filtered_all)))+" players who didnt pay attention\n")
 ######
 # PRINT
 ######
-#csv_printer.printAll(filtered_all)
+csv_printer.printAll(filtered_all)
+
+######
+# ANSWERS TO RESEARCH QUESTIONS
+######
+print ("RQ1\n")
+research_questions.r1(filtered_all)
+
+print ("\n\nRQ2\n")
+research_questions.r2(filtered_all)
+
+print ("\n\nRQ3\n")
+research_questions.r3(filtered_all)
+
+
+######
+# Change in snackazon choices
+######
 
 better = 0
 worse = 0
@@ -384,12 +380,12 @@ for (id,p) in all.items():
     worse += 1
   elif ((p['snackChoicePre1']) <
       (p['snackChoicePost1'])):
-    better +=1'''
+    better +=1
 print (better)
 print (worse)
-print (same)
+print (same)'''
 
 finishedSession2 = 0
 for (id,p) in all.items():
   if(p['completedPDQ4'] and p['sic']>=20): finishedSession2 +=1
-print (finishedSession2)
+#print (finishedSession2)
