@@ -3,15 +3,94 @@ import higher_order
 import query_dbs
 import infoSeekingClicks
 from pprint import pprint
+import sys
 
 import csv_printer
 
 all = query_dbs.allMongoPlayers()
+
+
+
+########
+# SNACKZON
+#######
 def sic(p):
   player = query_dbs.findPlayerInMongo('_id',p[0])
   return len(player['snackazonItemChoices'])
 query_dbs.tagMongoPlayers(all,sic)
 
+
+def snackChoice(round,p):
+  player = query_dbs.findPlayerInMongo('_id',p[0])
+  score = 0
+  bad_cards = ["Boar Cookie"
+              ,"Walrus Pretzels"
+              ,"Rooster Potato Chips"
+              ,"Fox Chocolate Bar"
+              ,"Wolf crackers"
+              ,"Donkey Popsicle"
+              ,"Hedgehog PB cup"
+              ,"Cougar Popcorn"
+              ,"Tiger Protein Bar"
+              ,"Bear tortilla chips"
+              ,"Beaver Brownie"
+              ,"Pig Candy"]
+  ok_cards = ["Fox Cookie"
+              ,"Penguin Pretzels"
+              ,"Rabbit Potato Chips"
+              ,"Eagle Chocolate Bar"
+              ,"Duck crackers"
+              ,"Reindeer Popsicle"
+              ,"Elk PB cup"
+              ,"Owl Popcorn"
+              ,"Squirrel Protein Bar"
+              ,"Owl tortilla chips"
+              ,"Monkey Brownie"
+              ,"Leopard Candy"]
+  good_cards = ["Cow Cookie"
+              ,"Zebra Pretzels"
+              ,"Panther Potato Chips"
+              ,"Moose Chocolate Bar"
+              ,"Lion crackers"
+              ,"Goat Popsicle"
+              ,"Bear PB cup"
+              ,"Sheep Popcorn"
+              ,"Elephant Protein Bar"
+              ,"Orangutan tortilla chips"
+              ,"Panda Brownie"
+              ,"Hen Candy"]
+
+  if (len(ok_cards)!=len(good_cards) or len(bad_cards)!=len(good_cards)):
+    sys.exit("bad card input lengths")
+  if ((round+1)*5>len(player['snackazonItemChoices'])):
+    return "empty"
+  for i in player['snackazonItemChoices']:
+    if i['item']['round'] > (round *5) and i['item']['round'] <= ((round+1) *5):
+      if i['item']['card_name'] in bad_cards :
+        score += (-1)
+      elif i['item']['card_name'] in ok_cards :
+        score += 0
+      elif i['item']['card_name'] in good_cards :
+        score += 1
+  return score
+
+def snackChoicePre1(p) : return snackChoice(0,p)
+def snackChoicePost1(p) : return snackChoice(1,p)
+def snackChoicePre2(p) : return snackChoice(2,p)
+def snackChoicePost2(p) : return snackChoice(3,p)
+
+
+query_dbs.tagMongoPlayers(all,snackChoicePre1)
+query_dbs.tagMongoPlayers(all,snackChoicePost1)
+query_dbs.tagMongoPlayers(all,snackChoicePre2)
+query_dbs.tagMongoPlayers(all,snackChoicePost2)
+
+
+
+
+########
+# PDQ COMPLETION
+#######
 def completedPDQ2(mongoP,qualtricsP):
   return (qualtricsP!="NONE")
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"completedPDQ2",completedPDQ2)
@@ -114,6 +193,7 @@ def ffq1_risk(mongoP,qualtricsP):
   return "low"
 
 query_dbs.tagCSVPlayers("FFQ1.csv",all,"ffq1_risk",ffq1_risk)
+
 
 
 
@@ -278,4 +358,38 @@ filtered_all = {k:v for (k,v) in all.items() if attention_pass(v)}
 ######
 # PRINT
 ######
-csv_printer.printAll(filtered_all)
+#csv_printer.printAll(filtered_all)
+
+better = 0
+worse = 0
+same = 0
+
+for (id,p) in all.items():
+  if (not(p['snackChoicePre1']=='empty' or
+      p['snackChoicePost1']=='empty' or
+      p['snackChoicePre2']=='empty' or
+      p['snackChoicePost2']=='empty')):
+    '''print (str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
+           +" "+str(p['snackChoicePre2'])+" "+str(p['snackChoicePost1']))'''
+    if ((p['snackChoicePre1']+p['snackChoicePost1']) >
+        (p['snackChoicePre2']+p['snackChoicePost2'])):
+      worse += 1
+    if ((p['snackChoicePre1']+p['snackChoicePost1']) <
+        (p['snackChoicePre2']+p['snackChoicePost2'])):
+      better += 1
+    else :
+      same += 1
+  '''if ((p['snackChoicePre1']) >
+      (p['snackChoicePost1'])):
+    worse += 1
+  elif ((p['snackChoicePre1']) <
+      (p['snackChoicePost1'])):
+    better +=1'''
+print (better)
+print (worse)
+print (same)
+
+finishedSession2 = 0
+for (id,p) in all.items():
+  if(p['completedPDQ4'] and p['sic']>=20): finishedSession2 +=1
+print (finishedSession2)
