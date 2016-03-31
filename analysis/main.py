@@ -387,6 +387,10 @@ print ("\nRQBONUS...\n")
 research_questions.rBonus(filtered_all)
 print ("DONE\n")
 
+print ("\nRQBONUS2...\n")
+research_questions.rBonus2(filtered_all)
+print ("DONE\n")
+
 ######
 # Change in snackazon choices
 ######
