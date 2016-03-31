@@ -36,6 +36,17 @@ def r2(all):
     for (id,p) in filtered_list2.items():
       f.write ("%s,%s,%s\n" % (p['risk_level_post2'],p['post2_getInfo'],p['post2_moreInfo']))
 
+def rBonus(all):
+
+  def completed1(p):
+    return ((p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20))
+  filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
+
+  with open(results_dir+'RBonus.csv', 'w') as f:
+    for (id,p) in filtered_list1.items():
+      sess1 = p['pre1_getInfo']+ p['pre1_moreInfo']+ p['post1_getInfo']+ p['post1_moreInfo']
+      sess2 = p['pre2_getInfo']+ p['pre2_moreInfo']+ p['post2_getInfo']+ p['post2_moreInfo']
+      f.write ("%s,%s,%s\n" % (p['group'],sess1,sess2))
 
 def r3(all):
 
