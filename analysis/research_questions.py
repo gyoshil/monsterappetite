@@ -4,7 +4,9 @@ results_dir = "analysis/spss_ready/"
 def r1(all):
 
   def completed(p):
+    #return ((p['ffq2_score'])!='empty' and (p['ffq2_score'])<=11.45)
     return (p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45))
+
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
   print (len(filtered_list))
 
@@ -54,11 +56,11 @@ def r3(all):
   filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
 
   with open(results_dir+'RQ3_sessionPre2.csv', 'w') as f:
-    for (id,p) in filtered_list1.items():
+    for (id,p) in filtered_list2.items():
       f.write ("%s,%s,%s\n" % (p['pre2_getInfo_fake'],p['pre2_moreInfo_fake'],p['calorie_influence_pre2_fake']))
 
   with open(results_dir+'RQ3_sessionPost2.csv', 'w') as f:
-    for (id,p) in filtered_list1.items():
+    for (id,p) in filtered_list2.items():
       f.write ("%s,%s,%s\n" % (p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['calorie_influence_post2_fake']))
 
 
