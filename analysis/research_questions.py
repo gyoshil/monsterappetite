@@ -1,11 +1,12 @@
 
-results_dir = "analysis/spss_ready/"
+results_dir = "spss_ready/"
 
 def r1(all):
 
   def completed(p):
     #return ((p['ffq2_score'])!='empty' and (p['ffq2_score'])<=11.45)
     return (p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45))
+
 
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
   print (len(filtered_list))
@@ -44,9 +45,11 @@ def rBonus(all):
 
   with open(results_dir+'RBonus.csv', 'w') as f:
     for (id,p) in filtered_list1.items():
-      sess1 = p['pre1_getInfo']+ p['pre1_moreInfo']+ p['post1_getInfo']+ p['post1_moreInfo']
-      sess2 = p['pre2_getInfo']+ p['pre2_moreInfo']+ p['post2_getInfo']+ p['post2_moreInfo']
-      f.write ("%s,%s,%s\n" % (p['group'],sess1,sess2))
+      sess1pre = p['pre1_getInfo']+ p['pre1_moreInfo']
+      sess1post =  p['post1_getInfo']+ p['post1_moreInfo']
+      sess2pre = p['pre2_getInfo']+ p['pre2_moreInfo']
+      sess2post = p['post2_getInfo']+ p['post2_moreInfo']
+      f.write ("%s,%s,%s,%s,%s\n" % (p['group'],sess1pre,sess1post,sess2pre,sess2post))
 
 def rBonus2(all):
 
