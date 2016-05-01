@@ -90,7 +90,7 @@ query_dbs.tagCSVPlayers("BIQ3.csv",all,"risk_level_post2",risk_level)
 def calorie_seeker(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
-  good_answers = [(6,4),(6,5)]
+  good_answers = [(5,1),(5,2),(6,4),(6,5)]
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_pre1",calorie_seeker)
