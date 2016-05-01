@@ -75,7 +75,7 @@ def csv_answer_check(mongoP,qualtricsP,answer_checks):
 def risk_level(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
-  good_answers = [(4,4),(4,5),(5,4),(5,5),(7,1),(7,2),(8,1),(8,2)]
+  good_answers = [(4,4),(4,5),(5,1),(5,2),(7,1),(7,2),(8,1),(8,2)]
   if(csv_answer_check(mongoP,qualtricsP,good_answers)):
     return "1"
   return "0"
