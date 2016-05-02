@@ -17,7 +17,7 @@ def r1(all):
         group = 1
       if p['group']=='loss':
         group = 2
-      f.write ("%s,%s,%s,%s,%s\n" % (group,p['risk_level_pre1'],p['risk_level_post1'],p['risk_level_pre2'],p['risk_level_post2']))
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (group,p['risk_level_pre1'],p['risk_level_post1'],p['risk_level_pre2'],p['risk_level_post2'],(p['calorie_seeker_pre1']),(p['calorie_seeker_post1']),(p['calorie_seeker_pre2']),(p['calorie_seeker_post2'])))
 
 
 def r2(all):
