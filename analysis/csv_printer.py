@@ -6,7 +6,7 @@ def printAll(ps):
   #########
   ## HEADERS
   #########
-  print ('uid',end=', ')
+  print ('uid',end= ', ')
   for fields in sorted(ps.popitem()[1]):
     print (fields,end=', ')
   print ()
@@ -24,3 +24,4 @@ def printAll(ps):
 #with open('compiled_results.csv', 'w') as f:
 #  w = csv.DictWriter(f, ps['peZip3nZ25pQ4ism4'].keys())
   #w.writeheader()
+  

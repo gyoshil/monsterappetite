@@ -3,8 +3,8 @@ from bson.codec_options import CodecOptions
 from pprint import pprint
 import csv
 
-dataDir = 'C:/Users/GGU/Documents/GitHub/monsterappetite/analysis/Qualtrics/'
-bson_file = open('C:/Users/GGU/Documents/GitHub/monsterappetite/analysis/players.bson','rb')
+dataDir = '/Users/mhwang502/GitHub/monsterappetite/analysis/Qualtrics/'
+bson_file = open('/Users/mhwang502/GitHub/monsterappetite/analysis/players.bson','rb')
 mongoPlayers = bson.decode_all(bson_file.read())
 
 '''def filterMongoPlayers(players,condition):

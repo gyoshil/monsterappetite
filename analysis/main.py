@@ -9,6 +9,8 @@ import csv_printer
 import research_questions
 import card_info
 
+print (sys.getdefaultencoding())
+
 
 all = query_dbs.allMongoPlayers()
 
@@ -75,7 +77,11 @@ def csv_answer_check(mongoP,qualtricsP,answer_checks):
 def risk_level(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
-  good_answers = [(4,4),(4,5),(5,1),(5,2),(7,1),(7,2),(8,1),(8,2)]
+    # "good_answers" below indicates that the person exhibits HIGH RISK LEVEL BEHAVIOR 
+    # the CSV questions related to risk level and calorie seeker are 2, 3, 4, 6, and 7 where 3 & 4 are calorie related Qs.
+    # unfortunately, it was confusing becuase the numbers used for the "good_answers" coding below translates to 4, 5, 6, 7, and 8 where 5 & 6 are calorie related Qs.
+    
+  good_answers = [(4,4),(4,5),(5,1),(5,2),(7,4),(7,5),(8,4),(8,5)]
   if(csv_answer_check(mongoP,qualtricsP,good_answers)):
     return "1"
   return "0"
@@ -90,13 +96,32 @@ query_dbs.tagCSVPlayers("BIQ3.csv",all,"risk_level_post2",risk_level)
 def calorie_seeker(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
-  good_answers = [(5,1),(5,2),(6,4),(6,5)]
+    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
+  good_answers = [(5,4),(5,5),(6,4),(6,5)]
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_pre1",calorie_seeker)
 query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_post1",calorie_seeker)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_pre2",calorie_seeker)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_post2",calorie_seeker)
+
+########
+# Calories
+########
+def calorie_seeker_q4(mongoP,qualtricsP):
+  if(qualtricsP=="NONE"):
+    return "empty"
+    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
+  good_answers = [(5,4),(5,5)]
+  return csv_answer_check(mongoP,qualtricsP,good_answers)
+
+query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q4)
+query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_post1",calorie_seeker_q4)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_pre2",calorie_seeker_q4)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
+
+
+
 
 ########
 # PDQ
