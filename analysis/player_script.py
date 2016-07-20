@@ -5,6 +5,8 @@ from bson.codec_options import CodecOptions
 bson_file = open('/Users/mhwang502/GitHub/monsterappetite/analysis/players.bson','rb')
 players = bson.decode_all(bson_file.read())
 
+print (players[0]['informationSeekingBehavior'])
+
 print ("Total players found: "+ str(len(players))+ '\n')
 
 print("Fields available:")
@@ -31,9 +33,10 @@ print (z05)
 print (z510)
 print (z1015)
 print (z1520)
+print (firstItem)
 
 '''
-print (firstItem)
+
 print (firstItem['round'])
 print (firstItem['item'])
 print (firstItem['item']['round'])
