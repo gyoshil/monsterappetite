@@ -92,6 +92,7 @@ def r3(all):
   with open(results_dir+'RQ3_sessionPost2.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
       f.write ("%s,%s,%s\n" % (p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['calorie_influence_post2_fake']))
+      
 
 
 def r4(all):

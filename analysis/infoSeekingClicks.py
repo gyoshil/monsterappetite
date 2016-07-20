@@ -26,7 +26,7 @@ def gatherClicks(which,session,p):
   for b in sessionInfo:
     if (b['button']==which):
       count = count+1
-  return count
+  return min(9,count)
 
 def gatherClicksFake(which,session,p):
   try:
@@ -44,4 +44,4 @@ def gatherClicksFake(which,session,p):
   for b in sessionInfo:
     if (b['button']==which and (b['name'] in card_info.fake_cards)):
       count = count+1
-  return count
+  return min(9,count)

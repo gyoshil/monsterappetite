@@ -2,7 +2,7 @@ import bson
 from pprint import pprint
 from bson.codec_options import CodecOptions
 
-bson_file = open('C:/Users/GGU/Documents/GitHub/monsterappetite/analysis/players.bson','rb')
+bson_file = open('/Users/mhwang502/GitHub/monsterappetite/analysis/players.bson','rb')
 players = bson.decode_all(bson_file.read())
 
 print ("Total players found: "+ str(len(players))+ '\n')
@@ -13,6 +13,24 @@ for f in players[0]:
 print ("\n")
 
 firstItem = players[0]['snackazonItemChoices'][0]
+z05 = 0 
+z510= 0
+z1015 = 0
+z1520 = 0
+
+
+for p in players:
+ s = len(p['snackazonItemChoices'])
+ if (s < 5):
+     z05 = z05 +1
+ if (5 < s < 10):
+     z510 = z510 +1
+
+
+print (z05)
+print (z510)
+print (z1015)
+print (z1520)
 
 '''
 print (firstItem)
