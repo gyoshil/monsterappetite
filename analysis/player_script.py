@@ -5,6 +5,8 @@ from bson.codec_options import CodecOptions
 bson_file = open('./players.bson','rb')
 players = bson.decode_all(bson_file.read())
 
+print (players[0]['informationSeekingBehavior'])
+
 print ("Total players found: "+ str(len(players))+ '\n')
 
 print("Fields available:")
@@ -48,8 +50,9 @@ for p in players:
  except KeyError as e:
       print ("NA,NA")
 
+
 '''
-print (firstItem)
+
 print (firstItem['round'])
 print (firstItem['item'])
 print (firstItem['item']['round'])
