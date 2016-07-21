@@ -2,7 +2,7 @@ import bson
 from pprint import pprint
 from bson.codec_options import CodecOptions
 
-bson_file = open('/Users/mhwang502/GitHub/monsterappetite/analysis/players.bson','rb')
+bson_file = open('./players.bson','rb')
 players = bson.decode_all(bson_file.read())
 
 print ("Total players found: "+ str(len(players))+ '\n')
@@ -12,32 +12,48 @@ for f in players[0]:
   print (f)
 print ("\n")
 
-firstItem = players[0]['snackazonItemChoices'][0]
-z05 = 0 
+#pprint ( players[1]['informationSeekingBehavior'])
+z05 = 0
 z510= 0
 z1015 = 0
 z1520 = 0
 
 
 for p in players:
+ #start counting at 1, leave first spot blank
+ #also need an extra for crappy data
+ allClickCounts1 = [0]* 22
+ allClickCounts2 = [0]* 22
+ try:
+     print (p['group']+","+p['pop'], end=",")
+ except Exception as e:
+      print (p['group']+",NA", end=",")
  s = len(p['snackazonItemChoices'])
- if (s < 5):
-     z05 = z05 +1
- if (5 < s < 10):
-     z510 = z510 +1
-
-
-print (z05)
-print (z510)
-print (z1015)
-print (z1520)
+ try:
+     round_mulitplier = 0
+     max_round = 0
+     for click in p['informationSeekingBehavior']:
+        max_round = max(max_round,click['round'])
+        if (max_round > click['round']):
+            round_mulitplier += 5
+            max_round = 0
+        thisRound = click["round"]+round_mulitplier
+        if (click['button']==1):
+            allClickCounts1[thisRound] +=1
+        if (click['button']==2):
+            allClickCounts2[thisRound] +=1
+     def p(i):
+       return str(allClickCounts1[i])+", "+str(allClickCounts2[i])+""
+     print (", ".join(list(map(p,[1,3,4,7,8,9,11,14,15,18,19,20]))))
+ except KeyError as e:
+      print ("NA,NA")
 
 '''
 print (firstItem)
 print (firstItem['round'])
 print (firstItem['item'])
 print (firstItem['item']['round'])
-'''
+
 
 
 def splitInfo(info):
@@ -81,7 +97,7 @@ for p in players:
 print (session1)
 print (session2)
 
-'''
+
 for p in players:
   if (p['group'] ==("gain")):
     printPlayer(p)
@@ -100,8 +116,9 @@ print (num_p)
 print (count)
 print (session1/session2)
 #print (session2)
-'''
+
 #print (session1)
 #print (session2)
 #for player in b:
 #  printPlayer(player)
+'''
