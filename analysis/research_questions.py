@@ -1,3 +1,7 @@
+import query_dbs
+from pprint import pprint
+
+
 
 results_dir = "spss_ready/"
 
@@ -92,7 +96,7 @@ def r3(all):
   with open(results_dir+'RQ3_sessionPost2.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
       f.write ("%s,%s,%s\n" % (p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['calorie_influence_post2_fake']))
-      
+
 
 
 def r4(all):
@@ -171,3 +175,34 @@ def r4(all):
                   p['post2_moreInfo_fake'],
                   p['snackChoicePost2'],
                   p['calorie_influence_post2_fake']))
+
+def rBonus3(all):
+    for (idp,p) in all.items():
+     #pprint(p)
+     #start counting at 1, leave first spot blank
+     #also need an extra for crappy data
+     allClickCounts1 = [0]* 22
+     allClickCounts2 = [0]* 22
+
+     s = (p['sic'])
+     try:
+         print (p['group']+","+p['pop']+","+str(p['sic'])+","+str(p['completedPDQ4']), end=",")
+         round_mulitplier = 0
+         max_round = 0
+         for click in p['informationSeekingBehavior']:
+            max_round = max(max_round,click['round'])
+            if (max_round > click['round']):
+                round_mulitplier += 5
+                max_round = 0
+            thisRound = click["round"]+round_mulitplier
+            if (click['button']==1):
+                allClickCounts1[thisRound] +=1
+            if (click['button']==2):
+                allClickCounts2[thisRound] +=1
+         def p(i):
+           return str(allClickCounts1[i])+", "+str(allClickCounts2[i])+""
+         print (", ".join(list(map(p,[1,3,4,7,8,9,11,14,15,18,19,20]))))
+     except KeyError as e:
+         pass
+     except TypeError as e:
+         pass

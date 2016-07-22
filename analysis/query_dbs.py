@@ -3,8 +3,8 @@ from bson.codec_options import CodecOptions
 from pprint import pprint
 import csv
 
-dataDir = '/Users/mhwang502/GitHub/monsterappetite/analysis/Qualtrics/'
-bson_file = open('/Users/mhwang502/GitHub/monsterappetite/analysis/players.bson','rb')
+dataDir = './Qualtrics/'
+bson_file = open('./players.bson','rb')
 mongoPlayers = bson.decode_all(bson_file.read())
 
 '''def filterMongoPlayers(players,condition):
@@ -37,6 +37,7 @@ def tagCSVPlayers(csvFile,players,fieldName,valueFunc):
 
 def allMongoPlayers():
   allPlayers = {}
+  print (mongoPlayers[0])
   for p in mongoPlayers:
     allPlayers[p['_id']]={}
   return allPlayers

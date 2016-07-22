@@ -22,6 +22,29 @@ def sic(p):
   return len(player['snackazonItemChoices'])
 query_dbs.tagMongoPlayers(all,sic)
 
+def group(p):
+  player = query_dbs.findPlayerInMongo('_id',p[0])
+  try:
+      return player['group']
+  except Exception as e:
+      return "NA"
+query_dbs.tagMongoPlayers(all,group)
+
+def pop(p):
+  player = query_dbs.findPlayerInMongo('_id',p[0])
+  try:
+      return (player['pop'])
+  except Exception as e:
+      return "NA"
+query_dbs.tagMongoPlayers(all,pop)
+
+def informationSeekingBehavior(p):
+  player = query_dbs.findPlayerInMongo('_id',p[0])
+  try:
+      return (player['informationSeekingBehavior'])
+  except Exception as e:
+      return "NA"
+query_dbs.tagMongoPlayers(all,informationSeekingBehavior)
 
 def snackChoice(round,p):
   player = query_dbs.findPlayerInMongo('_id',p[0])
@@ -77,10 +100,10 @@ def csv_answer_check(mongoP,qualtricsP,answer_checks):
 def risk_level(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
-    # "good_answers" below indicates that the person exhibits HIGH RISK LEVEL BEHAVIOR 
+    # "good_answers" below indicates that the person exhibits HIGH RISK LEVEL BEHAVIOR
     # the CSV questions related to risk level and calorie seeker are 2, 3, 4, 6, and 7 where 3 & 4 are calorie related Qs.
     # unfortunately, it was confusing becuase the numbers used for the "good_answers" coding below translates to 4, 5, 6, 7, and 8 where 5 & 6 are calorie related Qs.
-    
+
   good_answers = [(4,4),(4,5),(5,1),(5,2),(7,4),(7,5),(8,4),(8,5)]
   if(csv_answer_check(mongoP,qualtricsP,good_answers)):
     return "1"
@@ -414,6 +437,10 @@ print ("DONE\n")
 
 print ("\nRQBONUS2...\n")
 research_questions.rBonus2(filtered_all)
+print ("DONE\n")
+
+print ("\nRQBONUS3...\n")
+research_questions.rBonus3(filtered_all)
 print ("DONE\n")
 
 ######
