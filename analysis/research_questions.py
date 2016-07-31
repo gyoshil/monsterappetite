@@ -28,6 +28,7 @@ def r1(all):
 
 
 # make the same thing as above except do not return ***  p['ffq1_risk']=='1'   ****
+####
 
 def r1_CHI(all):
 
