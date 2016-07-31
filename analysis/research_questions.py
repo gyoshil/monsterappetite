@@ -27,6 +27,32 @@ def r1(all):
                                                 ))
 
 
+# make the same thing as above except do not return ***  p['ffq1_risk']=='1'   ****
+
+def r1_CHI(all):
+
+  def completed(p):
+    
+    return (p['ffq2_score']<=11.45)
+
+
+  filtered_list = {k:v for (k,v) in all.items() if completed(v)}
+  print (len(filtered_list))
+
+  with open(results_dir+'CHI.csv', 'w') as f:
+    for (id,p) in filtered_list.items():
+      if p['group']=='gain':
+        group = 1
+      if p['group']=='loss':
+        group = 2
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (group,p['risk_level_pre1'],p['risk_level_post1'],p['risk_level_pre2'],p['risk_level_post2'],
+                                                (p['calorie_seeker_pre1']),(p['calorie_seeker_post1']),(p['calorie_seeker_pre2']),(p['calorie_seeker_post2']),
+                                                (p['calorie_seeker_q4_pre1']),(p['calorie_seeker_q4_post1']),(p['calorie_seeker_q4_pre2']),(p['calorie_seeker_q4_post2'])
+                                                ))
+
+
+
+
 def r2(all):
   def completed1(p):
     return ((p['risk_level_post1']!='empty') and (p['sic']>=10))

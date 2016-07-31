@@ -111,7 +111,7 @@ def risk_level(mongoP,qualtricsP):
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"risk_level_pre1",risk_level)
 query_dbs.tagCSVPlayers("BIQ2.csv",all,"risk_level_post1",risk_level)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"risk_level_pre2",risk_level)
-query_dbs.tagCSVPlayers("BIQ3.csv",all,"risk_level_post2",risk_level)
+query_dbs.tagCSVPlayers("BIQ4.csv",all,"risk_level_post2",risk_level)
 
 ########
 # Calories
@@ -126,7 +126,7 @@ def calorie_seeker(mongoP,qualtricsP):
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_pre1",calorie_seeker)
 query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_post1",calorie_seeker)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_pre2",calorie_seeker)
-query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_post2",calorie_seeker)
+query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_post2",calorie_seeker)
 
 ########
 # Calories
@@ -141,7 +141,7 @@ def calorie_seeker_q4(mongoP,qualtricsP):
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q4)
 query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_post1",calorie_seeker_q4)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_pre2",calorie_seeker_q4)
-query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
+query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
 
 
 
