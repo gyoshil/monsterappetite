@@ -176,7 +176,10 @@ def r4(all):
                   p['snackChoicePost2'],
                   p['calorie_influence_post2_fake']))
 
+
 def rBonus3(all):
+    ctr=0
+
     for (idp,p) in all.items():
      #pprint(p)
      #start counting at 1, leave first spot blank
@@ -186,7 +189,8 @@ def rBonus3(all):
 
      s = (p['sic'])
      try:
-         print (p['group']+","+p['pop']+","+str(p['sic'])+","+str(p['completedPDQ4']), end=",")
+         if (p['ffq1_risk']=='empty'):
+             raise Exception
          round_mulitplier = 0
          max_round = 0
          for click in p['informationSeekingBehavior']:
@@ -199,10 +203,11 @@ def rBonus3(all):
                 allClickCounts1[thisRound] +=1
             if (click['button']==2):
                 allClickCounts2[thisRound] +=1
-         def p(i):
+         def pr(i):
            return str(allClickCounts1[i])+", "+str(allClickCounts2[i])+""
-         print (", ".join(list(map(p,[1,3,4,7,8,9,11,14,15,18,19,20]))))
-     except KeyError as e:
-         pass
-     except TypeError as e:
+         print (p['group']+","+p['pop']+","+str(p['sic'])+","+str(p['completedPDQ4']), end=",")
+         print (", ".join(list(map(pr,[1,3,4,7,8,9,11,14,15,18,19,20]))))
+         ctr+=1
+
+     except Exception as e:
          pass

@@ -160,7 +160,7 @@ query_dbs.tagCSVPlayers("PDQ1.csv",all,"calorie_influence_pre1",calorie_influenc
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1",calorie_influence)
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_pre2",calorie_influence)
 #it is PDQ3 below. Should this be PDQ4?
-query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_post2",calorie_influence);
+query_dbs.tagCSVPlayers("PDQ4.csv",all,"calorie_influence_post2",calorie_influence);
 
 def calorie_influence_fake(qs,mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
@@ -180,7 +180,7 @@ query_dbs.tagCSVPlayers("PDQ1.csv",all,"calorie_influence_pre1_fake",calorie_inf
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1_fake",calorie_influence_post1_fake)
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_pre2_fake",calorie_influence_pre2_fake)
 #it is PDQ3 below. Should this be PDQ4?
-query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_post2_fake",calorie_influence_post2_fake);
+query_dbs.tagCSVPlayers("PDQ4.csv",all,"calorie_influence_post2_fake",calorie_influence_post2_fake);
 ########
 # DQ
 #######
