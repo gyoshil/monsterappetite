@@ -33,8 +33,10 @@ def r1(all):
 def r1_CHI(all):
 
   def completed(p):
-    
-    return (p['ffq2_score']<=11.45)
+    if  p['ffq2_score'] == 'empty':
+      return 0
+
+    return (float (p['ffq2_score']) <=11.45)
 
 
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
