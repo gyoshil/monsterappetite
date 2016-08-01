@@ -1,6 +1,3 @@
-Router.route('/snackazon/PDQ',{
-  template: 'PDQ'
-});
 
 Router.configure({
     layoutTemplate: 'main'
@@ -12,7 +9,7 @@ Template.PDQ.helpers({
     console.log(getChosenOnes())
     return getChosenOnes()
   },
-  
+
 //This whole section below is not working. That is probably because now PDQ is done WITHIN qualtrics !!!
   /*afterPDQ : function () {
     d = getAllChosenOnes()
@@ -49,4 +46,3 @@ Template.chosenItem.helpers({
     return "/imgs/cards/"+this.item.image_location+".jpeg"
   }
 })
-

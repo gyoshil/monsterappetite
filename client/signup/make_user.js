@@ -1,6 +1,4 @@
-Router.route('/signup',{
-  template: 'make_user'
-});
+
 
 Router.configure({
     layoutTemplate: 'main'
@@ -66,7 +64,7 @@ Template.make_user.events({
                             text:"Thank you for participating in the Monster Appetite study (IRB 16-145). " +
                             "Session 2 will complete your participation in this study. " +
                             "Please continue at "+link+". We appreciate your time.",
-                            date:new Date(new Date().getTime() + (24*60*60*1000))});      
+                            date:new Date(new Date().getTime() + (24*60*60*1000))});
 
     window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_26aaP0rO26NUmB7" + "&"+
                            "uid=" + p_id;
@@ -79,11 +77,11 @@ Template.make_user.events({
 
 
 function createUser(email) {
-   
-   
+
+
    var pop = Router.current().params.query.s
-   //var pop = this.params.query.s  
-   
+   //var pop = this.params.query.s
+
 
    var this_group = "";
    if (Math.random()>0.5) {this_group="loss"}

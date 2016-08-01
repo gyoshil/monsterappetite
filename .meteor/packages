@@ -3,11 +3,12 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-standard-app-packages
-insecure
-jquery
-standard-minifiers
+standard-app-packages@1.0.9
+insecure@1.0.7
+jquery@1.11.9
 iron:router
-email
-accounts-ui
+email@1.1.16
+accounts-ui@1.1.9
 percolate:synced-cron
+standard-minifier-css
+standard-minifier-js

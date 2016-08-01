@@ -1,6 +1,4 @@
-Router.route('snackazon/q_redirect',{
-  template: 'q_redirect'
-});
+
 
 Router.configure({
     layoutTemplate: 'main'
@@ -13,26 +11,26 @@ Template.q_redirect.helpers ({
     //var currentStage = getCurrentStage()
     var r = Math.floor(p.snackazonItemChoices.length/5)
     var l = p.snackazonItemChoices.slice(-5)
-	      
+
 	var i1 = l[0].item.image_location
 	var i2 = l[1].item.image_location
 	var i3 = l[2].item.image_location
 	var i4 = l[3].item.image_location
 	var i5 = l[4].item.image_location
-	  
-	itemParams = 
+
+	itemParams =
 	    "i1=" + i1 + "&" +
-	    "i2=" + i2 + "&" + 
-	    "i3=" + i3 + "&" + 
-	    "i4=" + i4 + "&" + 
-	    "i5=" + i5 
-         
+	    "i2=" + i2 + "&" +
+	    "i3=" + i3 + "&" +
+	    "i4=" + i4 + "&" +
+	    "i5=" + i5
+
     if (r==4 && p.pop == "mt") {
         r == 5
     }
 
-        window.location.href="/qualtrics"+r+"/"+ "&" + itemParams + "&" + "uid=" + p._id;  
+        window.location.href="/qualtrics"+r+"/"+ "&" + itemParams + "&" + "uid=" + p._id;
     	return ""
 	}
-		
+
 })

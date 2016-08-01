@@ -1,6 +1,3 @@
-Router.route('/instruction_g',{
-  template: 'instruction_g'
-});
 
 Router.configure({
     layoutTemplate: 'main'

@@ -1,8 +1,5 @@
 ////////// Main client application logic //////////
 
-Router.route('/game',{
-  template: 'page'
-});
 
 Router.configure({
     layoutTemplate: 'main'
@@ -35,7 +32,7 @@ Template.postgame.events({
     if (me.performance.length >= 40 &&  g.rounds.length == 21){
       window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_0fjYOLFAcwDTKAZ" + "&" + "uid=" + me._id
     }
-    
+
     else if ( g.rounds.length == 21){
       window.location.href = "https://tccolumbia.qualtrics.com/SE/?SID=SV_3DUw19B1ItmEKQl" + "&" + "uid=" + me._id
     }

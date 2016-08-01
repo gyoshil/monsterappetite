@@ -1,6 +1,3 @@
-Router.route('snackazon/select',{
-  template: 'select'
-});
 
 Router.configure({
     layoutTemplate: 'main'
@@ -40,7 +37,7 @@ Template.select.events ({
 
     var itemName = $(element).val();
     var itemSave = DECK.findOne({card_name:itemName})
-  
+
     var p = player()
     Players.update({_id:p._id}, {$push: {snackazonItemChoices: {item:itemSave,round:getCurrentStage(),date: new Date()}}})
 
@@ -71,7 +68,7 @@ Template.item.events ({
 })
 
   var getItems = function() {
-    console.log (player())   
+    console.log (player())
     var currentRound = player().snackazonItemChoices.length+1
     if ((player().snackazonItemChoices.length+1) % 5 == 0) {
         //setTimeout(function(){ }, 30000);
@@ -94,7 +91,7 @@ Template.item.events ({
     var p = player()
     var currentStage = getCurrentStage()
     var r = p.snackazonItemChoices.length/5
-    
+
     if(currentStage<5){
       return "/snackazon/select?which=" + (currentStage+1)
     }
@@ -106,18 +103,18 @@ Template.item.events ({
       var i3 = l[2].item.image_location
       var i4 = l[3].item.image_location
       var i5 = l[4].item.image_location
-      
-      itemParams = 
+
+      itemParams =
         "i1=" + i1 + "&" +
-        "i2=" + i2 + "&" + 
-        "i3=" + i3 + "&" + 
-        "i4=" + i4 + "&" + 
-        "i5=" + i5 
+        "i2=" + i2 + "&" +
+        "i3=" + i3 + "&" +
+        "i4=" + i4 + "&" +
+        "i5=" + i5
 
 
         //instead of directly to qualtrics send the users to a blank page (monster-appetite.com/snackazon/q_redirect)
         //and then go to qualtrics so that the 6th set of snackazon items are not displayed.
-        
+
         return "/snackazon/q_redirect"
     }
   }
@@ -130,4 +127,3 @@ Template.item.events ({
     }
     else return parseInt(currentStage)
   }
-

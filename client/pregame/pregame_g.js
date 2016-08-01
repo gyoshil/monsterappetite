@@ -1,6 +1,4 @@
-Router.route('/pregame_g',{
-  template: 'pregame_g'
-});
+
 
 Router.configure({
     layoutTemplate: 'main'
@@ -11,4 +9,3 @@ Template.select.events ({
     window.scrollTo(0,0);
 	}
 })
-
