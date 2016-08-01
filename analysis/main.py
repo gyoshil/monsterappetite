@@ -425,6 +425,10 @@ print ("CHI...\n")
 research_questions.r1_CHI(filtered_all)
 print ("DONE\n")
 
+print ("CHI2...\n")
+research_questions.r1_CHI(filtered_all)
+print ("DONE\n")
+
 print ("\nRQ2...\n")
 research_questions.r2(filtered_all)
 print ("DONE\n")

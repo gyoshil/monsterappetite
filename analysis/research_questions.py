@@ -36,8 +36,8 @@ def r1_CHI(all):
     if  p['ffq2_score'] == 'empty':
       return 0
 
-    return (float (p['ffq2_score']) <=11.45)
-
+    return ((float (p['ffq2_score']) <=11.45) and (p['completedPDQ2']==True))  
+    # I added 'completedPDQ2' and not PDQ4 because I am only considering Session 1 for now
 
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
   print (len(filtered_list))
@@ -53,6 +53,30 @@ def r1_CHI(all):
                                                 (p['calorie_seeker_q4_pre1']),(p['calorie_seeker_q4_post1']),(p['calorie_seeker_q4_pre2']),(p['calorie_seeker_q4_post2'])
                                                 ))
 
+###### now i am making the same CSV with all those who scored above 11.45 so that I have the entire population
+
+def r1_CHI2(all):
+
+  def completed(p):
+    if  p['ffq2_score'] == 'empty':
+      return 0
+
+    return ((float (p['ffq2_score']) > 11.45) and (p['completedPDQ2']==True)) 
+    # I added 'completedPDQ2' and not PDQ4 because I am only considering Session 1 for now
+
+  filtered_list = {k:v for (k,v) in all.items() if completed(v)}
+  print (len(filtered_list))
+
+  with open(results_dir+'CHI2.csv', 'w') as f:
+    for (id,p) in filtered_list.items():
+      if p['group']=='gain':
+        group = 1
+      if p['group']=='loss':
+        group = 2
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (group,p['risk_level_pre1'],p['risk_level_post1'],p['risk_level_pre2'],p['risk_level_post2'],
+                                                (p['calorie_seeker_pre1']),(p['calorie_seeker_post1']),(p['calorie_seeker_pre2']),(p['calorie_seeker_post2']),
+                                                (p['calorie_seeker_q4_pre1']),(p['calorie_seeker_q4_post1']),(p['calorie_seeker_q4_pre2']),(p['calorie_seeker_q4_post2'])
+                                                ))
 
 
 
