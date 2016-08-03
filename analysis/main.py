@@ -461,30 +461,52 @@ better = 0
 worse = 0
 same = 0
 
+better2 = 0
+worse2 = 0
+same2 = 0
+
 for (id,p) in all.items():
   if (not(p['snackChoicePre1']=='empty' or
       p['snackChoicePost1']=='empty' or
       p['snackChoicePre2']=='empty' or
       p['snackChoicePost2']=='empty')):
-    '''print (str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
-           +" "+str(p['snackChoicePre2'])+" "+str(p['snackChoicePost1']))'''
-    if ((p['snackChoicePre1']+p['snackChoicePost1']) >
+    
+    print (str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
+           +" "+str(p['snackChoicePre2'])+" "+str(p['snackChoicePost1']))
+    
+    '''if ((p['snackChoicePre1']+p['snackChoicePost1']) >
         (p['snackChoicePre2']+p['snackChoicePost2'])):
       worse += 1
     if ((p['snackChoicePre1']+p['snackChoicePost1']) <
         (p['snackChoicePre2']+p['snackChoicePost2'])):
       better += 1
     else :
-      same += 1
-  '''if ((p['snackChoicePre1']) >
-      (p['snackChoicePost1'])):
+      same += 1'''
+  
+  if (str(p['snackChoicePre1']) >
+      (str(p['snackChoicePost1']))):
     worse += 1
-  elif ((p['snackChoicePre1']) <
-      (p['snackChoicePost1'])):
+  elif (str(p['snackChoicePre1']) <
+      (str(p['snackChoicePost1']))):
     better +=1
+  else :
+      same += 1
+
+  if (str(p['snackChoicePre2']) >
+      (str(p['snackChoicePost2']))):
+    worse2 += 1
+  elif (str(p['snackChoicePre2']) <
+      (str(p['snackChoicePost2']))):
+    better2 +=1
+  else :
+      same2 += 1
+
 print (better)
 print (worse)
-print (same)'''
+print (same)
+print (better2)
+print (worse2)
+print (same2)
 
 finishedSession2 = 0
 for (id,p) in all.items():
