@@ -49,7 +49,7 @@ query_dbs.tagMongoPlayers(all,informationSeekingBehavior)
 def snackChoice(round,p):
   player = query_dbs.findPlayerInMongo('_id',p[0])
   score = 0
-
+#round means pre1 = 0 , post1 = 1, pre2 = 2, or post2 = 3. Therefore, round starts from 0 to 4. 
   if ((round+1)*5>len(player['snackazonItemChoices'])):
     return "empty"
   for i in player['snackazonItemChoices']:
@@ -470,6 +470,9 @@ worse2 = 0
 same2 = 0
 
 for (id,p) in all.items():
+  #if even one of them does not have a score (if it is empty) // 
+  #so this means among the three fake items per section/round (pre1, post1 etc.) if you even have one you have not chosen, then it was
+  #recorded as empty
   if (not(p['snackChoicePre1']=='empty' or
       p['snackChoicePost1']=='empty' or
       p['snackChoicePre2']=='empty' or
@@ -515,7 +518,7 @@ print (better2)
 print (worse2)
 print (same2)
 
-finishedSession2 = 0
-for (id,p) in all.items():
-  if(p['completedPDQ4'] and p['sic']>=20): finishedSession2 +=1
+#finishedSession2 = 0
+#for (id,p) in all.items():
+#  if(p['completedPDQ4'] and p['sic']>=20): finishedSession2 +=1
 #print (finishedSession2)
