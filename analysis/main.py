@@ -461,6 +461,10 @@ better = 0
 worse = 0
 same = 0
 
+better1 = 0
+worse1 = 0
+same1 = 0
+
 better2 = 0
 worse2 = 0
 same2 = 0
@@ -474,23 +478,23 @@ for (id,p) in all.items():
     print (str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
            +" "+str(p['snackChoicePre2'])+" "+str(p['snackChoicePost1']))
     
-    '''if ((p['snackChoicePre1']+p['snackChoicePost1']) >
+    if ((p['snackChoicePre1']+p['snackChoicePost1']) >
         (p['snackChoicePre2']+p['snackChoicePost2'])):
       worse += 1
     if ((p['snackChoicePre1']+p['snackChoicePost1']) <
         (p['snackChoicePre2']+p['snackChoicePost2'])):
       better += 1
     else :
-      same += 1'''
+      same += 1
   
   if (str(p['snackChoicePre1']) >
       (str(p['snackChoicePost1']))):
-    worse += 1
+    worse1 += 1
   elif (str(p['snackChoicePre1']) <
       (str(p['snackChoicePost1']))):
-    better +=1
+    better1 +=1
   else :
-      same += 1
+      same1 += 1
 
   if (str(p['snackChoicePre2']) >
       (str(p['snackChoicePost2']))):
@@ -504,6 +508,9 @@ for (id,p) in all.items():
 print (better)
 print (worse)
 print (same)
+print (better1)
+print (worse1)
+print (same1)
 print (better2)
 print (worse2)
 print (same2)
