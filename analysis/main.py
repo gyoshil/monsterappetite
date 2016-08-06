@@ -471,12 +471,17 @@ same2 = 0
 
 for (id,p) in all.items():
   #if even one of them does not have a score (if it is empty) // 
-  #so this means among the three fake items per section/round (pre1, post1 etc.) if you even have one you have not chosen, then it was
-  #recorded as empty
+  #so this means among the three fake items per section (pre1, post1, etc.) if you even have one you have not chosen, 
+  #then it was recorded as empty. This filter is different than any other filters throughout this code. 
+  #print (attention_measure2)
   if (not(p['snackChoicePre1']=='empty' or
       p['snackChoicePost1']=='empty' or
       p['snackChoicePre2']=='empty' or
-      p['snackChoicePost2']=='empty')):
+      p['snackChoicePost2']=='empty')
+      #HERE I want to add filters that were applied in other RQs and other CSVs produced
+      #and (p['attention_measure2'] and p['attention_measure1'])
+      #and (p['completedPDQ2'] and p['completedPDQ4'])
+     ):
     
     print (str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
            +" "+str(p['snackChoicePre2'])+" "+str(p['snackChoicePost1']))
