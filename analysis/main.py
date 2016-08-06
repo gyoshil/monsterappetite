@@ -46,6 +46,8 @@ def informationSeekingBehavior(p):
       return "NA"
 query_dbs.tagMongoPlayers(all,informationSeekingBehavior)
 
+# DEFINE snackChoice function
+
 def snackChoice(round,p):
   player = query_dbs.findPlayerInMongo('_id',p[0])
   score = 0
@@ -54,6 +56,7 @@ def snackChoice(round,p):
     return "empty"
   for i in player['snackazonItemChoices']:
     if i['item']['round'] > (round *5) and i['item']['round'] <= ((round+1) *5):
+      #this indicates that EACH ITEM is counted separately???
       if i['item']['card_name'] in card_info.bad_cards :
         score += (-1)
       elif i['item']['card_name'] in card_info.ok_cards :
@@ -472,6 +475,7 @@ same2 = 0
 
 datasetCounter = 0
 
+print (len(all))
 for (id,p) in all.items(): 
   #if even one of them does not have a score (if it is empty) // 
   #so this means among the three fake items per section (pre1, post1, etc.) if you even have one you have not chosen, 
@@ -503,35 +507,40 @@ for (id,p) in all.items():
       better += 1
     else :
       same += 1
-  
-  if (str(p['snackChoicePre1']) >
-      (str(p['snackChoicePost1']))):
-    worse1 += 1
-  elif (str(p['snackChoicePre1']) <
-      (str(p['snackChoicePost1']))):
-    better1 +=1
-  else :
-      same1 += 1
+    
+    if (str(p['snackChoicePre1']) >
+        (str(p['snackChoicePost1']))):
+      worse1 += 1
+    elif (str(p['snackChoicePre1']) <
+        (str(p['snackChoicePost1']))):
+      better1 +=1
+    else :
+        same1 += 1
 
-  if (str(p['snackChoicePre2']) >
-      (str(p['snackChoicePost2']))):
-    worse2 += 1
-  elif (str(p['snackChoicePre2']) <
-      (str(p['snackChoicePost2']))):
-    better2 +=1
-  else :
-      same2 += 1
+    if (str(p['snackChoicePre2']) >
+        (str(p['snackChoicePost2']))):
+      worse2 += 1
+    elif (str(p['snackChoicePre2']) <
+        (str(p['snackChoicePost2']))):
+      better2 +=1
+    else :
+        same2 += 1
 
 print (better)
 print (worse)
 print (same)
+print (better + worse + same)
+print ()
 print (better1)
 print (worse1)
 print (same1)
+print (better1 + worse1 + same1)
+print ()
 print (better2)
 print (worse2)
 print (same2)
-
+print (better2 + worse2 + same2)
+print ()
 #finishedSession2 = 0
 #for (id,p) in all.items():
 #  if(p['completedPDQ4'] and p['sic']>=20): finishedSession2 +=1
