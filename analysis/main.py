@@ -9,7 +9,7 @@ import csv_printer
 import research_questions
 import card_info
 
-print (sys.getdefaultencoding())
+#print (sys.getdefaultencoding())
 
 
 all = query_dbs.allMongoPlayers()
@@ -412,7 +412,8 @@ print ("Removed "+ str(len(all) - (len(filtered_all)))+" players who didnt pay a
 ######
 # PRINT
 ######
-csv_printer.printAll(filtered_all)
+#Below printed all data with filters applied
+#csv_printer.printAll(filtered_all)
 
 ######
 # ANSWERS TO RESEARCH QUESTIONS
@@ -469,20 +470,28 @@ better2 = 0
 worse2 = 0
 same2 = 0
 
-for (id,p) in all.items():
+datasetCounter = 0
+
+for (id,p) in all.items(): 
   #if even one of them does not have a score (if it is empty) // 
   #so this means among the three fake items per section (pre1, post1, etc.) if you even have one you have not chosen, 
   #then it was recorded as empty. This filter is different than any other filters throughout this code. 
   #print (attention_measure2)
-  if (not(p['snackChoicePre1']=='empty' or
+  #print (len(filtered_all)) --- this gives you 288 unique data sets
+  if ((not(p['snackChoicePre1']=='empty' or
       p['snackChoicePost1']=='empty' or
       p['snackChoicePre2']=='empty' or
-      p['snackChoicePost2']=='empty')
+      p['snackChoicePost2']=='empty'))
       #HERE I want to add filters that were applied in other RQs and other CSVs produced
       #and (p['attention_measure2'] and p['attention_measure1'])
       #and (p['completedPDQ2'] and p['completedPDQ4'])
-     ):
-    
+      #and (p['completedPDQ2']==True)
+      #and (p['completedPDQ4']==True)
+      ):
+
+    datasetCounter = datasetCounter + 1
+    print (datasetCounter)
+
     print (str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
            +" "+str(p['snackChoicePre2'])+" "+str(p['snackChoicePost1']))
     
