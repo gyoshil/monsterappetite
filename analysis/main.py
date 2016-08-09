@@ -441,8 +441,8 @@ print ("\nRQ3...\n")
 research_questions.r3(filtered_all)
 print ("DONE\n")
 
-print ("\nCHI_RQ3...\n")
-research_questions.CHI_RQ3(filtered_all)
+print ("\nr_CHI_RQ3...\n")
+research_questions.r_CHI_RQ3(filtered_all)
 print ("DONE\n")
 
 print ("\nRQ4...\n")
