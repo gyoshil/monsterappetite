@@ -112,7 +112,6 @@ def rBonus(all):
       f.write ("%s,%s,%s,%s,%s\n" % (p['group'],sess1pre,sess1post,sess2pre,sess2post))
 
 def rBonus2(all):
-
   def completed1(p):
     return ((p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20))
   filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
@@ -122,6 +121,30 @@ def rBonus2(all):
       sess1 = p['snackChoicePre1']+ p['snackChoicePost1']
       sess2 = p['snackChoicePre2']+ p['snackChoicePost2']
       f.write ("%s,%s,%s,%s\n" % (p['group'],sess1,sess2,(sess1-sess2)))
+########
+# going to add some code to produce a CSV that will give me the 153 data sets I have seen in Python code for 
+#snackChoices pre vs. post requested by Lena for CHI
+
+def CHI_RQ3(all):
+  def completedCHI(p):
+    return ((not(p['snackChoicePre1']=='empty' or p['snackChoicePost1']=='empty' or p['snackChoicePre2']=='empty' or p['snackChoicePost2']=='empty'))
+  filtered_CHI = {k:v for (k,v) in all.items() if completedCHI(v)}
+
+  with open(results_dir+'CHI_RQ3.csv', 'w') as f:
+    for (id,p) in filtered_CHI.items():
+      sess_pre1 = (str(p['snackChoicePre1'])
+      sess_post1 = (str(p['snackChoicePost1'])
+      sess_pre2 = (str(p['snackChoicePre2'])
+      sess_post2 = (str(p['snackChoicePost2'])
+
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (p['group'],sess_pre1, sess_post1, sess_pre2, sess_post2, (sess_pre1-sess_post1), (sess_post1-sess_pre1), 
+              (sess_pre2-sess_post2), (sess_post2-sess_pre2), ((sess_pre1+sess_post1)-(sess_pre2+sess_post2)), ((sess_pre2+sess_post2)-(sess_pre1+sess_post1))))
+
+if ((p['snackChoicePre1']+p['snackChoicePost1']) >
+        (p['snackChoicePre2']+p['snackChoicePost2'])):
+      worse += 1
+    if ((p['snackChoicePre1']+p['snackChoicePost1']) <
+        (p['snackChoicePre2']+p['snackChoicePost2'])):     
 
 
 def r3(all):
