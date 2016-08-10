@@ -121,9 +121,15 @@ def rBonus2(all):
       sess1 = p['snackChoicePre1']+ p['snackChoicePost1']
       sess2 = p['snackChoicePre2']+ p['snackChoicePost2']
       f.write ("%s,%s,%s,%s\n" % (p['group'],sess1,sess2,(sess1-sess2)))
-########
-# going to add some code to produce a CSV that will give me the 153 data sets I have seen in Python code for 
-#snackChoices pre vs. post requested by Lena for CHI
+
+###############################
+############# CHI #############
+##### going to add some code to produce a CSV that 
+##### will give me the 153 data sets 
+##### I have seen in Python code for 
+##### snackChoices pre vs. post requested by Lena for CHI
+
+###############################
 
 def r_CHI_RQ3(all):
   def completedCHI(p):
