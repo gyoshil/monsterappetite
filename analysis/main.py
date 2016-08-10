@@ -498,9 +498,9 @@ for (id,p) in all.items():
       ):
 
     datasetCounter = datasetCounter + 1
-    print (datasetCounter)
+    #print (datasetCounter)
 
-    print (str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
+    print (str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
            +" "+str(p['snackChoicePre2'])+" "+str(p['snackChoicePost1']))
     
     if ((p['snackChoicePre1']+p['snackChoicePost1']) >
