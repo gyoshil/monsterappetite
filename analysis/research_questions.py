@@ -149,10 +149,41 @@ def r_CHI_RQ3(all):
         #(str(sess_pre2-sess_post2)), str((sess_post2-sess_pre2)), (str((sess_pre1+sess_post1)-(sess_pre2+sess_post2))), 
         #(str((sess_pre2+sess_post2)-(sess_pre1+sess_post1)))))
 
+def CHI_r3(all):
+
+  def completed1(p):
+    return ( (p['completedPDQ1']==True) and (p['completedPDQ2']==True) and (p['sic']>=10) and
+              (not(p['snackChoicePre1']=='empty' or p['snackChoicePost1']=='empty')) )
+  filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
+
+  with open(results_dir+'CHI_RQ3_sessPre1.csv', 'w') as f:
+    for (id,p) in filtered_list1.items():
+      f.write ("%s,%s,%s\n" % (p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'],p['calorie_influence_pre1_fake']))
+
+  with open(results_dir+'CHI_RQ3_sessPost1.csv', 'w') as f:
+    for (id,p) in filtered_list1.items():
+      f.write ("%s,%s,%s\n" % (p['post1_getInfo_fake'],p['post1_moreInfo_fake'],p['calorie_influence_post1_fake']))
+
+  def completed2(p):
+    return ( (p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20) and
+             (not(p['snackChoicePre2']=='empty' or p['snackChoicePost2']=='empty')) )
+
+  filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
+
+  with open(results_dir+'CHI_RQ3_sessPre2.csv', 'w') as f:
+    for (id,p) in filtered_list2.items():
+      f.write ("%s,%s,%s\n" % (p['pre2_getInfo_fake'],p['pre2_moreInfo_fake'],p['calorie_influence_pre2_fake']))
+
+  with open(results_dir+'CHI_RQ3_sessPost2.csv', 'w') as f:
+    for (id,p) in filtered_list2.items():
+      f.write ("%s,%s,%s\n" % (p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['calorie_influence_post2_fake']))
+
+
+
 def r3(all):
 
   def completed1(p):
-    return ((p['completedPDQ1']==True) and (p['completedPDQ2']==True) and (p['sic']>=10))
+    return ( (p['completedPDQ1']==True) and (p['completedPDQ2']==True) and (p['sic']>=10) )
   filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
 
   with open(results_dir+'RQ3_sessionPre1.csv', 'w') as f:
@@ -165,6 +196,7 @@ def r3(all):
 
   def completed2(p):
     return ((p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20))
+
   filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
 
   with open(results_dir+'RQ3_sessionPre2.csv', 'w') as f:
