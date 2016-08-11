@@ -160,11 +160,11 @@ def CHI_r3(all):
   # N=212
   with open(results_dir+'CHI_RQ3_sessPre1.csv', 'w') as f:
     for (id,p) in filtered_list1.items():
-      f.write ("%s,%s,%s\n" % (p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'],p['calorie_influence_pre1_fake']))
+      f.write ("%s,%s,%s,%s\n" % (p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'], p['snackChoicePre1'], p['calorie_influence_pre1_fake']))
 
   with open(results_dir+'CHI_RQ3_sessPost1.csv', 'w') as f:
     for (id,p) in filtered_list1.items():
-      f.write ("%s,%s,%s\n" % (p['post1_getInfo_fake'],p['post1_moreInfo_fake'],p['calorie_influence_post1_fake']))
+      f.write ("%s,%s,%s,%s\n" % (p['post1_getInfo_fake'],p['post1_moreInfo_fake'], p['snackChoicePost1'], p['calorie_influence_post1_fake']))
 
   def completed2(p):
     return ( (p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20) and
@@ -175,11 +175,11 @@ def CHI_r3(all):
   # N=130
   with open(results_dir+'CHI_RQ3_sessPre2.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
-      f.write ("%s,%s,%s\n" % (p['pre2_getInfo_fake'],p['pre2_moreInfo_fake'],p['calorie_influence_pre2_fake']))
+      f.write ("%s,%s,%s,%s\n" % (p['pre2_getInfo_fake'],p['pre2_moreInfo_fake'], p['snackChoicePre2'],p['calorie_influence_pre2_fake']))
   # N=130
   with open(results_dir+'CHI_RQ3_sessPost2.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
-      f.write ("%s,%s,%s\n" % (p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['calorie_influence_post2_fake']))
+      f.write ("%s,%s,%s,%s\n" % (p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['snackChoicePost2'],p['calorie_influence_post2_fake']))
 
 
 
