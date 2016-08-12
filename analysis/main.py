@@ -46,7 +46,7 @@ def informationSeekingBehavior(p):
       return "NA"
 query_dbs.tagMongoPlayers(all,informationSeekingBehavior)
 
-# DEFINE snackChoice function
+# below DEFINES snackChoice function
 
 def snackChoice(round,p):
   player = query_dbs.findPlayerInMongo('_id',p[0])
@@ -162,7 +162,6 @@ def calorie_influence(mongoP,qualtricsP):
 query_dbs.tagCSVPlayers("PDQ1.csv",all,"calorie_influence_pre1",calorie_influence)
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1",calorie_influence)
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_pre2",calorie_influence)
-#it is PDQ3 below. Should this be PDQ4?
 query_dbs.tagCSVPlayers("PDQ4.csv",all,"calorie_influence_post2",calorie_influence);
 
 def calorie_influence_fake(qs,mongoP,qualtricsP):
@@ -182,7 +181,6 @@ def calorie_influence_post2_fake(m,q) : return calorie_influence_fake([18,66,82]
 query_dbs.tagCSVPlayers("PDQ1.csv",all,"calorie_influence_pre1_fake",calorie_influence_pre1_fake)
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1_fake",calorie_influence_post1_fake)
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"calorie_influence_pre2_fake",calorie_influence_pre2_fake)
-#it is PDQ3 below. Should this be PDQ4?
 query_dbs.tagCSVPlayers("PDQ4.csv",all,"calorie_influence_post2_fake",calorie_influence_post2_fake);
 ########
 # DQ
@@ -256,6 +254,9 @@ def ffq2_score(mongoP,qualtricsP):
     check1(n)
   for n in healthy2:
     check2(n)
+  ###################
+  ###################
+  ######## I know at some point the score should have been calculated with a total of 22 questions. RIGHT???????
 
   return score*(23/completed)
 
@@ -303,8 +304,12 @@ def pre2_moreInfo_fake(p): return infoSeekingClicks.gatherClicksFake(2,2,p)
 query_dbs.tagMongoPlayers(all,pre2_getInfo_fake)
 query_dbs.tagMongoPlayers(all,pre2_moreInfo_fake)
 
-def post2_getInfo_fake(p): return infoSeekingClicks.gatherClicksFake(1,2,p)
-def post2_moreInfo_fake(p): return infoSeekingClicks.gatherClicksFake(2,2,p)
+############# JUST FOUND OUT that below at the end in the parentheses
+############# it was (1,2,p) & (2,2,p) 
+############# but that means pre2 data are being collected. 
+############# so I am switching to (1,3,p) & (2,3,p)
+def post2_getInfo_fake(p): return infoSeekingClicks.gatherClicksFake(1,3,p)
+def post2_moreInfo_fake(p): return infoSeekingClicks.gatherClicksFake(2,3,p)
 query_dbs.tagMongoPlayers(all,post2_getInfo_fake)
 query_dbs.tagMongoPlayers(all,post2_moreInfo_fake)
 
