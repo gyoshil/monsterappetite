@@ -522,7 +522,8 @@ for (id,p) in all.items():
     datasetCounter = datasetCounter + 1
     #print (datasetCounter)
 
-    print (str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['calorie_influence_pre1'])+" "+str(p['pre1_getInfo_fake']+p['pre1_moreInfo_fake'])+" "+
+    print ( #str(p['id'])+" "+
+            str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['calorie_influence_pre1'])+" "+str(p['pre1_getInfo_fake']+p['pre1_moreInfo_fake'])+" "+
             str(p['snackChoicePost1'])+" "+str(p['calorie_influence_post1'])+" "+str(p['post1_getInfo_fake']+p['post1_moreInfo_fake'])+" "+
             str(p['snackChoicePre2'])+" "+str(p['calorie_influence_pre2'])+" "+str(p['pre2_getInfo_fake']+p['pre2_moreInfo_fake'])+" "+
             str(p['snackChoicePost2'])+" "+str(p['calorie_influence_post2'])+" "+str(p['post2_getInfo_fake']+p['post2_moreInfo_fake'])
