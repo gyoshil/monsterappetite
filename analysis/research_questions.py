@@ -182,6 +182,38 @@ def CHI_r3(all):
       f.write ("%s,%s,%s,%s,%s\n" % (p['group'],p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['snackChoicePost2'],p['calorie_influence_post2_fake']))
 
 
+def CHI_session1(all):
+
+  def completed1(p):
+    return ( (p['completedPDQ1']==True) and (p['completedPDQ2']==True) and (p['sic']>=10) and
+              (not(p['snackChoicePre1']=='empty' or p['snackChoicePost1']=='empty')) )
+  filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
+  # N=212
+  with open(results_dir+'CHI_session1.csv', 'w') as f:
+    for (id,p) in filtered_list1.items():
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (p['group'],p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'], p['snackChoicePre1'], p['calorie_influence_pre1_fake'],p['post1_getInfo_fake'],p['post1_moreInfo_fake'], p['snackChoicePost1'], p['calorie_influence_post1_fake']))
+
+
+
+def CHI_N130(all):
+
+  def completed1(p):
+    return ( (p['completedPDQ1']==True) and (p['completedPDQ2']==True) and (p['completedPDQ3']==True) and (p['completedPDQ4']==True) 
+            and (p['sic']>=20) and
+            (not(p['snackChoicePre1']=='empty' or p['snackChoicePost1']=='empty' or p['snackChoicePre2']=='empty' or p['snackChoicePost2']=='empty'))
+           )
+  filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
+
+  with open(results_dir+'CHI_N130.csv', 'w') as f:
+    for (id,p) in filtered_list1.items():
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % 
+        (p['group'],p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'], p['snackChoicePre1'], p['calorie_influence_pre1_fake'],
+         p['post1_getInfo_fake'],p['post1_moreInfo_fake'], p['snackChoicePost1'], p['calorie_influence_post1_fake'],
+         p['pre2_getInfo_fake'],p['pre2_moreInfo_fake'], p['snackChoicePre2'],p['calorie_influence_pre2_fake'],
+         p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['snackChoicePost2'],p['calorie_influence_post2_fake']
+        )
+        )
+
 
 def r3(all):
 

@@ -450,6 +450,16 @@ print ("\nr_CHI_RQ3...\n")
 research_questions.r_CHI_RQ3(filtered_all)
 print ("DONE\n")
 
+
+print ("\nCHI_session1...\n")
+research_questions.CHI_session1(filtered_all)
+print ("DONE\n")
+
+
+print ("\nCHI_N130...\n")
+research_questions.CHI_N130(filtered_all)
+print ("DONE\n")
+
 print ("\nCHI_r3...\n")
 research_questions.CHI_r3(filtered_all)
 print ("DONE\n")
@@ -489,11 +499,14 @@ same2 = 0
 datasetCounter = 0
 
 print (len(all))
+print (len(str(attention_measure2)))
+print (len(str(filtered_all)))
+
 for (id,p) in all.items(): 
   #if even one of them does not have a score (if it is empty) // 
   #so this means among the three fake items per section (pre1, post1, etc.) if you even have one you have not chosen, 
   #then it was recorded as empty. This filter is different than any other filters throughout this code. 
-  #print (attention_measure2)
+  
   #print (len(filtered_all)) --- this gives you 288 unique data sets
   if ((not(p['snackChoicePre1']=='empty' or
       p['snackChoicePost1']=='empty' or
@@ -502,15 +515,18 @@ for (id,p) in all.items():
       #HERE I want to add filters that were applied in other RQs and other CSVs produced
       #and (p['attention_measure2'] and p['attention_measure1'])
       #and (p['completedPDQ2'] and p['completedPDQ4'])
-      #and (p['completedPDQ2']==True)
-      #and (p['completedPDQ4']==True)
+      and (p['completedPDQ2']==True)
+      and (p['completedPDQ4']==True)
       ):
 
     datasetCounter = datasetCounter + 1
     #print (datasetCounter)
 
-    print (str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['snackChoicePost1'])
-           +" "+str(p['snackChoicePre2'])+" "+str(p['snackChoicePost2']))
+    print (str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['calorie_influence_pre1'])+" "+str(p['pre1_getInfo_fake']+p['pre1_moreInfo_fake'])+" "+
+            str(p['snackChoicePost1'])+" "+str(p['calorie_influence_post1'])+" "+str(p['post1_getInfo_fake']+p['post1_moreInfo_fake'])+" "+
+            str(p['snackChoicePre2'])+" "+str(p['calorie_influence_pre2'])+" "+str(p['pre2_getInfo_fake']+p['pre2_moreInfo_fake'])+" "+
+            str(p['snackChoicePost2'])+" "+str(p['calorie_influence_post2'])+" "+str(p['post2_getInfo_fake']+p['post2_moreInfo_fake'])
+          )
     
     if ((p['snackChoicePre1']+p['snackChoicePost1']) >
         (p['snackChoicePre2']+p['snackChoicePost2'])):
