@@ -203,14 +203,16 @@ query_dbs.tagCSVPlayers("PDQ4.csv",all,"calorie_influence_post2_fake",calorie_in
 # PDQ all cells produced for chi distribution analysis
 #######
 
+'''
+
 def pdq_chi_distribution(qs,mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
-    return "empty" # if this is referring to empty cells I need to switch this to ZERO, the number
-    # return "0"
+    #return "empty" # if this is referring to empty cells I need to switch this to ZERO, the number
+    return "0"
   x = 0
   for q in qs:
-    if(qualtricsP[q]!=""):
-    # if(qualtricsP[q]!=" " and "0"):  
+    #if(qualtricsP[q]!=""):
+    if(qualtricsP[q]!=" " and "0"):  
       x += (1/int(qualtricsP[q])) # here I would divide it by itself so it just counts as one
       # x += ( (int(qualtricsP[q]) / int(qualtricsP[q])) ) 
       # so the above would count each one as one point 
@@ -233,7 +235,7 @@ def pdq_chi_distribution_post2_fake(m,q) : return pdq_chi_distribution
 query_dbs.tagCSVPlayers("PDQ1.csv",all,"pdq_chi_distribution_pre1_fake",pdq_chi_distribution_pre1_fake)
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"pdq_chi_distribution_post1_fake",pdq_chi_distribution_post1_fake)
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"pdq_chi_distribution_pre2_fake",pdq_chi_distribution_pre2_fake)
-query_dbs.tagCSVPlayers("PDQ4.csv",all,"pdq_chi_distribution_post2_fake",pdq_chi_distribution_post2_fake);
+query_dbs.tagCSVPlayers("PDQ4.csv",all,"pdq_chi_distribution_post2_fake",pdq_chi_distribution_post2_fake);'''
 
 
 ########
@@ -578,13 +580,13 @@ for (id,p) in all.items():
 
     print ( str(id)+" "+
             str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['calorie_influence_pre1'])+" "+str(p['pre1_getInfo_fake']+p['pre1_moreInfo_fake'])+" "+
-            # str(p[pdq_chi_distribution_pre1_fake]) --- remember that these numbers will be 24 numbers righr next to each other w/o commas
+            #(p[pdq_chi_distribution_pre1_fake])+" "+ #remember that these numbers will be 24 numbers righr next to each other w/o commas
             str(p['snackChoicePost1'])+" "+str(p['calorie_influence_post1'])+" "+str(p['post1_getInfo_fake']+p['post1_moreInfo_fake'])+" "+
-            # str(p[pdq_chi_distribution_post1_fake])
+            #(p[pdq_chi_distribution_post1_fake])+" "+
             str(p['snackChoicePre2'])+" "+str(p['calorie_influence_pre2'])+" "+str(p['pre2_getInfo_fake']+p['pre2_moreInfo_fake'])+" "+
-            # str(p[pdq_chi_distribution_pre2_fake])
+            #(p[pdq_chi_distribution_pre2_fake])+" "+
             str(p['snackChoicePost2'])+" "+str(p['calorie_influence_post2'])+" "+str(p['post2_getInfo_fake']+p['post2_moreInfo_fake'])
-            # str(p[pdq_chi_distribution_post2_fake])
+            #(p[pdq_chi_distribution_post2_fake])
           )
     
     if ((p['snackChoicePre1']+p['snackChoicePost1']) >
