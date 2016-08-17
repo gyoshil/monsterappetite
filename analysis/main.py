@@ -166,17 +166,20 @@ query_dbs.tagCSVPlayers("PDQ4.csv",all,"calorie_influence_post2",calorie_influen
 
 def calorie_influence_fake(qs,mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
-    return "empty"
+    return "empty" #if this is referring to empty cells I need to switch this to ZERO, the number
   x = 0
   for q in qs:
     if(qualtricsP[q]!=""):
-      x += (1/int(qualtricsP[q]))
+      x += (1/int(qualtricsP[q])) #here I would divide it by itself so it just counts as one
+      # x += ( (int(qualtricsP[q]) / int(qualtricsP[q])) ) 
+      # so the above would count each one as one point 
   return x
 
 def calorie_influence_pre1_fake(m,q) : return calorie_influence_fake([18,50,66],m,q)
 def calorie_influence_post1_fake(m,q) : return calorie_influence_fake([34,50,66],m,q)
 def calorie_influence_pre2_fake(m,q) : return calorie_influence_fake([18,66,82],m,q)
-def calorie_influence_post2_fake(m,q) : return calorie_influence_fake([18,66,82],m,q)
+#I am pretty sure the #s below have to be 50, 66, 82 (originally the #s were 18, 66, 82)
+def calorie_influence_post2_fake(m,q) : return calorie_influence_fake([50,66,82],m,q)
 
 query_dbs.tagCSVPlayers("PDQ1.csv",all,"calorie_influence_pre1_fake",calorie_influence_pre1_fake)
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"calorie_influence_post1_fake",calorie_influence_post1_fake)
@@ -522,7 +525,7 @@ for (id,p) in all.items():
     datasetCounter = datasetCounter + 1
     #print (datasetCounter)
 
-    print ( #str(p['id'])+" "+
+    print ( str(\id)+" "+
             str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['calorie_influence_pre1'])+" "+str(p['pre1_getInfo_fake']+p['pre1_moreInfo_fake'])+" "+
             str(p['snackChoicePost1'])+" "+str(p['calorie_influence_post1'])+" "+str(p['post1_getInfo_fake']+p['post1_moreInfo_fake'])+" "+
             str(p['snackChoicePre2'])+" "+str(p['calorie_influence_pre2'])+" "+str(p['pre2_getInfo_fake']+p['pre2_moreInfo_fake'])+" "+
