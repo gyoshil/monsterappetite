@@ -203,39 +203,24 @@ query_dbs.tagCSVPlayers("PDQ4.csv",all,"calorie_influence_post2_fake",calorie_in
 # PDQ all cells produced for chi distribution analysis
 #######
 
-'''
-
 def pdq_chi_distribution(qs,mongoP,qualtricsP):
-  if(qualtricsP=="NONE"):
-    #return "empty" # if this is referring to empty cells I need to switch this to ZERO, the number
-    return "0"
-  x = 0
-  for q in qs:
-    #if(qualtricsP[q]!=""):
-    if(qualtricsP[q]!=" " and "0"):  
-      x += (1/int(qualtricsP[q])) # here I would divide it by itself so it just counts as one
-      # x += ( (int(qualtricsP[q]) / int(qualtricsP[q])) ) 
-      # so the above would count each one as one point 
-      # but 24 separate numbers need to be produced for each PDQ section (the above part only refers to sections that 
-      # are not zero or empty in the cells)
-  return x
+ x = 0
+ print (len(qualtricsP))
+ for q in qs:
+  
+  if (qualtricsP[q] == "1" or qualtricsP[q] == "2" or qualtricsP[q] == "3" ): 
+    x += 1
+ return x
 
-def pdq_chi_distribution_pre1_fake(m,q) : return pdq_chi_distribution
-([6,8,10,12,14,16,18,20,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68],m,q)
-
-def pdq_chi_distribution_post1_fake(m,q) : return pdq_chi_distribution
-([22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68],m,q)
-
-def pdq_chi_distribution_pre2_fake(m,q) : return pdq_chi_distribution
-([6,8,10,12,14,16,18,20,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84],m,q)
-
-def pdq_chi_distribution_post2_fake(m,q) : return pdq_chi_distribution
-([38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84],m,q)
+def pdq_chi_distribution_pre1_fake(m,q) : return pdq_chi_distribution([6,8,10,12,14,16,18,20,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68],m,q)
+def pdq_chi_distribution_post1_fake(m,q) : return pdq_chi_distribution([22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68],m,q)
+def pdq_chi_distribution_pre2_fake(m,q) : return pdq_chi_distribution([6,8,10,12,14,16,18,20,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84],m,q)
+def pdq_chi_distribution_post2_fake(m,q) : return pdq_chi_distribution([38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84],m,q)
 
 query_dbs.tagCSVPlayers("PDQ1.csv",all,"pdq_chi_distribution_pre1_fake",pdq_chi_distribution_pre1_fake)
 query_dbs.tagCSVPlayers("PDQ2.csv",all,"pdq_chi_distribution_post1_fake",pdq_chi_distribution_post1_fake)
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"pdq_chi_distribution_pre2_fake",pdq_chi_distribution_pre2_fake)
-query_dbs.tagCSVPlayers("PDQ4.csv",all,"pdq_chi_distribution_post2_fake",pdq_chi_distribution_post2_fake);'''
+query_dbs.tagCSVPlayers("PDQ4.csv",all,"pdq_chi_distribution_post2_fake",pdq_chi_distribution_post2_fake);
 
 
 ########
