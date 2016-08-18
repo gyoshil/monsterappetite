@@ -172,9 +172,7 @@ def calorie_influence_fake(qs,mongoP,qualtricsP):
     if(qualtricsP[q]!=""):
       x += (1/int(qualtricsP[q])) # here I would divide it by itself so it just counts as one
       # x += ( (int(qualtricsP[q]) / int(qualtricsP[q])) ) 
-      # so the above would count each one as one point 
-      # but 24 separate numbers need to be produced for each PDQ section (the above part only refers to sections that 
-      # are not zero or empty in the cells)
+      # so the above would count each one as one point    
   return x
 
 def calorie_influence_pre1_fake(m,q) : return calorie_influence_fake([18,50,66],m,q)
@@ -204,10 +202,12 @@ query_dbs.tagCSVPlayers("PDQ4.csv",all,"calorie_influence_post2_fake",calorie_in
 #######
 
 def pdq_chi_distribution(qs,mongoP,qualtricsP):
+ if(qualtricsP=="NONE"): 
+  return -1
  x = 0
  print (len(qualtricsP))
- for q in qs:
-  
+ 
+ for q in qs: 
   if (qualtricsP[q] == "1" or qualtricsP[q] == "2" or qualtricsP[q] == "3" ): 
     x += 1
  return x
@@ -565,13 +565,14 @@ for (id,p) in all.items():
 
     print ( str(id)+" "+
             str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['calorie_influence_pre1'])+" "+str(p['pre1_getInfo_fake']+p['pre1_moreInfo_fake'])+" "+
-            #(p[pdq_chi_distribution_pre1_fake])+" "+ #remember that these numbers will be 24 numbers righr next to each other w/o commas
+            str(p['pdq_chi_distribution_pre1_fake'])+" "+ 
+            #remember that these numbers will be 24 numbers right next to each other w/o commas
             str(p['snackChoicePost1'])+" "+str(p['calorie_influence_post1'])+" "+str(p['post1_getInfo_fake']+p['post1_moreInfo_fake'])+" "+
-            #(p[pdq_chi_distribution_post1_fake])+" "+
+            str(p['pdq_chi_distribution_post1_fake'])+" "+
             str(p['snackChoicePre2'])+" "+str(p['calorie_influence_pre2'])+" "+str(p['pre2_getInfo_fake']+p['pre2_moreInfo_fake'])+" "+
-            #(p[pdq_chi_distribution_pre2_fake])+" "+
-            str(p['snackChoicePost2'])+" "+str(p['calorie_influence_post2'])+" "+str(p['post2_getInfo_fake']+p['post2_moreInfo_fake'])
-            #(p[pdq_chi_distribution_post2_fake])
+            str(p['pdq_chi_distribution_pre2_fake'])+" "+
+            str(p['snackChoicePost2'])+" "+str(p['calorie_influence_post2'])+" "+str(p['post2_getInfo_fake']+p['post2_moreInfo_fake'])+" "+
+            str(p['pdq_chi_distribution_post2_fake'])
           )
     
     if ((p['snackChoicePre1']+p['snackChoicePost1']) >
