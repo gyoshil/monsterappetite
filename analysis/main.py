@@ -22,6 +22,11 @@ def sic(p):
   return len(player['snackazonItemChoices'])
 query_dbs.tagMongoPlayers(all,sic)
 
+def times(p):
+  player = query_dbs.findPlayerInMongo('_id',p[0])
+  return len(player['snackazonItemChoices'])
+query_dbs.tagMongoPlayers(all,times)
+
 def group(p):
   player = query_dbs.findPlayerInMongo('_id',p[0])
   try:
@@ -173,7 +178,7 @@ def calorie_influence_fake(qs,mongoP,qualtricsP):
       x += (1.0/int(qualtricsP[q])) # here I would divide it by itself so it just counts as one
       # x += ( (int(qualtricsP[q]) / int(qualtricsP[q])) ) 
       # so the above would count each one as one point    
-    print (str(x)+ "gelato")
+    #print (str(x)+ "gelato")
   return x
 
 def calorie_influence_pre1_fake(m,q) : return calorie_influence_fake([18,50,66],m,q)
@@ -209,9 +214,9 @@ def pdq_chi_distribution(qs,mongoP,qualtricsP):
  y = ""
  for q in qs: 
   if (qualtricsP[q] == "1" or qualtricsP[q] == "2" or qualtricsP[q] == "3" ): 
-    y += "1, "
+    y += "1 "
   else :
-    y += "0, "
+    y += "0 "
  return y
 
 def pdq_chi_distribution_pre1_fake(m,q) : return pdq_chi_distribution([6,8,10,12,14,16,18,20,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68],m,q)
@@ -561,6 +566,14 @@ for (id,p) in all.items():
       and (p['completedPDQ2']==True)
       and (p['completedPDQ4']==True)
       ):
+
+      #############################
+      ###
+      #   These are the filters I need to extract the 136 participants' data.
+      ##  something like "comparing two lists to return the matches" seems the way to go.  
+
+
+
 
     datasetCounter = datasetCounter + 1
     #print (datasetCounter)

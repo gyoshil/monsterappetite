@@ -7,6 +7,9 @@ dataDir = './Qualtrics/'
 bson_file = open('./players.bson','rb')
 mongoPlayers = bson.decode_all(bson_file.read())
 
+for g in mongoPlayers:
+  print (g.keys())
+
 '''def filterMongoPlayers(players,condition):
   filtered = {}
   for p in players.items():
