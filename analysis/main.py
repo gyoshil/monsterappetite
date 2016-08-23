@@ -229,6 +229,38 @@ query_dbs.tagCSVPlayers("PDQ2.csv",all,"pdq_chi_distribution_post1_fake",pdq_chi
 query_dbs.tagCSVPlayers("PDQ3.csv",all,"pdq_chi_distribution_pre2_fake",pdq_chi_distribution_pre2_fake)
 query_dbs.tagCSVPlayers("PDQ4.csv",all,"pdq_chi_distribution_post2_fake",pdq_chi_distribution_post2_fake);
 
+########
+# PDQ all cells produced for chi distribution with RANKED items coded by importance
+#######
+
+def pdq_chi_distribution2(qs,mongoP,qualtricsP):
+ if(qualtricsP=="NONE"): 
+  return -1 
+ 
+ y = ""
+ for q in qs: 
+  if (qualtricsP[q] == "1" ): 
+    y += "3 "
+  elif (qualtricsP[q] == "3"):
+    y += "1 "
+  elif (qualtricsP[q] == "2"):
+    y += "2 "
+  else :
+    y += "0 "
+ return y
+
+def pdq_chi_distribution2_pre1_fake(m,q) : return pdq_chi_distribution2([6,8,10,12,14,16,18,20,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68],m,q)
+def pdq_chi_distribution2_post1_fake(m,q) : return pdq_chi_distribution2([22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68],m,q)
+def pdq_chi_distribution2_pre2_fake(m,q) : return pdq_chi_distribution2([6,8,10,12,14,16,18,20,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84],m,q)
+def pdq_chi_distribution2_post2_fake(m,q) : return pdq_chi_distribution2([38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84],m,q)
+
+query_dbs.tagCSVPlayers("PDQ1.csv",all,"pdq_chi_distribution2_pre1_fake",pdq_chi_distribution2_pre1_fake)
+query_dbs.tagCSVPlayers("PDQ2.csv",all,"pdq_chi_distribution2_post1_fake",pdq_chi_distribution2_post1_fake)
+query_dbs.tagCSVPlayers("PDQ3.csv",all,"pdq_chi_distribution2_pre2_fake",pdq_chi_distribution2_pre2_fake)
+query_dbs.tagCSVPlayers("PDQ4.csv",all,"pdq_chi_distribution2_post2_fake",pdq_chi_distribution2_post2_fake);
+
+
+
 
 ########
 # DQ
@@ -572,13 +604,19 @@ for (id,p) in all.items():
       #   These are the filters I need to extract the 136 participants' data.
       ##  something like "comparing two lists to return the matches" seems the way to go.  
 
-
-
-
     datasetCounter = datasetCounter + 1
     #print (datasetCounter)
-
+    '''print (str(id)+", ") #just to print IDs I used this line and then commented out the print section below so that the 
+                         #for loop is not applied to the print below and only to the IDs'''
+    
     print ( str(id)+" "+
+            str(p['group']) + " " +str(p['pdq_chi_distribution2_pre1_fake'])+" "+
+          str(p['pdq_chi_distribution2_post1_fake'])+" "+
+          str(p['pdq_chi_distribution2_pre2_fake'])+" "+
+          str(p['pdq_chi_distribution2_post2_fake']) )
+
+
+    '''print ( str(id)+" "+
             str(p['group']) + " " +str(p['snackChoicePre1']) +" "+str(p['calorie_influence_pre1_fake'])+" "+str(p['pre1_getInfo_fake']+p['pre1_moreInfo_fake'])+" "+
             str(p['pdq_chi_distribution_pre1_fake'])+" "+ 
             #remember that these numbers will be 24 numbers right next to each other w/o commas
@@ -588,7 +626,8 @@ for (id,p) in all.items():
             str(p['pdq_chi_distribution_pre2_fake'])+" "+
             str(p['snackChoicePost2'])+" "+str(p['calorie_influence_post2_fake'])+" "+str(p['post2_getInfo_fake']+p['post2_moreInfo_fake'])+" "+
             str(p['pdq_chi_distribution_post2_fake'])
-          )
+          )'''
+
     
     if ((p['snackChoicePre1']+p['snackChoicePost1']) >
         (p['snackChoicePre2']+p['snackChoicePost2'])):
