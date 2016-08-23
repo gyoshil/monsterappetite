@@ -246,7 +246,7 @@ def pdq_chi_distribution2(qs,mongoP,qualtricsP):
   elif (qualtricsP[q] == "2"):
     y += "2 "
   else :
-    y += "0 "
+    y += ". "
  return y
 
 def pdq_chi_distribution2_pre1_fake(m,q) : return pdq_chi_distribution2([6,8,10,12,14,16,18,20,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68],m,q)
