@@ -111,6 +111,9 @@ def rBonus(all):
       sess2post = p['post2_getInfo']+ p['post2_moreInfo']
       f.write ("%s,%s,%s,%s,%s\n" % (p['group'],sess1pre,sess1post,sess2pre,sess2post))
 
+"write another research question output here that modifies r2 above but one that splits gain and loss framing"
+
+
 def rBonus2(all):
   def completed1(p):
     return ((p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20))
