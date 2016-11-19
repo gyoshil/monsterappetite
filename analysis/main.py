@@ -122,6 +122,17 @@ query_dbs.tagCSVPlayers("BIQ3.csv",all,"risk_level_pre2",risk_level)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"risk_level_post2",risk_level)
 
 ########
+# QUALITATIVE DATA
+########
+
+def chi_qual1(mongoP,qualtricsP):
+  if (qualtricsP=="NONE"):  ### if 86th column in PDQ2.csv != '' then print the column
+    return "empty"
+  comments = [(86)]
+
+
+
+########
 # Calories
 ########
 def calorie_seeker(mongoP,qualtricsP):
