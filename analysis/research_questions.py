@@ -190,27 +190,35 @@ def CHI_session1(all):
   def completed1(p):
     return ( (p['completedPDQ1']==True) and (p['completedPDQ2']==True) and (p['sic']>=10) and
               (not(p['snackChoicePre1']=='empty' or p['snackChoicePost1']=='empty')) )
+    # k: key , v:value -- in a dictionary
   filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
   # N=212
   with open(results_dir+'CHI_session1.csv', 'w') as f:
     for (id,p) in filtered_list1.items():
       f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (p['group'],p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'], p['snackChoicePre1'], p['calorie_influence_pre1_fake'],p['post1_getInfo_fake'],p['post1_moreInfo_fake'], p['snackChoicePost1'], p['calorie_influence_post1_fake']))
-#######
-# QUALITATIVE DATA    I ALSO need to add the printing of chi_qual1 and chi_qual2 in the main.py
-#######
-def chi_qual1(all):
-  return (p['completedPDQ2']==True)  
-filtered_list1 = {k:v for (k,v) in all.items() if chi_qual1(v)}
-with open(results_dir+'PDQ2.csv', 'w') as f:
-  for (id,p) in filtered_list1.items():
-    f.write("%s,%s\n")%(p['group']) #I also need to print the 86th column (comments) of PDQ2.csv 
 
-def chi_qual2(all):
-  return (p['completedPDQ4']==True)  
-filtered_list2 = {k:v for (k,v) in all.items() if chi_qual2(v)}
-with open(results_dir+'PDQ4.csv', 'w') as f:
-  for (id,p) in filtered_list2.items():
-    f.write("%s,%s\n")%(p['group']) #I also need to print the 86th column (comments) of PDQ4.csv 
+##################
+# QUALITATIVE DATA    I ALSO need to add the printing of chi_qual1 and chi_qual2 in the main.py
+##################
+
+def CHI_qual(all):
+  def chi_qual1(all):
+    return (p['completedPDQ2']==True)  
+  filtered_list1 = {k:v for (k,v) in all.items() if chi_qual1(v)}
+  # results_dir = "spss_ready/"
+  with open(results_dir+'qual_sess1.csv', 'w') as f:
+    for (id,p) in filtered_list1.items():
+      f.write("%s,%s\n")%(p['group'], p['comments']) #I also need to print the 86th column (comments) of PDQ2.csv 
+
+  def chi_qual2(all):
+    return (p['completedPDQ4']==True)  
+  filtered_list2 = {k:v for (k,v) in all.items() if chi_qual2(v)}
+  with open(results_dir+'qual_sess2.csv', 'w') as f:
+    for (id,p) in filtered_list2.items():
+      f.write("%s,%s\n")%(p['group'], p['comments']) #I also need to print the 86th column (comments) of PDQ4.csv 
+
+######################################
+
 
 def CHI_N130(all):
 

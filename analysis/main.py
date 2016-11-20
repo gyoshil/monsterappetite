@@ -121,16 +121,25 @@ query_dbs.tagCSVPlayers("BIQ2.csv",all,"risk_level_post1",risk_level)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"risk_level_pre2",risk_level)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"risk_level_post2",risk_level)
 
-########
+##################
 # QUALITATIVE DATA
-########
+##################
 
 def chi_qual1(mongoP,qualtricsP):
   if (qualtricsP=="NONE"):  ### if 86th column in PDQ2.csv != '' then print the column
     return "empty"
-  comments = [(86)]
+  x = qualtricsP[86]
+  if(x==""): x=0
+  return x
+query_dbs.tagCSVPlayers("PDQ2.csv",all,"qual_sess1",chi_qual1)
 
-
+def chi_qual2(mongoP,qualtricsP):
+  if (qualtricsP=="NONE"):  ### if 86th column in PDQ2.csv != '' then print the column
+    return "empty"
+  x = qualtricsP[86]
+  if(x==""): x=0
+  return x
+query_dbs.tagCSVPlayers("PDQ4.csv",all,"qual_sess2",chi_qual2)
 
 ########
 # Calories
@@ -546,6 +555,11 @@ print ("\nCHI_session1...\n")
 research_questions.CHI_session1(filtered_all)
 print ("DONE\n")
 
+###### QUAL PRINT OUT ####### refer to line 124 in this document
+print ("\nCHI_qual...\n")
+research_questions.CHI_qual(filtered_all)
+print ("DONE\n")
+##############################
 
 print ("\nCHI_N130...\n")
 research_questions.CHI_N130(filtered_all)
