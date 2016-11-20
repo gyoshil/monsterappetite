@@ -202,20 +202,20 @@ def CHI_session1(all):
 ##################
 
 def CHI_qual(all):
-  def chi_qual1(all):
+  def chi_qual1(p):
     return (p['completedPDQ2']==True)  
   filtered_list1 = {k:v for (k,v) in all.items() if chi_qual1(v)}
   # results_dir = "spss_ready/"
   with open(results_dir+'qual_sess1.csv', 'w') as f:
     for (id,p) in filtered_list1.items():
-      f.write("%s,%s\n")%(p['group'], p['comments']) #I also need to print the 86th column (comments) of PDQ2.csv 
+      f.write("%s,%s\n"%(p['group'], p['qual_sess1'])) #I also need to print the 86th column (comments) of PDQ2.csv 
 
-  def chi_qual2(all):
+  def chi_qual2(p):
     return (p['completedPDQ4']==True)  
   filtered_list2 = {k:v for (k,v) in all.items() if chi_qual2(v)}
   with open(results_dir+'qual_sess2.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
-      f.write("%s,%s\n")%(p['group'], p['comments']) #I also need to print the 86th column (comments) of PDQ4.csv 
+      f.write("%s,%s\n"%(p['group'], p['qual_sess2'])) #I also need to print the 86th column (comments) of PDQ4.csv 
 
 ######################################
 
