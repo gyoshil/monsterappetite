@@ -136,7 +136,7 @@ query_dbs.tagCSVPlayers("PDQ2.csv",all,"qual_sess1",chi_qual1)
 def chi_qual2(mongoP,qualtricsP):
   if (qualtricsP=="NONE"):  ### if 86th column in PDQ2.csv != '' then print the column
     return "empty"
-  x = qualtricsP[86]
+  x = qualtricsP[88]
   if(x==""): x=0
   return x
 query_dbs.tagCSVPlayers("PDQ4.csv",all,"qual_sess2",chi_qual2)
