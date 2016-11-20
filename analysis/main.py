@@ -556,7 +556,11 @@ research_questions.CHI_session1(filtered_all)
 print ("DONE\n")
 
 ###### QUAL PRINT OUT ####### refer to line 124 in this document
-print ("\nCHI_qual...\n")
+print ("\nqual_sess1.csv...\n")
+research_questions.CHI_qual(filtered_all)
+print ("DONE\n")
+
+print ("\nqual_sess2.csv...\n")
 research_questions.CHI_qual(filtered_all)
 print ("DONE\n")
 ##############################
