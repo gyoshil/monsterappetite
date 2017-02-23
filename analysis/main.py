@@ -129,7 +129,7 @@ def calorie_seeker_q2(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(3,1),(3,2),(3,3)]
+  good_answers = [(4,1),(4,2),(4,3)]
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q2_pre1",calorie_seeker_q2)
@@ -144,7 +144,7 @@ def calorie_seeker_q3(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(4,4),(4,5)]
+  good_answers = [(5,4),(5,5)]
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q3_pre1",calorie_seeker_q3)
@@ -159,7 +159,7 @@ def calorie_seeker_q4(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(5,4),(5,5)]
+  good_answers = [(6,4),(6,5)]
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q4)
