@@ -35,7 +35,7 @@ def group(p):
       return "NA"
 query_dbs.tagMongoPlayers(all,group)
 
-def pop(p):
+def pop(p): # pop stands for population: either 'sm' for social media and 'mt' for mechanical turk
   player = query_dbs.findPlayerInMongo('_id',p[0])
   try:
       return (player['pop'])
@@ -95,7 +95,7 @@ query_dbs.tagCSVPlayers("PDQ3.csv",all,"completedPDQ3",completedPDQ)
 query_dbs.tagCSVPlayers("PDQ4.csv",all,"completedPDQ4",completedPDQ)
 
 ######
-# RISK
+# RISK from BIQ questions
 ######
 def csv_answer_check(mongoP,qualtricsP,answer_checks):
   if(qualtricsP=="NONE"):
@@ -105,15 +105,25 @@ def csv_answer_check(mongoP,qualtricsP,answer_checks):
     meets_condition = meets_condition or (qualtricsP[a[0]] ==str(a[1]))
   return meets_condition
 
-def risk_level(mongoP,qualtricsP):
+def risk_level(mongoP,qualtricsP): #### THIS DEFINES PEOPLE THAT HAVE A HIGH, RISKY SNACKING BEHAVIOR 
   if(qualtricsP=="NONE"):
     return "empty"
-    # "good_answers" below indicates that the person exhibits HIGH RISK LEVEL BEHAVIOR
+    ##########################################################################################
+    # "risky_answers" below indicates that the person exhibits HIGH RISK LEVEL BEHAVIOR
+    ##########################################################################################
     # the CSV questions related to risk level and calorie seeker are 2, 3, 4, 6, and 7 where 3 & 4 are calorie related Qs.
     # unfortunately, it was confusing becuase the numbers used for the "good_answers" coding below translates to 4, 5, 6, 7, and 8 where 5 & 6 are calorie related Qs.
 
-  good_answers = [(4,4),(4,5),(5,1),(5,2),(7,4),(7,5),(8,4),(8,5)]
-  if(csv_answer_check(mongoP,qualtricsP,good_answers)):
+  risky_answers = [(4,4),(4,5), ## Q2: How often snack? often(4) + very often(5)
+                  (5,1),(5,2), ## Q3: How often check per-serv info? never(1) + rarely(2)
+                  (6,1),(6,2), ## Q4: How often per-serv matter more? never(1) + rarely(2)
+                  (7,4),(7,5), ## Q6: Shopping include healthier items? disagree(4) + strongly disagree(5)
+                  (8,4),(8,5), ## Q7: Think twice abt snack purchase at work? disagree(4) + strongly disagree(5)
+                  (11,4),(11,5), ## Q10: Avoid snacks bc unhealthy? disagree(4) + strongly disagree(5)
+                  (12,1),(12,2), ## Q11: Depend on snacks a lot cuz I'm busy? strongly agree(1) + agree(2)
+                  (14,4),(14,5) ## Q13: Risk to develop type2 diabetes low? disagree(4) + strongly disagree(5)
+                  ]
+  if(csv_answer_check(mongoP,qualtricsP,risky_answers)):
     return "1"
   return "0"
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"risk_level_pre1",risk_level)
@@ -123,7 +133,7 @@ query_dbs.tagCSVPlayers("BIQ4.csv",all,"risk_level_post2",risk_level)
 
 
 ########
-# BIQ Calories QUESTION #2: how often snack this following week (actional intention)
+# BIQ CALORIES----- QUESTION #2: how often snack this following week (actional intention)
 ########
 def calorie_seeker_q2(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
@@ -144,7 +154,7 @@ def calorie_seeker_q3(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(5,4),(5,5)]
+  good_answers = [(5,3),(5,4),(5,5)]
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q3_pre1",calorie_seeker_q3)
@@ -159,7 +169,7 @@ def calorie_seeker_q4(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(6,4),(6,5)]
+  good_answers = [(6,3),(6,4),(6,5)]
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q4)
@@ -193,7 +203,8 @@ def chi_qual2(mongoP,qualtricsP):
 query_dbs.tagCSVPlayers("PDQ4.csv",all,"qual_sess2",chi_qual2)
 
 ########
-# Calories
+# Calories  REMEMBER that this was for the dissertation and therefore "good_answers" did not include the "sometimes" answer
+# so I did not do----- good_answers = [(5,3),(5,4),(5,5),(6,3),(6,4),(6,5)]
 ########
 def calorie_seeker(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
@@ -208,7 +219,8 @@ query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_pre2",calorie_seeker)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_post2",calorie_seeker)
 
 ########
-# Calories
+# CALORIES---   REMEMBER that this was for the dissertation and therefore "good_answers" did not include the "sometimes" answer
+# so I did not do----- good_answers = [(5,3),(5,4),(5,5)]
 ########
 def calorie_seeker_q4(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):

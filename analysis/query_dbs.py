@@ -23,8 +23,8 @@ def tagMongoPlayers(players,valueFunc):
 
 def tagCSVPlayers(csvFile,players,fieldName,valueFunc):
   id_index = {
-    "BIQ1.csv":0,"BIQ2.csv":0,"BIQ3.csv":0,"BIQ4.csv":0,
-    "PDQ1.csv":4,"PDQ2.csv":4,"PDQ3.csv":4,"PDQ4.csv":4,
+    "BIQ1.csv":0,"BIQ2.csv":0,"BIQ3.csv":0,"BIQ4.csv":0, # id in the BIQ files are in the zero'th column
+    "PDQ1.csv":4,"PDQ2.csv":4,"PDQ3.csv":4,"PDQ4.csv":4, # id in the PDQ files are in the fourth column
     "DQ.csv":1,
     "FFQ1.csv":1,"FFQ2.csv":1}
   with open(dataDir+csvFile, mode='r') as infile:
