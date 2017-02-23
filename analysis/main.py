@@ -109,7 +109,7 @@ def risk_level(mongoP,qualtricsP): #### THIS DEFINES PEOPLE THAT HAVE A HIGH, RI
   if(qualtricsP=="NONE"):
     return "empty"
     ##########################################################################################
-    # "risky_answers" below indicates that the person exhibits HIGH RISK LEVEL BEHAVIOR
+    # "risky_answers" below indicates that the person exhibits HIGH RISK LEVEL SNACKING BEHAVIOR
     ##########################################################################################
     # the CSV questions related to risk level and calorie seeker are 2, 3, 4, 6, and 7 where 3 & 4 are calorie related Qs.
     # unfortunately, it was confusing becuase the numbers used for the "good_answers" coding below translates to 4, 5, 6, 7, and 8 where 5 & 6 are calorie related Qs.
