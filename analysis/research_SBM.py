@@ -5,33 +5,6 @@ from pprint import pprint
 
 results_dir = "spss_ready/"
 
-
-###############################
-############# SBM #############
-def r1_SBM (all):
-  def completed(p):
-    if  p['ffq2_score'] == 'empty':
-      return 0
-
-    return (p['completedPDQ4']==True) 
-
-  filtered_list = {k:v for (k,v) in all.items() if completed(v)}
-  print (len(filtered_list))
-
-  with open(results_dir+'r1_SBM.csv', 'w') as f:
-    for (id,p) in filtered_list.items():
-      if p['group']=='gain':
-        group = 1
-      if p['group']=='loss':
-        group = 2
-      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (group,
-                                                (p['calorie_seeker_q2_pre1']),(p['calorie_seeker_q2_post1']),(p['calorie_seeker_q2_pre2']),(p['calorie_seeker_q2_post2']),
-                                                
-                                                (p['calorie_seeker_q3_pre1']),(p['calorie_seeker_q3_post1']),(p['calorie_seeker_q3_pre2']),(p['calorie_seeker_q3_post2']),
-                                                
-                                                (p['calorie_seeker_q4_pre1']),(p['calorie_seeker_q4_post1']),(p['calorie_seeker_q4_pre2']),(p['calorie_seeker_q4_post2'])
-                                                ))
-
 def r1(all):
 
   def completed(p):
@@ -106,51 +79,32 @@ def r1_CHI2(all):
                                                 ))
 
 
+###############################
+############# SBM #############
+def r1_SBM (all):
+  def completed(p):
+    if  p['ffq2_score'] == 'empty':
+      return 0
 
-def r2(all):
-  def completed1(p):
-    return ((p['risk_level_post1']!='empty') and (p['sic']>=10))
-  filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
+    return (p['completedPDQ4']==True) 
 
-  with open(results_dir+'RQ2_session1.csv', 'w') as f:
-    for (id,p) in filtered_list1.items():
-      f.write ("%s,%s,%s\n" % (p['risk_level_post1'],p['post1_getInfo'],p['post1_moreInfo']))
+  filtered_list = {k:v for (k,v) in all.items() if completed(v)}
+  print (len(filtered_list))
 
-  def completed2(p):
-    return ((p['risk_level_post2']!='empty') and (p['sic']>=20))
-  filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
+  with open(results_dir+'r1_SBM.csv', 'w') as f:
+    for (id,p) in filtered_list.items():
+      if p['group']=='gain':
+        group = 1
+      if p['group']=='loss':
+        group = 2
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (group,
+                                                (p['calorie_seeker_q2_pre1']),(p['calorie_seeker_q2_post1']),(p['calorie_seeker_q2_pre2']),(p['calorie_seeker_q2_post2']),
+                                                
+                                                (p['calorie_seeker_q3_pre1']),(p['calorie_seeker_q3_post1']),(p['calorie_seeker_q3_pre2']),(p['calorie_seeker_q3_post2']),
+                                                
+                                                (p['calorie_seeker_q4_pre1']),(p['calorie_seeker_q4_post1']),(p['calorie_seeker_q4_pre2']),(p['calorie_seeker_q4_post2'])
+                                                )
 
-  with open(results_dir+'RQ2_session2.csv', 'w') as f:
-    for (id,p) in filtered_list2.items():
-      f.write ("%s,%s,%s\n" % (p['risk_level_post2'],p['post2_getInfo'],p['post2_moreInfo']))
-
-def rBonus(all):
-
-  def completed1(p):
-    return ((p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20))
-  filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
-
-  with open(results_dir+'RBonus.csv', 'w') as f:
-    for (id,p) in filtered_list1.items():
-      sess1pre = p['pre1_getInfo']+ p['pre1_moreInfo']
-      sess1post =  p['post1_getInfo']+ p['post1_moreInfo']
-      sess2pre = p['pre2_getInfo']+ p['pre2_moreInfo']
-      sess2post = p['post2_getInfo']+ p['post2_moreInfo']
-      f.write ("%s,%s,%s,%s,%s\n" % (p['group'],sess1pre,sess1post,sess2pre,sess2post))
-
-"write another research question output here that modifies r2 above but one that splits gain and loss framing"
-
-
-def rBonus2(all):
-  def completed1(p):
-    return ((p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20))
-  filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
-
-  with open(results_dir+'RBonus2.csv', 'w') as f:
-    for (id,p) in filtered_list1.items():
-      sess1 = p['snackChoicePre1']+ p['snackChoicePost1']
-      sess2 = p['snackChoicePre2']+ p['snackChoicePost2']
-      f.write ("%s,%s,%s,%s\n" % (p['group'],sess1,sess2,(sess1-sess2)))
 
 ###############################
 ############# CHI #############
@@ -217,34 +171,12 @@ def CHI_session1(all):
   def completed1(p):
     return ( (p['completedPDQ1']==True) and (p['completedPDQ2']==True) and (p['sic']>=10) and
               (not(p['snackChoicePre1']=='empty' or p['snackChoicePost1']=='empty')) )
-    # k: key , v:value -- in a dictionary
   filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
   # N=212
   with open(results_dir+'CHI_session1.csv', 'w') as f:
     for (id,p) in filtered_list1.items():
       f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (p['group'],p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'], p['snackChoicePre1'], p['calorie_influence_pre1_fake'],p['post1_getInfo_fake'],p['post1_moreInfo_fake'], p['snackChoicePost1'], p['calorie_influence_post1_fake']))
 
-##################
-# QUALITATIVE DATA    I ALSO need to add the printing of chi_qual1 and chi_qual2 in the main.py
-##################
-
-def CHI_qual(all):
-  def chi_qual1(p):
-    return (p['completedPDQ2']==True)  
-  filtered_list1 = {k:v for (k,v) in all.items() if chi_qual1(v)}
-  # results_dir = "spss_ready/"
-  with open(results_dir+'qual_sess1.csv', 'w') as f:
-    for (id,p) in filtered_list1.items():
-      f.write("%s,%s\n"%(p['group'], p['qual_sess1'])) #I also need to print the 86th column (comments) of PDQ2.csv 
-
-  def chi_qual2(p):
-    return (p['completedPDQ4']==True)  
-  filtered_list2 = {k:v for (k,v) in all.items() if chi_qual2(v)}
-  with open(results_dir+'qual_sess2.csv', 'w') as f:
-    for (id,p) in filtered_list2.items():
-      f.write("%s,%s\n"%(p['group'], p['qual_sess2'])) #I also need to print the 86th column (comments) of PDQ4.csv 
-
-######################################
 
 
 def CHI_N130(all):
@@ -293,6 +225,8 @@ def r3(all):
   with open(results_dir+'RQ3_sessionPost2.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
       f.write ("%s,%s,%s\n" % (p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['calorie_influence_post2_fake']))
+
+
 
 def r4(all):
 
@@ -371,8 +305,10 @@ def r4(all):
                   p['snackChoicePost2'],
                   p['calorie_influence_post2_fake']))
 
+
 def rBonus3(all):
     ctr=0
+
     for (idp,p) in all.items():
      #pprint(p)
      #start counting at 1, leave first spot blank
@@ -404,6 +340,3 @@ def rBonus3(all):
 
      except Exception as e:
          pass
-
-
-

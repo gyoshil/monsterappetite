@@ -95,7 +95,7 @@ query_dbs.tagCSVPlayers("PDQ3.csv",all,"completedPDQ3",completedPDQ)
 query_dbs.tagCSVPlayers("PDQ4.csv",all,"completedPDQ4",completedPDQ)
 
 ######
-# RISK
+# BIQ RISK
 ######
 def csv_answer_check(mongoP,qualtricsP,answer_checks):
   if(qualtricsP=="NONE"):
@@ -110,7 +110,8 @@ def risk_level(mongoP,qualtricsP):
     return "empty"
     # "good_answers" below indicates that the person exhibits HIGH RISK LEVEL BEHAVIOR
     # the CSV questions related to risk level and calorie seeker are 2, 3, 4, 6, and 7 where 3 & 4 are calorie related Qs.
-    # unfortunately, it was confusing becuase the numbers used for the "good_answers" coding below translates to 4, 5, 6, 7, and 8 where 5 & 6 are calorie related Qs.
+    # unfortunately, it was confusing becuase the numbers used for the "good_answers" coding below translates to 4, 5, 6, 7, 
+    # and 8 where 5 & 6 are calorie related Qs.
 
   good_answers = [(4,4),(4,5),(5,1),(5,2),(7,4),(7,5),(8,4),(8,5)]
   if(csv_answer_check(mongoP,qualtricsP,good_answers)):
@@ -121,6 +122,20 @@ query_dbs.tagCSVPlayers("BIQ2.csv",all,"risk_level_post1",risk_level)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"risk_level_pre2",risk_level)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"risk_level_post2",risk_level)
 
+########
+# BIQ Calories
+########
+def calorie_seeker(mongoP,qualtricsP):
+  if(qualtricsP=="NONE"):
+    return "empty"
+    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
+  good_answers = [(5,4),(5,5),(6,4),(6,5)]
+  return csv_answer_check(mongoP,qualtricsP,good_answers)
+
+query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_pre1",calorie_seeker)
+query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_post1",calorie_seeker)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_pre2",calorie_seeker)
+query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_post2",calorie_seeker)
 
 ########
 # BIQ Calories QUESTION #2: how often snack this following week (actional intention)
@@ -166,63 +181,6 @@ query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q
 query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_post1",calorie_seeker_q4)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_pre2",calorie_seeker_q4)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
-
-
-
-
-
-
-##################
-# QUALITATIVE DATA
-##################
-
-def chi_qual1(mongoP,qualtricsP):
-  if (qualtricsP=="NONE"):  ### if 86th column in PDQ2.csv != '' then print the column
-    return "empty"
-  x = qualtricsP[86]
-  if(x==""): x=0
-  return x
-query_dbs.tagCSVPlayers("PDQ2.csv",all,"qual_sess1",chi_qual1)
-
-def chi_qual2(mongoP,qualtricsP):
-  if (qualtricsP=="NONE"):  ### if 86th column in PDQ2.csv != '' then print the column
-    return "empty"
-  x = qualtricsP[88]
-  if(x==""): x=0
-  return x
-query_dbs.tagCSVPlayers("PDQ4.csv",all,"qual_sess2",chi_qual2)
-
-########
-# Calories
-########
-def calorie_seeker(mongoP,qualtricsP):
-  if(qualtricsP=="NONE"):
-    return "empty"
-    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(5,4),(5,5),(6,4),(6,5)]
-  return csv_answer_check(mongoP,qualtricsP,good_answers)
-
-query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_pre1",calorie_seeker)
-query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_post1",calorie_seeker)
-query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_pre2",calorie_seeker)
-query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_post2",calorie_seeker)
-
-########
-# Calories
-########
-def calorie_seeker_q4(mongoP,qualtricsP):
-  if(qualtricsP=="NONE"):
-    return "empty"
-    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(5,4),(5,5)]
-  return csv_answer_check(mongoP,qualtricsP,good_answers)
-
-query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q4)
-query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_post1",calorie_seeker_q4)
-query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_pre2",calorie_seeker_q4)
-query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
-
-
 
 
 ########
@@ -576,73 +534,13 @@ print ("Removed "+ str(len(all) - (len(filtered_all)))+" players who didnt pay a
 
 ######
 # ANSWERS TO RESEARCH QUESTIONS
-######
-print ("RQ1...\n")
-research_questions.r1(filtered_all)
-print ("DONE\n")
-
-print ("CHI...\n")
-research_questions.r1_CHI(filtered_all)
-print ("DONE\n")
-
-print ("CHI2...\n")
-research_questions.r1_CHI2(filtered_all)
-print ("DONE\n")
-
-print ("\nRQ2...\n")
-research_questions.r2(filtered_all)
-print ("DONE\n")
-
-print ("\nRQ3...\n")
-research_questions.r3(filtered_all)
-print ("DONE\n")
-
-print ("\nr_CHI_RQ3...\n")
-research_questions.r_CHI_RQ3(filtered_all)
-print ("DONE\n")
-
-
-print ("\nCHI_session1...\n")
-research_questions.CHI_session1(filtered_all)
-print ("DONE\n")
-
-###### QUAL PRINT OUT ####### refer to line 124 in this document
-print ("\nqual_sess1.csv...\n")
-research_questions.CHI_qual(filtered_all)
-print ("DONE\n")
-
-print ("\nqual_sess2.csv...\n")
-research_questions.CHI_qual(filtered_all)
-print ("DONE\n")
-##############################
-
-print ("\nCHI_N130...\n")
-research_questions.CHI_N130(filtered_all)
-print ("DONE\n")
-
-print ("\nCHI_r3...\n")
-research_questions.CHI_r3(filtered_all)
-print ("DONE\n")
-
-print ("\nRQ4...\n")
-research_questions.r4(filtered_all)
-print ("DONE\n")
-
-print ("\nRQBONUS...\n")
-research_questions.rBonus(filtered_all)
-print ("DONE\n")
-
-print ("\nRQBONUS2...\n")
-research_questions.rBonus2(filtered_all)
-print ("DONE\n")
-
-print ("\nRQBONUS3...\n")
-research_questions.rBonus3(filtered_all)
-print ("DONE\n")
+#####
+####### SBM FROM HERE
 
 print ("\nSBM_BIQ...\n")
-research_questions.r1_SBM(filtered_all)
+research_SBM.r1_SBM(filtered_all)
 print ("DONE\n")
+
 
 
 
