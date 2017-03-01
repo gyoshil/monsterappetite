@@ -162,6 +162,24 @@ query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q3_post1",calorie_seeker_
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q3_pre2",calorie_seeker_q3)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q3_post2",calorie_seeker_q3)
 
+
+########
+# BIQ Calories QUESTION #3: how often check per-serv calories (info seeking intention) WIHTOUT COUNTING SOMETIMES
+########
+def calorie_seeker_q3_min(mongoP,qualtricsP):
+  if(qualtricsP=="NONE"):
+    return "empty"
+    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
+  good_answers = [(5,4),(5,5)]
+  return csv_answer_check(mongoP,qualtricsP,good_answers)
+
+query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q3_min_pre1",calorie_seeker_q3_min)
+query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q3_min_post1",calorie_seeker_q3_min)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q3_min_pre2",calorie_seeker_q3_min)
+query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q3_min_post2",calorie_seeker_q3_min)
+
+
+
 ########
 # BIQ Calories QUESTION #4: how often per-serv matter more than taste etc. (belief/attitude intention)
 ########

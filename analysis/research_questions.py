@@ -24,11 +24,10 @@ def r1_SBM (all):
         group = 1
       if p['group']=='loss':
         group = 2
-      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (group,
-                                                (p['calorie_seeker_q2_pre1']),(p['calorie_seeker_q2_post1']),(p['calorie_seeker_q2_pre2']),(p['calorie_seeker_q2_post2']),
-                                                
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (group,
+                                                (p['calorie_seeker_q2_pre1']),(p['calorie_seeker_q2_post1']),(p['calorie_seeker_q2_pre2']),(p['calorie_seeker_q2_post2']),                                               
                                                 (p['calorie_seeker_q3_pre1']),(p['calorie_seeker_q3_post1']),(p['calorie_seeker_q3_pre2']),(p['calorie_seeker_q3_post2']),
-                                                
+                                                (p['calorie_seeker_q3_min_pre1']),(p['calorie_seeker_q3_min_post1']),(p['calorie_seeker_q3_min_pre2']),(p['calorie_seeker_q3_min_post2']),
                                                 (p['calorie_seeker_q4_pre1']),(p['calorie_seeker_q4_post1']),(p['calorie_seeker_q4_pre2']),(p['calorie_seeker_q4_post2'])
                                                 ))
 
