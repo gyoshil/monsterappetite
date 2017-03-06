@@ -140,7 +140,7 @@ def r2_SBM(all):
   #     # now just need risk_level -- counted for quesiton 3 and for pre1 and pre 2 !!!!!!!!!!!!!!!
 
   def completed2(p):
-    return ((p['risk_level_post2']!='empty') and (p['sic']>=20))
+    return (p['sic']>=20)
   filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
 
   with open(results_dir+'RQ2_SBM_BIQ_ISB.csv', 'w') as f:
