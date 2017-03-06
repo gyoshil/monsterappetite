@@ -195,11 +195,6 @@ query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_post1",calorie_seeker_
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_pre2",calorie_seeker_q4)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
 
-
-
-
-
-
 ##################
 # QUALITATIVE DATA
 ##################
@@ -240,17 +235,22 @@ query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_post2",calorie_seeker)
 # CALORIES---   REMEMBER that this was for the dissertation and therefore "good_answers" did not include the "sometimes" answer
 # so I did not do----- good_answers = [(5,3),(5,4),(5,5)]
 ########
-def calorie_seeker_q4(mongoP,qualtricsP):
-  if(qualtricsP=="NONE"):
-    return "empty"
-    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(5,4),(5,5)]
-  return csv_answer_check(mongoP,qualtricsP,good_answers)
 
-query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q4)
-query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_post1",calorie_seeker_q4)
-query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_pre2",calorie_seeker_q4)
-query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
+####### THE NAMING HERE OF "CALORIE_SEEKER_Q4" IS UNFORTUNATE AS I USED THE SAME NAMING CONVENTION ABOVE AROUND LINE 183
+####### THAT WAS INTENDED FOR SBM DATA ANLYSIS. THEREFORE WHEN RUNNING THIS CODE TWO SEPARATE PARAMETERS WERE BEING RUN FOR THE SAME 
+####### SET OF VARIABLES AND SO PROBABLY (GIVEN THIS IS PYTHON) THE ABOVE CODE WAS TAKEN WHEN CALORIE_SEEKER_Q4 VARIABLES WERE CALLED ON.
+
+# def calorie_seeker_q4(mongoP,qualtricsP):
+#   if(qualtricsP=="NONE"):
+#     return "empty"
+#     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
+#   good_answers = [(5,4),(5,5)]
+#   return csv_answer_check(mongoP,qualtricsP,good_answers)
+
+# query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q4)
+# query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_post1",calorie_seeker_q4)
+# query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_pre2",calorie_seeker_q4)
+# query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
 
 
 
@@ -674,7 +674,10 @@ print ("\nSBM_BIQ...\n")
 research_questions.r1_SBM(filtered_all)
 print ("DONE\n")
 
-
+##### SBM research question 2 linking ISB and BIQ 
+print ("\nr2_SBM...\n")
+research_questions.r2_SBM(filtered_all)
+print ("DONE\n")
 
 ######
 # Change in snackazon choices
