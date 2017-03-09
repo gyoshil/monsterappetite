@@ -679,6 +679,12 @@ print ("\nr2_SBM...\n")
 research_questions.r2_SBM(filtered_all)
 print ("DONE\n")
 
+print ("\nr2_SBM_w_GRP...\n")
+research_questions.r2_SBM_w_GRP(filtered_all)
+print ("DONE\n")
+
+
+
 ######
 # Change in snackazon choices
 ######

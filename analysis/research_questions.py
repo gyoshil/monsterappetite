@@ -154,7 +154,31 @@ def r2_SBM(all):
               )
 
 
+def r2_SBM_w_GRP(all):
+  # def completed1(p):
+  #   return ((p['risk_level_post1']!='empty') and (p['sic']>=10))
+  # filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
 
+  # with open(results_dir+'RQ2_session1.csv', 'w') as f:
+  #   for (id,p) in filtered_list1.items():
+  #     f.write ("%s,%s,%s\n" % (p['risk_level_post1'],p['post1_getInfo'],p['post1_moreInfo']))
+  #     # risk_level_post1  is BEHAVIORAL INTENTION !!!!!!
+  #     # now just need risk_level -- counted for quesiton 3 and for pre1 and pre 2 !!!!!!!!!!!!!!!
+
+  def completed2(p):
+    return (p['sic']>=20)
+  filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
+
+  with open(results_dir+'RQ2_SBM_BIQ_ISB_w_GRP.csv', 'w') as f:
+    for (id,p) in filtered_list2.items():
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (p['group'],
+                                                          p['calorie_seeker_q3_min_pre1'],p['calorie_seeker_q3_min_post1'],
+                                                          p['pre1_getInfo'],p['pre1_moreInfo'],
+                                                          p['post1_getInfo'],p['post1_moreInfo'],
+                                                          p['calorie_seeker_q3_min_pre2'],p['calorie_seeker_q3_min_post2'],
+                                                          p['pre2_getInfo'],p['pre2_moreInfo'],
+                                                          p['post2_getInfo'],p['post2_moreInfo'])
+              )
 
 
 
