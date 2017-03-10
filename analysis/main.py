@@ -670,6 +670,10 @@ print ("\nRQBONUS3...\n")
 research_questions.rBonus3(filtered_all)
 print ("DONE\n")
 
+
+##### SBM research questions #####
+##################################
+
 print ("\nSBM_BIQ...\n")
 research_questions.r1_SBM(filtered_all)
 print ("DONE\n")
@@ -683,6 +687,9 @@ print ("\nr2_SBM_w_GRP...\n")
 research_questions.r2_SBM_w_GRP(filtered_all)
 print ("DONE\n")
 
+print ("\nr4_SBM...\n")
+research_questions.r4_SBM(filtered_all)
+print ("DONE\n")
 
 
 ######
