@@ -77,7 +77,7 @@ def r2_SBM_w_GRP(all):
 
   with open(results_dir+'RQ2_SBM_BIQ_ISB_w_GRP.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
-      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (p['group'],
+      f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" % (p['group'],p['_id'],
                                                           p['calorie_seeker_q3_min_pre1'],p['calorie_seeker_q3_min_post1'],
                                                           p['pre1_getInfo'],p['pre1_moreInfo'],
                                                           p['post1_getInfo'],p['post1_moreInfo'],
