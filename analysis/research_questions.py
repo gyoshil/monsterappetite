@@ -499,7 +499,7 @@ def rBonus3(all):
                 allClickCounts2[thisRound] +=1
          def pr(i):
            return str(allClickCounts1[i])+", "+str(allClickCounts2[i])+""
-         print (p['group']+","+p['pop']+","+str(p['sic'])+","+str(p['completedPDQ4']), +end=",")
+         print (p['group']+","+p['pop']+","+str(p['sic'])+","+str(p['completedPDQ4'])) #, +end=",")
          print (", ".join(list(map(pr,[1,3,4,7,8,9,11,14,15,18,19,20]))))
          ctr+=1
 
