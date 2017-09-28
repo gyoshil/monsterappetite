@@ -42,7 +42,7 @@ def allMongoPlayers():
   allPlayers = {}
   print (mongoPlayers[0])
   for p in mongoPlayers:
-    allPlayers[]={}
+    allPlayers[p['_id']]={}
   return allPlayers
 
 def findPlayerInMongo(field,value):
