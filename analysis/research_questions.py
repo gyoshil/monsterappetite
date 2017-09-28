@@ -376,11 +376,11 @@ def r3(all):
 
   with open(results_dir+'RQ3_sessionPre1.csv', 'w') as f:
     for (id,p) in filtered_list1.items():
-      f.write ("%s,%s,%s,%s,%s\n" % (p['_id'],p['group'],p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'],p['calorie_influence_pre1_fake']))
+      f.write ("%s,%s,%s,%s,%s\n" % (p['id'],p['group'],p['pre1_getInfo_fake'],p['pre1_moreInfo_fake'],p['calorie_influence_pre1_fake']))
 
   with open(results_dir+'RQ3_sessionPost1.csv', 'w') as f:
     for (id,p) in filtered_list1.items():
-      f.write ("%s,%s,%s,%s,%s\n" % (p['_id'],p['group'],p['post1_getInfo_fake'],p['post1_moreInfo_fake'],p['calorie_influence_post1_fake']))
+      f.write ("%s,%s,%s,%s,%s\n" % (p['id'],p['group'],p['post1_getInfo_fake'],p['post1_moreInfo_fake'],p['calorie_influence_post1_fake']))
 
   def completed2(p):
     return ((p['completedPDQ3']==True) and (p['completedPDQ4']==True) and (p['sic']>=20))
@@ -389,11 +389,11 @@ def r3(all):
 
   with open(results_dir+'RQ3_sessionPre2.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
-      f.write ("%s,%s,%s,%s,%s\n" % (p['_id'],p['group'],p['pre2_getInfo_fake'],p['pre2_moreInfo_fake'],p['calorie_influence_pre2_fake']))
+      f.write ("%s,%s,%s,%s,%s\n" % (p['id'],p['group'],p['pre2_getInfo_fake'],p['pre2_moreInfo_fake'],p['calorie_influence_pre2_fake']))
 
   with open(results_dir+'RQ3_sessionPost2.csv', 'w') as f:
     for (id,p) in filtered_list2.items():
-      f.write ("%s,%s,%s,%s,%s\n" % (p['_id'],p['group'],p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['calorie_influence_post2_fake']))
+      f.write ("%s,%s,%s,%s,%s\n" % (p['id'],p['group'],p['post2_getInfo_fake'],p['post2_moreInfo_fake'],p['calorie_influence_post2_fake']))
 
 def r4(all):
 
