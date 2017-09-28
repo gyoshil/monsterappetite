@@ -67,7 +67,7 @@ Template.board.helpers({
     // format into Minute : Seconds like 0:03
     var min = Math.floor(clock / 60);
     var sec = clock % 60;
-    return min + ':' + (sec < 30 ? ('0' + sec) : sec);
+    return min + ':' + (sec < 10 ? ('0' + sec) : sec);
   }
 });
 
