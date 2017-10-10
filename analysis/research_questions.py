@@ -405,8 +405,9 @@ def r4(all):
       for (id,p) in filtered_list1.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
-        f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
-                (snacking_behavior,
+        f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
+                (str(id),
+                snacking_behavior,
                 toInt(p['group']),
                 int(p['calorie_seeker_pre1']),
                 p['risk_level_pre1'],
@@ -424,8 +425,9 @@ def r4(all):
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
         if(p['calorie_seeker_post1']!='empty'):
-          f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
-                  (snacking_behavior,
+          f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
+                  (str(id),
+                  snacking_behavior,
                   toInt(p['group']),
                   int(p['calorie_seeker_post1']),
                   p['risk_level_post1'],
@@ -443,8 +445,9 @@ def r4(all):
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
         if(p['calorie_seeker_pre2']!='empty'):
-          f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
-                  (snacking_behavior,
+          f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
+                  (str(id),
+                  snacking_behavior,
                   toInt(p['group']),
                   int(p['calorie_seeker_pre2']),
                   p['risk_level_pre2'],
@@ -462,8 +465,9 @@ def r4(all):
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
         if(p['calorie_seeker_post2']!='empty'):
-          f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
-                  (snacking_behavior,
+          f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
+                  (str(id),
+                  snacking_behavior,
                   toInt(p['group']),
                   int(p['calorie_seeker_post2']),
                   p['risk_level_post2'],
