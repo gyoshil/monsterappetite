@@ -239,7 +239,7 @@ def rBonus(all):
       sess2post = p['post2_getInfo']+ p['post2_moreInfo']
       f.write ("%s,%s,%s,%s,%s\n" % (p['group'],sess1pre,sess1post,sess2pre,sess2post))
 
-"write another research question output here that modifies r2 above but one that splits gain and loss framing"
+# "write another research question output here that modifies r2 above but one that splits gain and loss framing"
 
 
 def rBonus2(all):
@@ -482,7 +482,8 @@ def r4(all):
 def r4_G4H(all):
 
     def completed1(p):
-      return ((p['completedPDQ1']==True) and (p['sic']>=5))
+      return ((p['completedPDQ1']==True) #and (p['sic']>=5)
+        )
     filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
 
     with open(results_dir+'RQ4_G4H_sessionPre1.csv', 'w') as f:
@@ -500,7 +501,8 @@ def r4_G4H(all):
                 p['calorie_influence_pre1_fake']))
 
     def completed2(p):
-      return ((p['completedPDQ2']==True) and (p['sic']>=10))
+      return ((p['completedPDQ2']==True) #and (p['sic']>=10)
+        )
     filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
 
     with open(results_dir+'RQ4_G4H_sessionPost1.csv', 'w') as f:
@@ -519,7 +521,8 @@ def r4_G4H(all):
                   p['calorie_influence_post1_fake']))
 
     def completed3(p):
-      return ((p['completedPDQ3']==True) and (p['sic']>=15) )
+      return ((p['completedPDQ3']==True) #and (p['sic']>=15) 
+        )
     filtered_list3 = {k:v for (k,v) in all.items() if completed3(v)}
 
     with open(results_dir+'RQ4_G4H_sessionPre2.csv', 'w') as f:
@@ -538,7 +541,8 @@ def r4_G4H(all):
                   p['calorie_influence_pre2_fake']))
 
     def completed4(p):
-      return ((p['completedPDQ4']==True) and (p['sic']>=20) )
+      return ((p['completedPDQ4']==True) #and (p['sic']>=20) 
+        )
     filtered_list4 = {k:v for (k,v) in all.items() if completed4(v)}
 
     with open(results_dir+'RQ4_G4H_sessionPost2.csv', 'w') as f:

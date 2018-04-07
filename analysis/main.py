@@ -569,7 +569,7 @@ pprint (average_scores)
 
 
 ######
-# FILTER ATTENTION
+# FILTER by whether users passed the ATTENTION CHECK questions
 ######
 def attention_measure1(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
@@ -598,6 +598,7 @@ def attention_pass(p) :
 filtered_all = {k:v for (k,v) in all.items() if attention_pass(v)}
 
 print ("Removed "+ str(len(all) - (len(filtered_all)))+" players who didnt pay attention\n")
+
 ######
 # PRINT
 ######
@@ -607,89 +608,97 @@ print ("Removed "+ str(len(all) - (len(filtered_all)))+" players who didnt pay a
 ######
 # ANSWERS TO RESEARCH QUESTIONS
 ######
-print ("RQ1...\n")
-research_questions.r1(filtered_all)
-print ("DONE\n")
 
-print ("CHI...\n")
-research_questions.r1_CHI(filtered_all)
-print ("DONE\n")
+# print ("RQ1...\n")
+# research_questions.r1(filtered_all)
+# print ("DONE\n")
 
-print ("CHI2...\n")
-research_questions.r1_CHI2(filtered_all)
-print ("DONE\n")
+# print ("CHI...\n")
+# research_questions.r1_CHI(filtered_all)
+# print ("DONE\n")
 
-print ("\nRQ2...\n")
-research_questions.r2(filtered_all)
-print ("DONE\n")
+# print ("CHI2...\n")
+# research_questions.r1_CHI2(filtered_all)
+# print ("DONE\n")
 
-print ("\nRQ3...\n")
-research_questions.r3(filtered_all)
-print ("DONE\n")
+# print ("\nRQ2...\n")
+# research_questions.r2(filtered_all)
+# print ("DONE\n")
 
-print ("\nr_CHI_RQ3...\n")
-research_questions.r_CHI_RQ3(filtered_all)
-print ("DONE\n")
+# print ("\nRQ3...\n")
+# research_questions.r3(filtered_all)
+# print ("DONE\n")
+
+# print ("\nr_CHI_RQ3...\n")
+# research_questions.r_CHI_RQ3(filtered_all)
+# print ("DONE\n")
 
 
-print ("\nCHI_session1...\n")
-research_questions.CHI_session1(filtered_all)
-print ("DONE\n")
+# print ("\nCHI_session1...\n")
+# research_questions.CHI_session1(filtered_all)
+# print ("DONE\n")
 
 ###### QUAL PRINT OUT ####### refer to line 124 in this document
-print ("\nqual_sess1.csv...\n")
-research_questions.CHI_qual(filtered_all)
-print ("DONE\n")
 
-print ("\nqual_sess2.csv...\n")
-research_questions.CHI_qual(filtered_all)
-print ("DONE\n")
+# print ("\nqual_sess1.csv...\n")
+# research_questions.CHI_qual(filtered_all)
+# print ("DONE\n")
+
+# print ("\nqual_sess2.csv...\n")
+# research_questions.CHI_qual(filtered_all)
+# print ("DONE\n")
+
 ##############################
 
-print ("\nCHI_N130...\n")
-research_questions.CHI_N130(filtered_all)
+# print ("\nCHI_N130...\n")
+# research_questions.CHI_N130(filtered_all)
+# print ("DONE\n")
+
+# print ("\nCHI_r3...\n")
+# research_questions.CHI_r3(filtered_all)
+# print ("DONE\n")
+
+# print ("\nRQ4...\n")
+# research_questions.r4(filtered_all)
+# print ("DONE\n")
+
+print ("\nG4H...\n")
+research_questions.r4_G4H(filtered_all)
 print ("DONE\n")
 
-print ("\nCHI_r3...\n")
-research_questions.CHI_r3(filtered_all)
-print ("DONE\n")
 
-print ("\nRQ4...\n")
-research_questions.r4(filtered_all)
-print ("DONE\n")
+# print ("\nRQBONUS...\n")
+# research_questions.rBonus(filtered_all)
+# print ("DONE\n")
 
-print ("\nRQBONUS...\n")
-research_questions.rBonus(filtered_all)
-print ("DONE\n")
+# print ("\nRQBONUS2...\n")
+# research_questions.rBonus2(filtered_all)
+# print ("DONE\n")
 
-print ("\nRQBONUS2...\n")
-research_questions.rBonus2(filtered_all)
-print ("DONE\n")
-
-print ("\nRQBONUS3...\n")
-research_questions.rBonus3(filtered_all)
-print ("DONE\n")
+# print ("\nRQBONUS3...\n")
+# research_questions.rBonus3(filtered_all)
+# print ("DONE\n")
 
 
 ##### SBM research questions #####
 ##################################
 
-print ("\nSBM_BIQ...\n")
-research_questions.r1_SBM(filtered_all)
-print ("DONE\n")
+# print ("\nSBM_BIQ...\n")
+# research_questions.r1_SBM(filtered_all)
+# print ("DONE\n")
 
-##### SBM research question 2 linking ISB and BIQ 
-print ("\nr2_SBM...\n")
-research_questions.r2_SBM(filtered_all)
-print ("DONE\n")
+# ##### SBM research question 2 linking ISB and BIQ 
+# print ("\nr2_SBM...\n")
+# research_questions.r2_SBM(filtered_all)
+# print ("DONE\n")
 
-print ("\nr2_SBM_w_GRP...\n")
-research_questions.r2_SBM_w_GRP(filtered_all)
-print ("DONE\n")
+# print ("\nr2_SBM_w_GRP...\n")
+# research_questions.r2_SBM_w_GRP(filtered_all)
+# print ("DONE\n")
 
-print ("\nr4_SBM...\n")
-research_questions.r4_SBM(filtered_all)
-print ("DONE\n")
+# print ("\nr4_SBM...\n")
+# research_questions.r4_SBM(filtered_all)
+# print ("DONE\n")
 
 
 ######
@@ -710,9 +719,9 @@ same2 = 0
 
 datasetCounter = 0
 
-print (len(all))
-print (len(str(attention_measure2)))
-print (len(str(filtered_all)))
+# print (len(all))
+# print (len(str(attention_measure2)))
+# print (len(str(filtered_all)))
 
 for (id,p) in all.items(): 
   #if even one of them does not have a score (if it is empty) // 
@@ -741,11 +750,11 @@ for (id,p) in all.items():
     '''print (str(id)+", ") #just to print IDs I used this line and then commented out the print section below so that the 
                          #for loop is not applied to the print below and only to the IDs'''
     
-    print ( str(id)+" "+
-            str(p['group']) + " " +str(p['pdq_chi_distribution2_pre1_fake'])+" "+
-          str(p['pdq_chi_distribution2_post1_fake'])+" "+
-          str(p['pdq_chi_distribution2_pre2_fake'])+" "+
-          str(p['pdq_chi_distribution2_post2_fake']) )
+    # print ( str(id)+" "+
+    #         str(p['group']) + " " +str(p['pdq_chi_distribution2_pre1_fake'])+" "+
+    #       str(p['pdq_chi_distribution2_post1_fake'])+" "+
+    #       str(p['pdq_chi_distribution2_pre2_fake'])+" "+
+    #       str(p['pdq_chi_distribution2_post2_fake']) )
 
 
     '''print ( str(id)+" "+
@@ -788,21 +797,23 @@ for (id,p) in all.items():
     else :
         same2 += 1
 
-print (better)
-print (worse)
-print (same)
-print (better + worse + same)
-print ()
-print (better1)
-print (worse1)
-print (same1)
-print (better1 + worse1 + same1)
-print ()
-print (better2)
-print (worse2)
-print (same2)
-print (better2 + worse2 + same2)
-print ()
+# print (better)
+# print (worse)
+# print (same)
+# print (better + worse + same)
+# print ()
+# print (better1)
+# print (worse1)
+# print (same1)
+# print (better1 + worse1 + same1)
+# print ()
+# print (better2)
+# print (worse2)
+# print (same2)
+# print (better2 + worse2 + same2)
+# print ()
+
+
 #finishedSession2 = 0
 #for (id,p) in all.items():
 #  if(p['completedPDQ4'] and p['sic']>=20): finishedSession2 +=1
