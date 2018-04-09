@@ -112,7 +112,7 @@ def risk_level(mongoP,qualtricsP): #### THIS DEFINES PEOPLE THAT HAVE A HIGH, RI
     # "risky_answers" below indicates that the person exhibits HIGH RISK LEVEL SNACKING BEHAVIOR
     ##########################################################################################
     # the CSV questions related to risk level and calorie seeker are 2, 3, 4, 6, and 7 where 3 & 4 are calorie related Qs.
-    # unfortunately, it was confusing becuase the numbers used for the "good_answers" coding below translates to 4, 5, 6, 7, and 8 where 5 & 6 are calorie related Qs.
+    # unfortunately, it was confusing becuase the numbers used for the "good_answers" below translate to 4, 5, 6, 7, and 8 where 5 & 6 are calorie related Qs.
 
   risky_answers = [(4,4),(4,5), ## Q2: How often snack? often(4) + very often(5)
                   (5,1),(5,2), ## Q3: How often check per-serv info? never(1) + rarely(2)
@@ -121,10 +121,10 @@ def risk_level(mongoP,qualtricsP): #### THIS DEFINES PEOPLE THAT HAVE A HIGH, RI
                   (8,4),(8,5), ## Q7: Think twice abt snack purchase at work? disagree(4) + strongly disagree(5)
                   (11,4),(11,5), ## Q10: Avoid snacks bc unhealthy? disagree(4) + strongly disagree(5)
                   (12,1),(12,2), ## Q11: Depend on snacks a lot cuz I'm busy? strongly agree(1) + agree(2)
-                  (14,4),(14,5) ## Q13: Risk to develop type2 diabetes low? disagree(4) + strongly disagree(5)
+                  (14,1),(14,2) ## Q13: Risk to develop type2 diabetes low? disagree(4) + strongly disagree(5)  ******** strongly agree(1) + agree(2)
                   ]
   if(csv_answer_check(mongoP,qualtricsP,risky_answers)):
-    return "1"
+    return "1" ## 1 means that a user exhibits overall RISKY tendencies.  
   return "0"
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"risk_level_pre1",risk_level)
 query_dbs.tagCSVPlayers("BIQ2.csv",all,"risk_level_post1",risk_level)

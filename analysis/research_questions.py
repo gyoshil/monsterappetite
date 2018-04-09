@@ -494,12 +494,12 @@ def r4_G4H(all):
         )
     filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
     with open(results_dir+'RQ4_G4H_aPre1.csv', 'w') as f:
-      f.write ("snackBehav, grp, BIQseek, button1, button2, buttons_all, SIC, PDQ")
+      f.write ("snackBehav, grp, BIQseek, all_risky, button1, button2, buttons_all, SIC, PDQ")
 
       for (id,p) in filtered_list1.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
-        
+
         f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
                 (snacking_behavior,
                 toInt(p['group']),
@@ -519,7 +519,7 @@ def r4_G4H(all):
     filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
 
     with open(results_dir+'RQ4_G4H_bPost1.csv', 'w') as f:
-      f.write ("snackBehav, grp, BIQseek, button1, button2, buttons_all, SIC, PDQ")
+      f.write ("snackBehav, grp, BIQseek, all_risky, button1, button2, buttons_all, SIC, PDQ")
 
       for (id,p) in filtered_list2.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
@@ -543,7 +543,7 @@ def r4_G4H(all):
     filtered_list3 = {k:v for (k,v) in all.items() if completed3(v)}
 
     with open(results_dir+'RQ4_G4H_cPre2.csv', 'w') as f:
-      f.write ("snackBehav, grp, BIQseek, button1, button2, buttons_all, SIC, PDQ")
+      f.write ("snackBehav, grp, BIQseek, all_risky, button1, button2, buttons_all, SIC, PDQ")
 
       for (id,p) in filtered_list3.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
@@ -567,7 +567,7 @@ def r4_G4H(all):
     filtered_list4 = {k:v for (k,v) in all.items() if completed4(v)}
 
     with open(results_dir+'RQ4_G4H_dPost2.csv', 'w') as f:  ###since we opened up the CSV file, before the for loop we want to add a header
-      f.write ("snackBehav, grp, BIQseek, button1, button2, buttons_all, SIC, PDQ")
+      f.write ("snackBehav, grp, BIQseek, all_risky, button1, button2, buttons_all, SIC, PDQ")
 
       for (idp,p) in filtered_list4.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
