@@ -223,7 +223,9 @@ def calorie_seeker(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "empty"
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(5,4),(5,5),(6,4),(6,5)]
+  good_answers = [(5,4),(5,5),(6,4),(6,5)]   ##### question 6 asks when does calories per serving matter more than taste, price, etc. 
+  ##### consider just including #5 as a clorie seeker item and see what happens. 
+  ##### would be interesting to see if results are significant when only #5 is included but NOT when #6 is also considered. 
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_pre1",calorie_seeker)
@@ -527,7 +529,7 @@ def collapseOnePlayer (mongoP):
     r_avg = collapseOneRound(group,prev_score,r)
     average_scores.append(r_avg)
     prev_score = r[0]
-    #print (mongoP[''])
+    print (mongoP[''])
   print()
   return average_scores
 

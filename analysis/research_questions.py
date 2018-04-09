@@ -16,7 +16,7 @@ def r1_SBM (all):
     return (p['completedPDQ4']==True) 
 
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
-  print (len(filtered_list))
+  #print (len(filtered_list))
 
   with open(results_dir+'r1_SBM.csv', 'w') as f:
     for (id,p) in filtered_list.items():
@@ -137,7 +137,7 @@ def r1(all):
 
 
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
-  print (len(filtered_list))
+  #print (len(filtered_list))
 
   with open(results_dir+'RQ1.csv', 'w') as f:
     for (id,p) in filtered_list.items():
@@ -164,7 +164,7 @@ def r1_CHI(all):
     # I added 'completedPDQ2' and not PDQ4 because I am only considering Session 1 for now
 
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
-  print (len(filtered_list))
+  #print (len(filtered_list))
 
   with open(results_dir+'CHI.csv', 'w') as f:
     for (id,p) in filtered_list.items():
@@ -189,7 +189,7 @@ def r1_CHI2(all):
     # I added 'completedPDQ2' and not PDQ4 because I am only considering Session 1 for now
 
   filtered_list = {k:v for (k,v) in all.items() if completed(v)}
-  print (len(filtered_list))
+  #print (len(filtered_list))
 
   with open(results_dir+'CHI2.csv', 'w') as f:
     for (id,p) in filtered_list.items():
@@ -476,47 +476,64 @@ def r4(all):
                   p['snackChoicePost2'],
                   p['calorie_influence_post2_fake']))
 
-###################################### FOR G4H JOURNAL analysis ######################################
-##################################################################################################################
 
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
+###################################### FOR COMPUTERS IN HUMAN BEHAVIOR JOURNAL analysis (NAMED G4H for NOW) ######################################
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
 def r4_G4H(all):
 
     def completed1(p):
       return ((p['completedPDQ1']==True) #and (p['sic']>=5)
         )
     filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
+    with open(results_dir+'RQ4_G4H_aPre1.csv', 'w') as f:
+      f.write ("snackBehav, grp, BIQseek, button1, button2, buttons_all, SIC, PDQ")
 
-    with open(results_dir+'RQ4_G4H_sessionPre1.csv', 'w') as f:
       for (id,p) in filtered_list1.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
-        f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
+        
+        f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
                 (snacking_behavior,
                 toInt(p['group']),
                 int(p['calorie_seeker_pre1']),
                 p['risk_level_pre1'],
                 p['pre1_getInfo_fake'],
                 p['pre1_moreInfo_fake'],
+                (p['pre1_getInfo_fake'] + p['pre1_moreInfo_fake']),
                 p['snackChoicePre1'],
                 p['calorie_influence_pre1_fake']))
+
+        #### maybe consider adding calorie_seeker_q2, calorie_seeker_q3, calorie_seeker_q3_min, calorie_seeker_q4, and see if they make a difference. 
 
     def completed2(p):
       return ((p['completedPDQ2']==True) #and (p['sic']>=10)
         )
     filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
 
-    with open(results_dir+'RQ4_G4H_sessionPost1.csv', 'w') as f:
+    with open(results_dir+'RQ4_G4H_bPost1.csv', 'w') as f:
+      f.write ("snackBehav, grp, BIQseek, button1, button2, buttons_all, SIC, PDQ")
+
       for (id,p) in filtered_list2.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
+
         if(p['calorie_seeker_post1']!='empty'):
-          f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
+          f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
                   (snacking_behavior,
                   toInt(p['group']),
                   int(p['calorie_seeker_post1']),
                   p['risk_level_post1'],
                   p['post1_getInfo_fake'],
                   p['post1_moreInfo_fake'],
+                  p['pre1_getInfo_fake'] + p['pre1_moreInfo_fake'],
                   p['snackChoicePost1'],
                   p['calorie_influence_post1_fake']))
 
@@ -525,18 +542,22 @@ def r4_G4H(all):
         )
     filtered_list3 = {k:v for (k,v) in all.items() if completed3(v)}
 
-    with open(results_dir+'RQ4_G4H_sessionPre2.csv', 'w') as f:
+    with open(results_dir+'RQ4_G4H_cPre2.csv', 'w') as f:
+      f.write ("snackBehav, grp, BIQseek, button1, button2, buttons_all, SIC, PDQ")
+
       for (id,p) in filtered_list3.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
+
         if(p['calorie_seeker_pre2']!='empty'):
-          f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
+          f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
                   (snacking_behavior,
                   toInt(p['group']),
                   int(p['calorie_seeker_pre2']),
                   p['risk_level_pre2'],
                   p['pre2_getInfo_fake'],
                   p['pre2_moreInfo_fake'],
+                  p['pre1_getInfo_fake'] + p['pre1_moreInfo_fake'],
                   p['snackChoicePre2'],
                   p['calorie_influence_pre2_fake']))
 
@@ -545,26 +566,25 @@ def r4_G4H(all):
         )
     filtered_list4 = {k:v for (k,v) in all.items() if completed4(v)}
 
-    with open(results_dir+'RQ4_G4H_sessionPost2.csv', 'w') as f:
-      for (id,p) in filtered_list4.items():
+    with open(results_dir+'RQ4_G4H_dPost2.csv', 'w') as f:  ###since we opened up the CSV file, before the for loop we want to add a header
+      f.write ("snackBehav, grp, BIQseek, button1, button2, buttons_all, SIC, PDQ")
+
+      for (idp,p) in filtered_list4.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
+
+
         if(p['calorie_seeker_post2']!='empty'):
-          f.write ("%s,%s,%s,%s,%s,%s,%s,%s\n" %
+          f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
                   (snacking_behavior,
                   toInt(p['group']),
                   int(p['calorie_seeker_post2']),
                   p['risk_level_post2'],
                   p['post2_getInfo_fake'],
                   p['post2_moreInfo_fake'],
+                  p['pre1_getInfo_fake'] + p['pre1_moreInfo_fake'],
                   p['snackChoicePost2'],
                   p['calorie_influence_post2_fake']))
-
-
-
-
-
-
 
 
 def rBonus3(all):
@@ -594,8 +614,8 @@ def rBonus3(all):
                 allClickCounts2[thisRound] +=1
          def pr(i):
            return str(allClickCounts1[i])+", "+str(allClickCounts2[i])+""
-         print (p['group']+","+p['pop']+","+str(p['sic'])+","+str(p['completedPDQ4'])) #, +end=",")
-         print (", ".join(list(map(pr,[1,3,4,7,8,9,11,14,15,18,19,20]))))
+        # print (p['group']+","+p['pop']+","+str(p['sic'])+","+str(p['completedPDQ4'])) #, +end=",")
+        # print (", ".join(list(map(pr,[1,3,4,7,8,9,11,14,15,18,19,20]))))
          ctr+=1
 
      except Exception as e:
