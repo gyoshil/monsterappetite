@@ -107,7 +107,8 @@ def csv_answer_check(mongoP,qualtricsP,answer_checks):
 
 def risk_level(mongoP,qualtricsP): #### THIS DEFINES PEOPLE THAT HAVE A HIGH, RISKY SNACKING BEHAVIOR 
   if(qualtricsP=="NONE"):
-    return "empty"
+    return "." ## used to be empty but now make it a dot so easier to convert in SPSS
+
     ##########################################################################################
     # "risky_answers" below indicates that the person exhibits HIGH RISK LEVEL SNACKING BEHAVIOR
     ##########################################################################################
@@ -133,13 +134,13 @@ query_dbs.tagCSVPlayers("BIQ4.csv",all,"risk_level_post2",risk_level)
 
 
 ########
-# BIQ CALORIES----- QUESTION #2: how often snack this following week (actional intention)
+# BIQ CALORIES----- QUESTION #2: how often WILL YOU  snack this following week (actional intention)
 ########
 def calorie_seeker_q2(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
-    return "empty"
-    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(4,1),(4,2),(4,3)]
+    return "."
+    # "good_answers" below indicates that the person exhibits GOOD behavior
+  good_answers = [(4,1),(4,2),(4,3)]   ### 1 (never); 2 (rarely); 3 (sometimes)
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q2_pre1",calorie_seeker_q2)
@@ -147,14 +148,30 @@ query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q2_post1",calorie_seeker_
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q2_pre2",calorie_seeker_q2)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q2_post2",calorie_seeker_q2)
 
+
+def calorie_seeker_q2_min(mongoP,qualtricsP):
+  if(qualtricsP=="NONE"):
+    return "."
+    # "good_answers" below indicates that the person exhibits GOOD behavior
+  good_answers = [(4,1),(4,2)]   ### 1 (never); 2 (rarely); 
+  
+  if (csv_answer_check(mongoP,qualtricsP,good_answers)):
+    return "1"  ## 1 means good behavior
+  return "0"
+
+query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q2_min_pre1",calorie_seeker_q2_min)
+query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q2_min_post1",calorie_seeker_q2_min)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q2_min_pre2",calorie_seeker_q2_min)
+query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q2_min_post2",calorie_seeker_q2_min)
+
 ########
 # BIQ Calories QUESTION #3: how often check per-serv calories (info seeking intention)
 ########
 def calorie_seeker_q3(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
-    return "empty"
+    return "."
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(5,3),(5,4),(5,5)]
+  good_answers = [(5,3),(5,4),(5,5)]  ## 3 (sometimes), 4(often), 5(very often)
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q3_pre1",calorie_seeker_q3)
@@ -168,9 +185,9 @@ query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q3_post2",calorie_seeker_
 ########
 def calorie_seeker_q3_min(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
-    return "empty"
+    return "."
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(5,4),(5,5)]
+  good_answers = [(5,4),(5,5)] # 4(often), 5(very often)
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q3_min_pre1",calorie_seeker_q3_min)
@@ -185,15 +202,29 @@ query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q3_min_post2",calorie_see
 ########
 def calorie_seeker_q4(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
-    return "empty"
+    return "."
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(6,3),(6,4),(6,5)]
+  good_answers = [(6,3),(6,4),(6,5)] ## 3 (sometimes), 4(often), 5(very often)
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_pre1",calorie_seeker_q4)
 query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_post1",calorie_seeker_q4)
 query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_pre2",calorie_seeker_q4)
 query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q4_post2",calorie_seeker_q4)
+
+
+def calorie_seeker_q4_min(mongoP,qualtricsP):
+  if(qualtricsP=="NONE"):
+    return "."
+    # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
+  good_answers = [(6,3),(6,4)] ## 3 (sometimes), 4(often), 5(very often)
+  return csv_answer_check(mongoP,qualtricsP,good_answers)
+
+query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_min_pre1",calorie_seeker_q4)
+query_dbs.tagCSVPlayers("BIQ2.csv",all,"calorie_seeker_q4_min_post1",calorie_seeker_q4)
+query_dbs.tagCSVPlayers("BIQ3.csv",all,"calorie_seeker_q4_min_pre2",calorie_seeker_q4)
+query_dbs.tagCSVPlayers("BIQ4.csv",all,"calorie_seeker_q4_min_post2",calorie_seeker_q4)
+
 
 ##################
 # QUALITATIVE DATA

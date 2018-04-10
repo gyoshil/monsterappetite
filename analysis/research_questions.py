@@ -491,20 +491,24 @@ def r4_G4H(all):
 
     def completed1(p):
       return ((p['completedPDQ1']==True) #and (p['sic']>=5)
-        )
+      )
     filtered_list1 = {k:v for (k,v) in all.items() if completed1(v)}
-    with open(results_dir+'RQ4_G4H_aPre1.csv', 'w') as f:
-      f.write ("snackBehav, grp, BIQseek, all_risky, button1, button2, buttons_all, SIC, PDQ")
 
-      for (id,p) in filtered_list1.items():
+    with open(results_dir+'RQ4_G4H_aPre1.csv', 'w') as f:
+      f.write ("snackBehav, grp, oftenSnack, checkCal, abovePrice, BIQseek, all_risky, button1, button2, buttons_all, SIC, PDQ")
+
+      for (idp,p) in filtered_list1.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
 
-        f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
+        f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
                 (snacking_behavior,
                 toInt(p['group']),
-                int(p['calorie_seeker_pre1']),
-                p['risk_level_pre1'],
+                int(p['calorie_seeker_pre1']), 
+                int(p['calorie_seeker_q2_min_pre1']), 
+                int(p['calorie_seeker_q3_min_pre1']), 
+                int(p['calorie_seeker_q4_min_pre1']), 
+                p['risk_level_pre1'], ## 1 means that you are exhibiting risky behavior overall. 
                 p['pre1_getInfo_fake'],
                 p['pre1_moreInfo_fake'],
                 (p['pre1_getInfo_fake'] + p['pre1_moreInfo_fake']),
@@ -515,21 +519,24 @@ def r4_G4H(all):
 
     def completed2(p):
       return ((p['completedPDQ2']==True) #and (p['sic']>=10)
-        )
+      )
     filtered_list2 = {k:v for (k,v) in all.items() if completed2(v)}
 
     with open(results_dir+'RQ4_G4H_bPost1.csv', 'w') as f:
-      f.write ("snackBehav, grp, BIQseek, all_risky, button1, button2, buttons_all, SIC, PDQ")
+      f.write ("snackBehav, grp, oftenSnack, checkCal, abovePrice, BIQseek, all_risky, button1, button2, buttons_all, SIC, PDQ")
 
-      for (id,p) in filtered_list2.items():
+      for (idp,p) in filtered_list2.items():
         snacking_behavior = int((p['ffq1_risk']=='1' and (p['ffq2_score']<=11.45)))
         def toInt(g): return int(g=='gain')
 
         if(p['calorie_seeker_post1']!='empty'):
-          f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
+          f.write ("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n" %
                   (snacking_behavior,
                   toInt(p['group']),
                   int(p['calorie_seeker_post1']),
+                  int(p['calorie_seeker_q2_min_post1']), 
+                  int(p['calorie_seeker_q3_min_post1']), 
+                  int(p['calorie_seeker_q4_min_post1']), 
                   p['risk_level_post1'],
                   p['post1_getInfo_fake'],
                   p['post1_moreInfo_fake'],
