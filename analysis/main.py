@@ -217,7 +217,7 @@ def calorie_seeker_q4_min(mongoP,qualtricsP):
   if(qualtricsP=="NONE"):
     return "."
     # "good_answers" below indicates that the person exhibits GOOD behavior (Calorie-seeking behavior which is ideal)
-  good_answers = [(6,3),(6,4)] ## 3 (sometimes), 4(often), 5(very often)
+  good_answers = [(6,4),(6,5)] ## 3 (sometimes), 4(often), 5(very often)
   return csv_answer_check(mongoP,qualtricsP,good_answers)
 
 query_dbs.tagCSVPlayers("BIQ1.csv",all,"calorie_seeker_q4_min_pre1",calorie_seeker_q4)
